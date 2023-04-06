@@ -18,7 +18,7 @@ let lastLikerCount = null
 let finishGame = false;
 let iconList = [];
 let nextId = 1;
-const winner = [];
+let winner = [];
 
 // START
 $(document).ready(() => {
@@ -144,27 +144,62 @@ function drawIcons() {
     }
     if (!finishGame) {
 
-       
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Sort the icons in descending order by size
+        let overlappingIcon = null;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         iconList.sort((a, b) => b.size - a.size);
 
-        // Define a constant movement speed
-        const moveSpeed = 1;
+        // Iconların hareket hızı
+        const baseMoveSpeed = 0.3;
 
-        // Draw each icon with its corresponding z-index
-        let overlappingIcon = null;
-        iconList.forEach((icon, index) => {
-                      // Update icon position with a fixed speed
-                      const dx = Math.random() * moveSpeed * 2 - moveSpeed;
-                      const dy = Math.random() * moveSpeed * 2 - moveSpeed;
-                      icon.x += dx;
-                      icon.y += dy;
-          
-                      // Keep icon within canvas bounds
-                      icon.x = Math.max(0, Math.min(canvas.width - icon.size, icon.x));
-                      icon.y = Math.max(0, Math.min(canvas.height - icon.size, icon.y));
+        const buffer = 5;
+
+        iconList.sort((a, b) => b.size - a.size);
+
+        function getSpeedBySize(size, baseSpeed) {
+            const scaleFactor = 0.5;
+            return baseSpeed * (1 - scaleFactor * (size / Math.max(...iconList.map(icon => icon.size))));
+        }
+
+        // Iconların yatay hareket hızı
+        const baseXVelocity = 0.3;
+
+        // Iconların dikey hareket hızı
+        const baseYVelocity = 0.3;
+
+        iconList.forEach((icon,index) => {
+            // Set moveSpeed for each icon based on its size
+            if (!icon.hasOwnProperty("moveSpeed")) {
+                icon.moveSpeed = getSpeedBySize(icon.size, baseMoveSpeed);
+            }
+
+            // Set xVelocity and yVelocity for each icon based on baseXVelocity and baseYVelocity
+            if (!icon.hasOwnProperty("xVelocity")) {
+                icon.xVelocity = (Math.random() - 0.5) * baseXVelocity * 2; // Random xVelocity between -baseXVelocity and baseXVelocity
+            }
+            if (!icon.hasOwnProperty("yVelocity")) {
+                icon.yVelocity = (Math.random() - 0.5) * baseYVelocity * 2; // Random yVelocity between -baseYVelocity and baseYVelocity
+            }
+
+            // İconların x ve y eksenlerinde hareket etmesini sağlayan kısım
+            icon.x += icon.xVelocity;
+            icon.y += icon.yVelocity;
+
+            if (icon.x > canvas.width - icon.size - buffer) {
+                icon.x = canvas.width - icon.size - buffer;
+                icon.xVelocity = -Math.abs(icon.xVelocity); // Change the direction of movement
+            } else if (icon.x < buffer) {
+                icon.x = buffer;
+                icon.xVelocity = Math.abs(icon.xVelocity); // Change the direction of movement
+            }
+
+            if (icon.y > canvas.height - icon.size - buffer) {
+                icon.y = canvas.height - icon.size - buffer;
+                icon.yVelocity = -Math.abs(icon.yVelocity); // Change the direction of movement
+            } else if (icon.y < buffer) {
+                icon.y = buffer;
+                icon.yVelocity = Math.abs(icon.yVelocity); // Change the direction of movement
+            }
 
             // Check if icon overlaps with largest icon
             if (icon !== iconList[0] &&
@@ -246,8 +281,8 @@ function drawIcons() {
                 ctx.font = "20px Arial";
                 ctx.fillStyle = "black";
                 ctx.textAlign = "center";
-                ctx.fillText("Təbriklər.", canvas.width / 2, canvas.height - 40);
-                ctx.fillText("Qazanan hesab : " + largestIcon.username, canvas.width / 2, canvas.height - 20);
+                ctx.fillText("Congratulations", canvas.width / 2, canvas.height - 40);
+                ctx.fillText("Winner : " + largestIcon.username, canvas.width / 2, canvas.height - 20);
 
                 addWinner(largestIcon.username);
 
@@ -257,26 +292,30 @@ function drawIcons() {
                 // Create the winner list
                 ctx2.font = "20px Arial";
                 ctx2.fillStyle = "black";
-                ctx2.fillText("Qazananlar:", 10, 30);
+                ctx2.fillText("Winners:", 10, 30);
                 for (let i = 0; i < winner.length; i++) {
                     ctx2.fillText(winner[i].id + ' - ' + winner[i].username, 10, 60 + i * 30);
                 }
                 if (winner.length === 5) {
+                    const canvas2 = document.getElementById("myCanvas2");
+                    const ctx2 = canvas3.getContext("2d");
+                    ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+
                     winner = [];
                 }
 
                 finishGame = true;
                 setTimeout(function () {
                     deleteAllIcons()
-                }, 30000); // 30 saniye beklet
+                }, 5000); // 30 saniye beklet
                 return;
             }
         }
-        
 
-    setTimeout(function () {
-        drawIcons()
-    }, 1000); // 30 saniye beklet
+
+        setTimeout(function () {
+            drawIcons()
+        }, 1000); // 30 saniye beklet
     }
 }
 
@@ -413,7 +452,7 @@ connection.on('gift', (data) => {
     if (!finishGame) {
         for (let i = 0; i < iconList.length; i++) {
             if (iconList[i].username === userName) {
-                iconList[i].size += giftCount * 2; // add 20 to each object's value property
+                iconList[i].size += giftCount * 15; // add 20 to each object's value property
                 let icons = document.getElementsByClassName('icon');
                 for (let j = 0; j < icons.length; j++) {
                     if (icons[j].src === iconList[i].imgurl) {
@@ -435,7 +474,7 @@ connection.on('gift', (data) => {
         }
 
         if (!userlistExist) {
-            const iconSize = 40 + (giftCount * 1.5);
+            const iconSize = 40 + (giftCount * 15);
             const iconImgUrl = profilePictureUrl;
 
             const icon = {
