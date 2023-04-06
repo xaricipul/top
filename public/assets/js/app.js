@@ -149,7 +149,7 @@ function drawIcons() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         iconList.sort((a, b) => b.size - a.size);
 
-        // Iconların hareket hızı
+      
         const baseMoveSpeed = 0.3;
 
         const buffer = 5;
