@@ -168,7 +168,6 @@ function drawIcons() {
         const baseYVelocity = 0.3;
 
         iconList.forEach((icon,index) => {
-            // Set moveSpeed for each icon based on its size
             if (!icon.hasOwnProperty("moveSpeed")) {
                 icon.moveSpeed = getSpeedBySize(icon.size, baseMoveSpeed);
             }
