@@ -23,12 +23,13 @@ let winner = [];
 // START
 $(document).ready(() => {
     // Connect
-    $("#targetConnect").click(function (e) {
-        // Check
-        let targetLive = $("#targetUsername").val();
-        connect(targetLive);
+    // $("#targetConnect").click(function (e) {
+    // Check
+    // let targetLive = $("#targetUsername").val();
+    let targetLive = "growaz"
+    connect(targetLive);
 
-    });
+    // });
 
 })
 
@@ -149,7 +150,7 @@ function drawIcons() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         iconList.sort((a, b) => b.size - a.size);
 
-      
+
         const baseMoveSpeed = 0.3;
 
         const buffer = 5;
@@ -167,7 +168,7 @@ function drawIcons() {
         // Iconların dikey hareket hızı
         const baseYVelocity = 0.3;
 
-        iconList.forEach((icon,index) => {
+        iconList.forEach((icon, index) => {
             if (!icon.hasOwnProperty("moveSpeed")) {
                 icon.moveSpeed = getSpeedBySize(icon.size, baseMoveSpeed);
             }
@@ -291,15 +292,15 @@ function drawIcons() {
                 if (winner.length === 6) {
                     ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
                     winner.splice(0, 5); // ilk dört elemanı silmek için "splice()" yöntemini kullanın
-                  }
+                }
 
                 // Create the winner list
                 ctx2.font = "20px Arial";
                 ctx2.fillStyle = "black";
                 ctx2.fillText("Winners:", 10, 30);
                 for (let i = 0; i < winner.length; i++) {
-                    ctx2.fillText(i+1 + ' - ' + winner[i].username, 10, 60 + i * 30);
-                  }
+                    ctx2.fillText(i + 1 + ' - ' + winner[i].username, 10, 60 + i * 30);
+                }
 
                 finishGame = true;
                 setTimeout(function () {
