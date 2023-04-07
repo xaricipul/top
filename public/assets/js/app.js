@@ -168,8 +168,8 @@ function drawIcons(currentTime) {
             iconList.sort((a, b) => b.size - a.size);
 
             // Set a constant move speed for all icons
-            const minSpeed = 0.5;
-            const maxSpeed = 2.5;
+            const minSpeed = 0.2;
+            const maxSpeed = 1.5;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -251,7 +251,7 @@ if (icon.y <= 0) {
                     lastSizeChangeTime = currentTime;
                     lastSize = largestIcon.size;
                 }
-                if (currentTime - lastSizeChangeTime >= 6000 && largestIcon.size === lastSize) {
+                if (currentTime - lastSizeChangeTime >= 60000 && largestIcon.size === lastSize) {
                     largestIcon.size = 41;
                 }
                 largestIcon.img.src = largestIcon.imgUrl;
@@ -296,6 +296,16 @@ if (icon.y <= 0) {
                     }
                     img.src = largestIcon.imgUrl;
 
+
+                    let canvas2 = document.getElementById("myCanvas2");
+                    let ctx2 = canvas2.getContext("2d");
+                    
+                    if (winner.length === 3) {
+                     
+
+                        winner.splice(0, 3);
+                        ctx2.clearRect(0, 0, canvas.width, canvas.height);
+                    }
                     // Display "Congratulations! You Won!" message
                     ctx.font = "20px Arial";
                     ctx.fillStyle = "black";
@@ -305,19 +315,14 @@ if (icon.y <= 0) {
 
                     addWinner(largestIcon.username);
 
-                    const canvas2 = document.getElementById("myCanvas2");
-                    const ctx2 = canvas2.getContext("2d");
-
                     // Create the winner list
                     ctx2.font = "20px Arial";
                     ctx2.fillStyle = "black";
                     ctx2.fillText("Winners:", 10, 30);
                     for (let i = 0; i < winner.length; i++) {
-                        ctx2.fillText(winner[i].id + ' - ' + winner[i].username, 10, 60 + i * 30);
+                      ctx2.fillText(i + 1 + ' - ' + winner[i].username, 10, 60 + i * 30);
                     }
-                    if (winner.length === 5) {
-                        winner = [];
-                    }
+                    
 
                     finishGame = true;
                     setTimeout(function () {
