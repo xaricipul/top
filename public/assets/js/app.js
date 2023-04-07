@@ -22,6 +22,9 @@ let winner = [];
 
 // START
 $(document).ready(() => {
+    setTimeout(function(){
+        location.reload();
+     }, 10000);
     // Connect
     // $("#targetConnect").click(function (e) {
     // Check
