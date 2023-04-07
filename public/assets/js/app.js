@@ -2,19 +2,6 @@
 
 
 let connection = new TikTokIOConnection(undefined);
-let userGiftTotal = 0;
-let user2GiftTotal = 0;
-let userlistExist = null;
-let userDataLike = [];
-let userDataShare = [];
-let user2Data = [];
-let userComment = [];
-let lastGifter = null
-let lastGifterPic = null
-let lastGifterCount = null
-let lastLiker = null
-let lastLikerPic = null
-let lastLikerCount = null
 let finishGame = false;
 let iconList = [];
 let nextId = 1;
@@ -32,10 +19,6 @@ $(document).ready(() => {
 
 })
 
-
-/*
-* LIVE TIKTOK
-*/
 
 function connect(targetLive) {
     if (targetLive !== '') {
@@ -149,7 +132,7 @@ function drawIcons() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         iconList.sort((a, b) => b.size - a.size);
 
-      
+
         const baseMoveSpeed = 0.3;
 
         const buffer = 5;
@@ -167,7 +150,16 @@ function drawIcons() {
         // Iconların dikey hareket hızı
         const baseYVelocity = 0.3;
 
-        iconList.forEach((icon,index) => {
+        let largestIconUsername;
+        let previousLargestIconSize;
+        let lastSizeCheckTime = Date.now();
+
+
+
+     
+
+
+        iconList.forEach((icon, index) => {
             if (!icon.hasOwnProperty("moveSpeed")) {
                 icon.moveSpeed = getSpeedBySize(icon.size, baseMoveSpeed);
             }
@@ -225,13 +217,49 @@ function drawIcons() {
 
         });
 
+        checkLargestIconSize();
         // Draw overlapping icon outside of yellow circle
         if (overlappingIcon) {
             ctx.drawImage(overlappingIcon.img, overlappingIcon.x, overlappingIcon.y, overlappingIcon.size, overlappingIcon.size);
         }
 
+        function resizeLargestIcon() {
+            const largestIcon = iconList[0];
+          
+            if (largestIcon) { 
+                if (largestIcon.size === previousLargestIconSize) {
+                    largestIcon.size = 41;
+                  }
+                
+                  iconTimeout = null;
+            }
+
+           
+          }
+          function checkLargestIconSize() {
+            const largestIcon = iconList[0];
+          
+            if (!largestIconUsername) {
+              largestIconUsername = largestIcon.username;
+              previousLargestIconSize = largestIcon.size;
+              iconTimeout = setTimeout(resizeLargestIcon, 10000);
+            } else if (largestIcon.username === largestIconUsername) {
+              if (largestIcon.size !== previousLargestIconSize) {
+                clearTimeout(iconTimeout);
+                previousLargestIconSize = largestIcon.size;
+                iconTimeout = setTimeout(resizeLargestIcon, 10000);
+              }
+            } else {
+              largestIconUsername = largestIcon.username;
+              previousLargestIconSize = largestIcon.size;
+              clearTimeout(iconTimeout);
+              iconTimeout = setTimeout(resizeLargestIcon, 10000);
+            }
+          }
+          checkLargestIconSize();
         // Draw the largest icon last with a higher z-index than other icons
         const largestIcon = iconList[0];
+        
         if (largestIcon) {
             largestIcon.img.src = largestIcon.imgUrl;
 
@@ -260,6 +288,27 @@ function drawIcons() {
                 ctx.restore();
 
             });
+
+            if (!largestIconUsername) {
+                largestIconUsername = largestIcon.username;
+                previousLargestIconSize = largestIcon.size;
+                lastSizeCheckTime = Date.now();
+            } else if (largestIcon.username !== largestIconUsername) {
+                // Update the largest icon username, size, and last size check time
+                largestIconUsername = largestIcon.username;
+                previousLargestIconSize = largestIcon.size;
+                lastSizeCheckTime = Date.now();
+            }
+
+            if (Date.now() - lastSizeCheckTime >= 60000) { // If 1 minute has passed
+                if (largestIcon.size === previousLargestIconSize) { // If the largest icon hasn't grown in size
+                    largestIcon.size = 41;
+                }
+                // Update the last size check time and previous largest icon size
+                lastSizeCheckTime = Date.now();
+                previousLargestIconSize = largestIcon.size;
+            }
+
 
             // Check if largest icon is equal to canvas size
             if (largestIcon.size >= canvas.width && largestIcon.size >= canvas.height) {
@@ -291,15 +340,15 @@ function drawIcons() {
                 if (winner.length === 6) {
                     ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
                     winner.splice(0, 5); // ilk dört elemanı silmek için "splice()" yöntemini kullanın
-                  }
+                }
 
                 // Create the winner list
                 ctx2.font = "20px Arial";
                 ctx2.fillStyle = "black";
                 ctx2.fillText("Winners:", 10, 30);
                 for (let i = 0; i < winner.length; i++) {
-                    ctx2.fillText(i+1 + ' - ' + winner[i].username, 10, 60 + i * 30);
-                  }
+                    ctx2.fillText(i + 1 + ' - ' + winner[i].username, 10, 60 + i * 30);
+                }
 
                 finishGame = true;
                 setTimeout(function () {
