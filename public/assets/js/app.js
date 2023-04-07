@@ -242,18 +242,18 @@ function drawIcons() {
             if (!largestIconUsername) {
               largestIconUsername = largestIcon.username;
               previousLargestIconSize = largestIcon.size;
-              iconTimeout = setTimeout(resizeLargestIcon, 10000);
+              iconTimeout = setTimeout(resizeLargestIcon, 60000);
             } else if (largestIcon.username === largestIconUsername) {
               if (largestIcon.size !== previousLargestIconSize) {
                 clearTimeout(iconTimeout);
                 previousLargestIconSize = largestIcon.size;
-                iconTimeout = setTimeout(resizeLargestIcon, 10000);
+                iconTimeout = setTimeout(resizeLargestIcon, 60000);
               }
             } else {
               largestIconUsername = largestIcon.username;
               previousLargestIconSize = largestIcon.size;
               clearTimeout(iconTimeout);
-              iconTimeout = setTimeout(resizeLargestIcon, 10000);
+              iconTimeout = setTimeout(resizeLargestIcon, 60000);
             }
           }
           checkLargestIconSize();
