@@ -2,6 +2,19 @@
 
 
 let connection = new TikTokIOConnection(undefined);
+let userGiftTotal = 0;
+let user2GiftTotal = 0;
+let userlistExist = null;
+let userDataLike = [];
+let userDataShare = [];
+let user2Data = [];
+let userComment = [];
+let lastGifter = null
+let lastGifterPic = null
+let lastGifterCount = null
+let lastLiker = null
+let lastLikerPic = null
+let lastLikerCount = null
 let finishGame = false;
 let iconList = [];
 let nextId = 1;
@@ -19,6 +32,10 @@ $(document).ready(() => {
 
 })
 
+
+/*
+* LIVE TIKTOK
+*/
 
 function connect(targetLive) {
     if (targetLive !== '') {
@@ -121,249 +138,200 @@ function createList(username, numOfItems) {
 
     return list;
 }
-function drawIcons() {
+let animationFrameId;
+let lastDrawTime = 0;
+const drawInterval = 1000 / 60; // 60 FPS
+function randomRange(min, max) {
+    return Math.random() * (max - min) + min;
+}
+let largestIconUsername = null;
+let largestIconSize = null;
+let lastSizeChangeTime = 0;
+let lastSize = 0;
+
+
+
+
+function drawIcons(currentTime) {
     if (finishGame) {
+        // Cancel the animation frame
+        cancelAnimationFrame(animationFrameId);
         return;
     }
     if (!finishGame) {
+        // Calculate elapsed time since last draw
+        const elapsedTime = currentTime - lastDrawTime;
 
+        if (elapsedTime >= drawInterval) {
+            let overlappingIcon = null;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            iconList.sort((a, b) => b.size - a.size);
 
-        let overlappingIcon = null;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        iconList.sort((a, b) => b.size - a.size);
+            // Set a constant move speed for all icons
+            const minSpeed = 0.5;
+            const maxSpeed = 2.5;
 
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        const baseMoveSpeed = 0.3;
+            iconList.sort((a, b) => b.size - a.size);
 
-        const buffer = 5;
-
-        iconList.sort((a, b) => b.size - a.size);
-
-        function getSpeedBySize(size, baseSpeed) {
-            const scaleFactor = 0.5;
-            return baseSpeed * (1 - scaleFactor * (size / Math.max(...iconList.map(icon => icon.size))));
-        }
-
-        // Iconların yatay hareket hızı
-        const baseXVelocity = 0.3;
-
-        // Iconların dikey hareket hızı
-        const baseYVelocity = 0.3;
-
-        let largestIconUsername;
-        let previousLargestIconSize;
-        let lastSizeCheckTime = Date.now();
-
-
-
-     
-
-
-        iconList.forEach((icon, index) => {
-            if (!icon.hasOwnProperty("moveSpeed")) {
-                icon.moveSpeed = getSpeedBySize(icon.size, baseMoveSpeed);
-            }
-
-            // Set xVelocity and yVelocity for each icon based on baseXVelocity and baseYVelocity
-            if (!icon.hasOwnProperty("xVelocity")) {
-                icon.xVelocity = (Math.random() - 0.5) * baseXVelocity * 2; // Random xVelocity between -baseXVelocity and baseXVelocity
-            }
-            if (!icon.hasOwnProperty("yVelocity")) {
-                icon.yVelocity = (Math.random() - 0.5) * baseYVelocity * 2; // Random yVelocity between -baseYVelocity and baseYVelocity
-            }
-
-            // İconların x ve y eksenlerinde hareket etmesini sağlayan kısım
-            icon.x += icon.xVelocity;
-            icon.y += icon.yVelocity;
-
-            if (icon.x > canvas.width - icon.size - buffer) {
-                icon.x = canvas.width - icon.size - buffer;
-                icon.xVelocity = -Math.abs(icon.xVelocity); // Change the direction of movement
-            } else if (icon.x < buffer) {
-                icon.x = buffer;
-                icon.xVelocity = Math.abs(icon.xVelocity); // Change the direction of movement
-            }
-
-            if (icon.y > canvas.height - icon.size - buffer) {
-                icon.y = canvas.height - icon.size - buffer;
-                icon.yVelocity = -Math.abs(icon.yVelocity); // Change the direction of movement
-            } else if (icon.y < buffer) {
-                icon.y = buffer;
-                icon.yVelocity = Math.abs(icon.yVelocity); // Change the direction of movement
-            }
-
-            // Check if icon overlaps with largest icon
-            if (icon !== iconList[0] &&
-                icon.x < canvas.width / 2 + iconList[0].size / 2 &&
-                icon.x + icon.size > canvas.width / 2 - iconList[0].size / 2 &&
-                icon.y < canvas.height / 2 + iconList[0].size / 2 &&
-                icon.y + icon.size > canvas.height / 2 - iconList[0].size / 2) {
-                overlappingIcon = icon;
-            }
-
-            // Set image source and draw icon
-            icon.img.src = icon.imgUrl;
-
-            // // Draw a yellow circle
-            // ctx.beginPath();
-            // ctx.arc(icon.x + icon.size / 2, icon.y + icon.size / 2, icon.size / 2, 0, 2 * Math.PI);
-            // ctx.strokeStyle = 'yellow';
-            // ctx.lineWidth = 2;
-            // ctx.stroke();
-
-            // Set the zIndex property of the icon
-            icon.zIndex = index;
-
-
-        });
-
-        checkLargestIconSize();
-        // Draw overlapping icon outside of yellow circle
-        if (overlappingIcon) {
-            ctx.drawImage(overlappingIcon.img, overlappingIcon.x, overlappingIcon.y, overlappingIcon.size, overlappingIcon.size);
-        }
-
-        function resizeLargestIcon() {
-            const largestIcon = iconList[0];
-          
-            if (largestIcon) { 
-                if (largestIcon.size === previousLargestIconSize) {
-                    largestIcon.size = 41;
-                  }
-                
-                  iconTimeout = null;
-            }
-
-           
-          }
-          function checkLargestIconSize() {
-            const largestIcon = iconList[0];
-          
-            if (!largestIconUsername) {
-              largestIconUsername = largestIcon.username;
-              previousLargestIconSize = largestIcon.size;
-              iconTimeout = setTimeout(resizeLargestIcon, 60000);
-            } else if (largestIcon.username === largestIconUsername) {
-              if (largestIcon.size !== previousLargestIconSize) {
-                clearTimeout(iconTimeout);
-                previousLargestIconSize = largestIcon.size;
-                iconTimeout = setTimeout(resizeLargestIcon, 60000);
-              }
-            } else {
-              largestIconUsername = largestIcon.username;
-              previousLargestIconSize = largestIcon.size;
-              clearTimeout(iconTimeout);
-              iconTimeout = setTimeout(resizeLargestIcon, 60000);
-            }
-          }
-          checkLargestIconSize();
-        // Draw the largest icon last with a higher z-index than other icons
-        const largestIcon = iconList[0];
-        
-        if (largestIcon) {
-            largestIcon.img.src = largestIcon.imgUrl;
-
-            // Set zIndex to highest value
-            largestIcon.zIndex = iconList.length;
-            // Check zIndex values for all icons in array
             iconList.forEach((icon, index) => {
-                if (icon !== largestIcon && icon.zIndex >= largestIcon.zIndex) {
-                    icon.zIndex = index;
+                // Set random initial position for each icon
+                if (!icon.hasOwnProperty("x")) {
+                    icon.x = Math.random() * (canvas.width - icon.size);
                 }
+                if (!icon.hasOwnProperty("y")) {
+                    icon.y = Math.random() * (canvas.height - icon.size);
+                }
+                
+
+                // Set random move speed for each icon
+                if (!icon.hasOwnProperty("moveSpeed")) {
+                    icon.moveSpeed = {
+                        x: randomRange(minSpeed, maxSpeed) * (Math.random() > 0.5 ? 1 : -1),
+                        y: randomRange(minSpeed, maxSpeed) * (Math.random() > 0.5 ? 1 : -1),
+                    };
+                }
+
+              // Set random move speed for each icon
+if (!icon.hasOwnProperty("moveSpeed")) {
+    icon.moveSpeed = {
+        x: randomRange(minSpeed, maxSpeed) * (Math.random() > 0.5 ? 1 : -1),
+        y: randomRange(minSpeed, maxSpeed) * (Math.random() > 0.5 ? 1 : -1),
+    };
+}
+
+// Update the icon's position
+icon.x += icon.moveSpeed.x;
+icon.y += icon.moveSpeed.y;
+
+// Check if the icon has reached the edge of the canvas
+if (icon.x + icon.size >= canvas.width) {
+    icon.x = canvas.width - icon.size;
+    icon.moveSpeed.x *= -1;
+}
+if (icon.x <= 0) {
+    icon.x = 0;
+    icon.moveSpeed.x *= -1;
+}
+if (icon.y + icon.size >= canvas.height) {
+    icon.y = canvas.height - icon.size;
+    icon.moveSpeed.y *= -1;
+}
+if (icon.y <= 0) {
+    icon.y = 0;
+    icon.moveSpeed.y *= -1;
+}
+
+                // Check if icon overlaps with largest icon
+                if (icon !== iconList[0] &&
+                    icon.x < canvas.width / 2 + iconList[0].size / 2 &&
+                    icon.x + icon.size > canvas.width / 2 - iconList[0].size / 2 &&
+                    icon.y < canvas.height / 2 + iconList[0].size / 2 &&
+                    icon.y + icon.size > canvas.height / 2 - iconList[0].size / 2) {
+                    overlappingIcon = icon;
+                }
+
+                // Set image source and draw icon
+                icon.img.src = icon.imgUrl;
+                icon.zIndex = index;
+
+                lastDrawTime = currentTime;
             });
 
-            // Draw all icons with correct zIndex values
-            iconList.sort((a, b) => a.zIndex - b.zIndex);
-            iconList.forEach((icon) => {
-                // Draw a yellow circle
-                ctx.beginPath();
-                ctx.arc(icon.x + icon.size / 2, icon.y + icon.size / 2, icon.size / 2, 0, 2 * Math.PI);
-                ctx.strokeStyle = 'yellow';
-                ctx.lineWidth = 2;
-                ctx.stroke();
-                // Draw the icon image inside the circle
-                ctx.save();
-                ctx.clip();
-                ctx.drawImage(icon.img, icon.x, icon.y, icon.size, icon.size);
-                ctx.restore();
-
-            });
-
-            if (!largestIconUsername) {
-                largestIconUsername = largestIcon.username;
-                previousLargestIconSize = largestIcon.size;
-                lastSizeCheckTime = Date.now();
-            } else if (largestIcon.username !== largestIconUsername) {
-                // Update the largest icon username, size, and last size check time
-                largestIconUsername = largestIcon.username;
-                previousLargestIconSize = largestIcon.size;
-                lastSizeCheckTime = Date.now();
+            // Draw overlapping icon outside of yellow circle
+            if (overlappingIcon) {
+                ctx.drawImage(overlappingIcon.img, overlappingIcon.x, overlappingIcon.y, overlappingIcon.size, overlappingIcon.size);
             }
 
-            if (Date.now() - lastSizeCheckTime >= 60000) { // If 1 minute has passed
-                if (largestIcon.size === previousLargestIconSize) { // If the largest icon hasn't grown in size
+            // Draw the largest icon last with a higher z-index than other icons
+            const largestIcon = iconList[0];
+            if (largestIcon) {
+                if (largestIcon.size !== lastSize) {
+                    lastSizeChangeTime = currentTime;
+                    lastSize = largestIcon.size;
+                }
+                if (currentTime - lastSizeChangeTime >= 6000 && largestIcon.size === lastSize) {
                     largestIcon.size = 41;
                 }
-                // Update the last size check time and previous largest icon size
-                lastSizeCheckTime = Date.now();
-                previousLargestIconSize = largestIcon.size;
-            }
+                largestIcon.img.src = largestIcon.imgUrl;
 
+                // Set zIndex to highest value
+                largestIcon.zIndex = iconList.length;
+                // Check zIndex values for all icons in array
+                iconList.forEach((icon, index) => {
+                    if (icon !== largestIcon && icon.zIndex >= largestIcon.zIndex) {
+                        icon.zIndex = index;
+                    }
+                });
 
-            // Check if largest icon is equal to canvas size
-            if (largestIcon.size >= canvas.width && largestIcon.size >= canvas.height) {
-                // Stop all movements
+                // Draw all icons with correct zIndex values
+                iconList.sort((a, b) => a.zIndex - b.zIndex);
+                iconList.forEach((icon) => {
+                    // Draw a yellow circle
+                    ctx.beginPath();
+                    ctx.arc(icon.x + icon.size / 2, icon.y + icon.size / 2, icon.size / 2, 0, 2 * Math.PI);
+                    ctx.strokeStyle = 'yellow';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                    // Draw the icon image inside the circle
+                    ctx.save();
+                    ctx.clip();
+                    ctx.drawImage(icon.img, icon.x, icon.y, icon.size, icon.size);
+                    ctx.restore();
+                });
 
-                // Draw a white rectangle to clear the canvas
-                ctx.fillStyle = "white";
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                // Check if largest icon is equal to canvas size
+                if (largestIcon.size >= canvas.width && largestIcon.size >= canvas.height) {
+                    // Stop all movements
 
-                // Display the image of the largest icon
-                var img = new Image();
-                img.onload = function () {
-                    ctx.drawImage(img, canvas.width / 2 - 155, canvas.height / 2 - 155 - 20, 310, 310);
+                    // Draw a white rectangle to clear the canvas
+                    ctx.fillStyle = "white";
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    // Display the image of the largest icon
+                    var img = new Image();
+                    img.onload = function () {
+                        ctx.drawImage(img, canvas.width / 2 - 155, canvas.height / 2 - 155 - 20, 310, 310);
+                    }
+                    img.src = largestIcon.imgUrl;
+
+                    // Display "Congratulations! You Won!" message
+                    ctx.font = "20px Arial";
+                    ctx.fillStyle = "black";
+                    ctx.textAlign = "center";
+                    ctx.fillText("Congratulations", canvas.width / 2, canvas.height - 40);
+                    ctx.fillText("Winner : " + largestIcon.username, canvas.width / 2, canvas.height - 20);
+
+                    addWinner(largestIcon.username);
+
+                    const canvas2 = document.getElementById("myCanvas2");
+                    const ctx2 = canvas2.getContext("2d");
+
+                    // Create the winner list
+                    ctx2.font = "20px Arial";
+                    ctx2.fillStyle = "black";
+                    ctx2.fillText("Winners:", 10, 30);
+                    for (let i = 0; i < winner.length; i++) {
+                        ctx2.fillText(winner[i].id + ' - ' + winner[i].username, 10, 60 + i * 30);
+                    }
+                    if (winner.length === 5) {
+                        winner = [];
+                    }
+
+                    finishGame = true;
+                    setTimeout(function () {
+                        deleteAllIcons()
+                    }, 5000); // 30 saniye beklet
+                    return;
                 }
-                img.src = largestIcon.imgUrl;
-
-                // Display "Congratulations! You Won!" message
-                ctx.font = "20px Arial";
-                ctx.fillStyle = "black";
-                ctx.textAlign = "center";
-                ctx.fillText("Congratulations", canvas.width / 2, canvas.height - 40);
-                ctx.fillText("Winner : " + largestIcon.username, canvas.width / 2, canvas.height - 20);
-
-                addWinner(largestIcon.username);
-
-                let canvas2 = document.getElementById("myCanvas2");
-                let ctx2 = canvas2.getContext("2d");
-
-                if (winner.length === 6) {
-                    ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
-                    winner.splice(0, 5); // ilk dört elemanı silmek için "splice()" yöntemini kullanın
-                }
-
-                // Create the winner list
-                ctx2.font = "20px Arial";
-                ctx2.fillStyle = "black";
-                ctx2.fillText("Winners:", 10, 30);
-                for (let i = 0; i < winner.length; i++) {
-                    ctx2.fillText(i + 1 + ' - ' + winner[i].username, 10, 60 + i * 30);
-                }
-
-                finishGame = true;
-                setTimeout(function () {
-                    deleteAllIcons()
-                }, 5000); // 30 saniye beklet
-                return;
             }
         }
 
-
-        setTimeout(function () {
-            drawIcons()
-        }, 1000); // 30 saniye beklet
+        animationFrameId = requestAnimationFrame(drawIcons);
     }
 }
+
 
 
 function addWinner(username) {
