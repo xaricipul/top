@@ -22,14 +22,13 @@ let winner = [];
 
 // START
 $(document).ready(() => {
-
-    setTimeout(function () {
-            // let targetLive = $("#targetUsername").val();
-            let targetLive = "soz_oyunu"
-            connect(targetLive);
-      }, 30000);
     // Connect
-   
+    $("#targetConnect").click(function (e) {
+        // Check
+        let targetLive = $("#targetUsername").val();
+        connect(targetLive);
+
+    });
 
 })
 
@@ -184,15 +183,7 @@ function drawIcons(currentTime) {
                 if (!icon.hasOwnProperty("y")) {
                     icon.y = Math.random() * (canvas.height - icon.size);
                 }
-
-
-                // Set random move speed for each icon
-                if (!icon.hasOwnProperty("moveSpeed")) {
-                    icon.moveSpeed = {
-                        x: randomRange(minSpeed, maxSpeed) * (Math.random() > 0.5 ? 1 : -1),
-                        y: randomRange(minSpeed, maxSpeed) * (Math.random() > 0.5 ? 1 : -1),
-                    };
-                }
+                
 
                 // Set random move speed for each icon
                 if (!icon.hasOwnProperty("moveSpeed")) {
@@ -202,27 +193,35 @@ function drawIcons(currentTime) {
                     };
                 }
 
-                // Update the icon's position
-                icon.x += icon.moveSpeed.x;
-                icon.y += icon.moveSpeed.y;
+              // Set random move speed for each icon
+if (!icon.hasOwnProperty("moveSpeed")) {
+    icon.moveSpeed = {
+        x: randomRange(minSpeed, maxSpeed) * (Math.random() > 0.5 ? 1 : -1),
+        y: randomRange(minSpeed, maxSpeed) * (Math.random() > 0.5 ? 1 : -1),
+    };
+}
 
-                // Check if the icon has reached the edge of the canvas
-                if (icon.x + icon.size >= canvas.width) {
-                    icon.x = canvas.width - icon.size;
-                    icon.moveSpeed.x *= -1;
-                }
-                if (icon.x <= 0) {
-                    icon.x = 0;
-                    icon.moveSpeed.x *= -1;
-                }
-                if (icon.y + icon.size >= canvas.height) {
-                    icon.y = canvas.height - icon.size;
-                    icon.moveSpeed.y *= -1;
-                }
-                if (icon.y <= 0) {
-                    icon.y = 0;
-                    icon.moveSpeed.y *= -1;
-                }
+// Update the icon's position
+icon.x += icon.moveSpeed.x;
+icon.y += icon.moveSpeed.y;
+
+// Check if the icon has reached the edge of the canvas
+if (icon.x + icon.size >= canvas.width) {
+    icon.x = canvas.width - icon.size;
+    icon.moveSpeed.x *= -1;
+}
+if (icon.x <= 0) {
+    icon.x = 0;
+    icon.moveSpeed.x *= -1;
+}
+if (icon.y + icon.size >= canvas.height) {
+    icon.y = canvas.height - icon.size;
+    icon.moveSpeed.y *= -1;
+}
+if (icon.y <= 0) {
+    icon.y = 0;
+    icon.moveSpeed.y *= -1;
+}
 
                 // Check if icon overlaps with largest icon
                 if (icon !== iconList[0] &&
@@ -300,11 +299,11 @@ function drawIcons(currentTime) {
 
                     let canvas2 = document.getElementById("myCanvas2");
                     let ctx2 = canvas2.getContext("2d");
+                    
+                    if (winner.length === 6) {
+                     
 
-                    if (winner.length === 3) {
-
-
-                        winner.splice(0, 3);
+                        winner.splice(0, 5);
                         ctx2.clearRect(0, 0, canvas.width, canvas.height);
                     }
                     // Display "Congratulations! You Won!" message
@@ -321,9 +320,9 @@ function drawIcons(currentTime) {
                     ctx2.fillStyle = "black";
                     ctx2.fillText("Winners:", 10, 30);
                     for (let i = 0; i < winner.length; i++) {
-                        ctx2.fillText(i + 1 + ' - ' + winner[i].username, 10, 60 + i * 30);
+                      ctx2.fillText(i + 1 + ' - ' + winner[i].username, 10, 60 + i * 30);
                     }
-
+                    
 
                     finishGame = true;
                     setTimeout(function () {
