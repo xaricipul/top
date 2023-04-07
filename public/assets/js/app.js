@@ -285,23 +285,21 @@ function drawIcons() {
 
                 addWinner(largestIcon.username);
 
-                const canvas2 = document.getElementById("myCanvas2");
-                const ctx2 = canvas2.getContext("2d");
+                let canvas2 = document.getElementById("myCanvas2");
+                let ctx2 = canvas2.getContext("2d");
+
+                if (winner.length === 6) {
+                    ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+                    winner.splice(0, 5); // ilk dört elemanı silmek için "splice()" yöntemini kullanın
+                  }
 
                 // Create the winner list
                 ctx2.font = "20px Arial";
                 ctx2.fillStyle = "black";
                 ctx2.fillText("Winners:", 10, 30);
                 for (let i = 0; i < winner.length; i++) {
-                    ctx2.fillText(winner[i].id + ' - ' + winner[i].username, 10, 60 + i * 30);
-                }
-                if (winner.length === 5) {
-                    const canvas2 = document.getElementById("myCanvas2");
-                    const ctx2 = canvas3.getContext("2d");
-                    ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
-
-                    winner = [];
-                }
+                    ctx2.fillText(i+1 + ' - ' + winner[i].username, 10, 60 + i * 30);
+                  }
 
                 finishGame = true;
                 setTimeout(function () {
