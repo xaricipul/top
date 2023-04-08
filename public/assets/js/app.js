@@ -18,7 +18,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function() {
-     let targetLive = "nomresell";   
+     let targetLive = "oyun_aze";   
         connect(targetLive);
       }, 30000);
 
