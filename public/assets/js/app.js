@@ -2,19 +2,6 @@
 
 
 let connection = new TikTokIOConnection(undefined);
-let userGiftTotal = 0;
-let user2GiftTotal = 0;
-let userlistExist = null;
-let userDataLike = [];
-let userDataShare = [];
-let user2Data = [];
-let userComment = [];
-let lastGifter = null
-let lastGifterPic = null
-let lastGifterCount = null
-let lastLiker = null
-let lastLikerPic = null
-let lastLikerCount = null
 let finishGame = false;
 let iconList = [];
 let nextId = 1;
@@ -23,12 +10,17 @@ let winner = [];
 // START
 $(document).ready(() => {
     // Connect
-    $("#targetConnect").click(function (e) {
-        // Check
-        let targetLive = $("#targetUsername").val();
-        connect(targetLive);
+    // $("#targetConnect").click(function (e) {
+    //     // Check
+    //     let targetLive = $("#targetUsername").val();
+    //     connect(targetLive);
 
-    });
+    // });
+
+    setTimeout(function() {
+     let targetLive = "oyun_aze";   
+        connect(targetLive);
+      }, 10000);
 
 })
 
