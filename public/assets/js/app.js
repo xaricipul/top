@@ -20,7 +20,7 @@ $(document).ready(() => {
     setTimeout(function() {
      let targetLive = "oyun_aze";   
         connect(targetLive);
-      }, 10000);
+      }, 30000);
 
 })
 
