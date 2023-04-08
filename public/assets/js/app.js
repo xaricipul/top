@@ -391,9 +391,42 @@ connection.on('like', (data) => {
 
 });
 
-// Member join
 connection.on('member', (data) => {
+    if (finishGame) {
+        return;
+    }
+    let userName = data.uniqueId;
+    let profilePictureUrl = data.profilePictureUrl;
+    let userlistExist = false;
+    if (!finishGame) {
+        for (let i = 0; i < iconList.length; i++) {
+            if (iconList[i].username === userName) {
+                userlistExist = true;
+                if (iconList[i].size > 400) {
+                    iconList[i].size = 400; // if value goes over 400, set it to 400
+                    break; // stop the loop if any value goes over 400
+                }
+            }
+        }
 
+        if (!userlistExist) {
+            const iconSize = 40;
+            const iconImgUrl = profilePictureUrl;
+
+            const icon = {
+                x: Math.floor(Math.random() * (canvas.width - iconSize)),
+                y: Math.floor(Math.random() * (canvas.height - iconSize)),
+                size: iconSize,
+                imgUrl: iconImgUrl,
+                img: new Image(),
+                username: userName,
+            };
+
+            iconList.push(icon);
+
+            drawIcons();
+        }
+    }
 
 })
 
