@@ -17,10 +17,10 @@ $(document).ready(() => {
 
     // });
 
-    setTimeout(function() {
-     let targetLive = "oyun_aze";   
+    setTimeout(function () {
+        let targetLive = "bay_takipci";
         connect(targetLive);
-      }, 30000);
+    }, 5000);
 
 })
 
@@ -175,7 +175,7 @@ function drawIcons(currentTime) {
                 if (!icon.hasOwnProperty("y")) {
                     icon.y = Math.random() * (canvas.height - icon.size);
                 }
-                
+
 
                 // Set random move speed for each icon
                 if (!icon.hasOwnProperty("moveSpeed")) {
@@ -185,35 +185,35 @@ function drawIcons(currentTime) {
                     };
                 }
 
-              // Set random move speed for each icon
-if (!icon.hasOwnProperty("moveSpeed")) {
-    icon.moveSpeed = {
-        x: randomRange(minSpeed, maxSpeed) * (Math.random() > 0.5 ? 1 : -1),
-        y: randomRange(minSpeed, maxSpeed) * (Math.random() > 0.5 ? 1 : -1),
-    };
-}
+                // Set random move speed for each icon
+                if (!icon.hasOwnProperty("moveSpeed")) {
+                    icon.moveSpeed = {
+                        x: randomRange(minSpeed, maxSpeed) * (Math.random() > 0.5 ? 1 : -1),
+                        y: randomRange(minSpeed, maxSpeed) * (Math.random() > 0.5 ? 1 : -1),
+                    };
+                }
 
-// Update the icon's position
-icon.x += icon.moveSpeed.x;
-icon.y += icon.moveSpeed.y;
+                // Update the icon's position
+                icon.x += icon.moveSpeed.x;
+                icon.y += icon.moveSpeed.y;
 
-// Check if the icon has reached the edge of the canvas
-if (icon.x + icon.size >= canvas.width) {
-    icon.x = canvas.width - icon.size;
-    icon.moveSpeed.x *= -1;
-}
-if (icon.x <= 0) {
-    icon.x = 0;
-    icon.moveSpeed.x *= -1;
-}
-if (icon.y + icon.size >= canvas.height) {
-    icon.y = canvas.height - icon.size;
-    icon.moveSpeed.y *= -1;
-}
-if (icon.y <= 0) {
-    icon.y = 0;
-    icon.moveSpeed.y *= -1;
-}
+                // Check if the icon has reached the edge of the canvas
+                if (icon.x + icon.size >= canvas.width) {
+                    icon.x = canvas.width - icon.size;
+                    icon.moveSpeed.x *= -1;
+                }
+                if (icon.x <= 0) {
+                    icon.x = 0;
+                    icon.moveSpeed.x *= -1;
+                }
+                if (icon.y + icon.size >= canvas.height) {
+                    icon.y = canvas.height - icon.size;
+                    icon.moveSpeed.y *= -1;
+                }
+                if (icon.y <= 0) {
+                    icon.y = 0;
+                    icon.moveSpeed.y *= -1;
+                }
 
                 // Check if icon overlaps with largest icon
                 if (icon !== iconList[0] &&
@@ -272,53 +272,179 @@ if (icon.y <= 0) {
                     ctx.drawImage(icon.img, icon.x, icon.y, icon.size, icon.size);
                     ctx.restore();
                 });
-
+                let particles = [];
+                let fireworks = [];
                 // Check if largest icon is equal to canvas size
                 if (largestIcon.size >= canvas.width && largestIcon.size >= canvas.height) {
                     // Stop all movements
 
-                    // Draw a white rectangle to clear the canvas
-                    ctx.fillStyle = "white";
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    class Particle {
+                        constructor(x, y, size, speed, color) {
+                            this.x = x;
+                            this.y = y;
+                            this.size = size;
+                            this.speed = speed;
+                            this.color = color;
+                            this.alpha = 1;
+                            this.decay = 0.015;
+                        }
 
-                    // Display the image of the largest icon
-                    var img = new Image();
-                    img.onload = function () {
-                        ctx.drawImage(img, canvas.width / 2 - 155, canvas.height / 2 - 155 - 20, 310, 310);
+                        update() {
+                            this.x += this.speed.x;
+                            this.y += this.speed.y;
+                            this.size = Math.max(this.size - 0.1, 0);
+                            this.alpha -= this.decay;
+                        }
+
+                        draw() {
+                            ctx.globalAlpha = this.alpha;
+                            ctx.fillStyle = this.color;
+                            ctx.beginPath();
+                            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                            ctx.closePath();
+                            ctx.fill();
+                            ctx.globalAlpha = 1;
+                        }
                     }
-                    img.src = largestIcon.imgUrl;
+
+                    function createFirework(x, y) {
+                        const particleCount = 30;
+
+                        const colors = ['#ff0000', '#ff7700', '#ffbb00', '#00ff00', '#00aaff', '#8a2be2', '#ff00ff'];
+                        const color = colors[Math.floor(Math.random() * colors.length)];
+
+                        for (let i = 0; i < particleCount; i++) {
+                            const size = Math.random() * 3 + 2;
+                            const speed = {
+                                x: Math.random() * 4 - 2,
+                                y: Math.random() * 4 - 2
+                            };
+                            particles.push(new Particle(x, y, size, speed, color));
+                        }
+
+                        return particles;
+                    }
+
+
+                    setInterval(() => {
+                        const x = Math.random() * canvas.width;
+                        const y = Math.random() * canvas.height;
+                        fireworks.push(...createFirework(x, y));
+                    }, 100);
+
+                    let animationId;
+                    function animate() {
+                        const backgroundImage = new Image();
+                        backgroundImage.src = largestIcon.imgUrl;
+                        backgroundImage.onload = () => {
+                            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                            // Define clipping path
+                            ctx.beginPath();
+                            ctx.arc(200, 200, 200, 0, 2 * Math.PI);
+                            ctx.closePath();
+                            ctx.clip();
+
+                            // Draw background image
+                            ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+
+                            // Draw animated text
+                            let colors = [
+                                '#ff0000', // Red
+                                '#00ff00', // Green
+                                '#000000', // Black
+                                '#000000', // Black
+                                '#00aaff', // Light Blue
+                                '#8a2be2', // Purple
+                                '#ff00ff', // Magenta
+                                '#000000', // Black
+                                '#ffffff', // White
+                                '#ffff00', // Bright Yellow
+                                '#ffffff', // White
+                                '#ffffff', // White
+                            ];
+
+
+                            let color = colors[Math.floor(Math.random() * colors.length)];
+                            ctx.fillStyle = color;
+                            ctx.font = "bold 30px Arial";
+                            ctx.textAlign = "center";
+                            ctx.fillText("Congratulations", canvas.width / 2, 280 + Math.sin(Date.now() / 200) * 10);
+
+                            // Draw winner name
+
+
+                            ctx.fillStyle = color;
+                            ctx.font = "bold 30px Arial";
+                            ctx.textAlign = "center";
+                            ctx.fillText(largestIcon.username, canvas.width / 2, 240 + Math.sin(Date.now() / 200) * 10);
+
+                        };
+
+                        for (let i = 0; i < fireworks.length; i++) {
+                            fireworks[i].update();
+                            fireworks[i].draw();
+
+                            if (fireworks[i].alpha <= 0) {
+                                fireworks.splice(i, 1);
+                                i--;
+                            }
+                        }
+
+                        animationId = requestAnimationFrame(animate);
+                    }
+
+                    function stopAnimation() {
+                        cancelAnimationFrame(animationId);
+                        particles = [];
+                        fireworks = [];
+                    }
+
+                    animate();
 
 
                     let canvas2 = document.getElementById("myCanvas2");
                     let ctx2 = canvas2.getContext("2d");
-                    
-                    if (winner.length === 6) {
-                     
 
-                        winner.splice(0, 5);
+                    if (winner.length === 3) {
+
                         ctx2.clearRect(0, 0, canvas.width, canvas.height);
-                    }
-                    // Display "Congratulations! You Won!" message
-                    ctx.font = "20px Arial";
-                    ctx.fillStyle = "black";
-                    ctx.textAlign = "center";
-                    ctx.fillText("Congratulations", canvas.width / 2, canvas.height - 40);
-                    ctx.fillText("Winner : " + largestIcon.username, canvas.width / 2, canvas.height - 20);
 
-                    addWinner(largestIcon.username);
+                        winner.splice(0, 3);
+                    }
+
+
+                    addWinner(largestIcon.username, largestIcon.imgUrl);
+
 
                     // Create the winner list
                     ctx2.font = "20px Arial";
-                    ctx2.fillStyle = "black";
+                    ctx2.fillStyle = "white";
                     ctx2.fillText("Winners:", 10, 30);
+
                     for (let i = 0; i < winner.length; i++) {
-                      ctx2.fillText(i + 1 + ' - ' + winner[i].username, 10, 60 + i * 30);
+                        // Load the image
+                        let img = new Image();
+                        img.src = winner[i].imgurl;
+
+                        // Draw the image and username
+                        // Draw the image and username
+                        img.onload = function () {
+                            ctx2.drawImage(img, 10, 50 + i * 50, 40, 40); // Draw the image with a size of 40 x 40 pixels
+                            ctx2.fillText(i + 1 + ' - ' + winner[i].username, 60, 70 + i * 60); // Draw the username
+                        };
                     }
-                    
+
+
 
                     finishGame = true;
                     setTimeout(function () {
+
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        canvas.width = canvas.width;
+                        stopAnimation();
                         deleteAllIcons()
+
                     }, 5000); // 30 saniye beklet
                     return;
                 }
@@ -331,10 +457,11 @@ if (icon.y <= 0) {
 
 
 
-function addWinner(username) {
+function addWinner(userName, imgUrl) {
     winner.push({
         id: nextId++,
-        username: username
+        username: userName,
+        imgurl: imgUrl
     });
 }
 
