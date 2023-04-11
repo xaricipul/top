@@ -357,6 +357,29 @@
       ctx3.fillStyle = "#333";
       ctx3.fillText("zoom (1x)", 50, 60);
     }
+    const img4 = new Image();
+    img4.src = "share.png";
+    img4.onload = function () {
+      ctx3.font = "20px Arial";
+      ctx3.fillStyle = "#333";
+      ctx3.fillText("1", 0, 58);
+      ctx3.drawImage(img4, 204, 38, 25, 25);
+      ctx3.font = "16px Arial";
+      ctx3.fillStyle = "#333";
+      ctx3.fillText("zoom (2x)", 235, 60);
+    }
+    const img3 = new Image();
+    img3.src = "heart.png";
+    img3.onload = function () {
+      ctx3.font = "20px Arial";
+      ctx3.fillStyle = "#333";
+      ctx3.fillText("1", 0, 22);
+      ctx3.drawImage(img3, 200, 1, 30, 30);
+      ctx3.font = "16px Arial";
+      ctx3.fillStyle = "#333";
+      ctx3.fillText("zoom (50x)", 235, 20);
+    }
+    
     img.src = "2g.png";
   </script>
 </body>
