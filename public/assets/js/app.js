@@ -18,9 +18,9 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "bay_takipci";
+        let targetLive = "oyun_aze";
         connect(targetLive);
-    }, 5000);
+    }, 30000);
 
 })
 
