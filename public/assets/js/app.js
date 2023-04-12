@@ -18,7 +18,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "oyun_aze";
+        let targetLive = "upfollowers.gacor";
         connect(targetLive);
     }, 5000);
 
@@ -298,16 +298,8 @@ function drawIcons(currentTime) {
                     const backgroundImage = new Image();
                     backgroundImage.src = largestIcon.imgUrl;
                     backgroundImage.onload = () => {
-                        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                        // Define clipping path
-                        ctx.beginPath();
-                        ctx.arc(200, 200, 200, 0, 2 * Math.PI);
-                        ctx.closePath();
-                        ctx.clip();
-
-                        // Draw background image
-                        ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+                        // Save the current context state
+                      
 
                         let colors = [
                             '#ff0000', // Red
@@ -323,31 +315,43 @@ function drawIcons(currentTime) {
                             '#ffffff', // White
                             '#ffffff', // White
                         ];
-                        
+
                         function drawText() {
                             ctx.clearRect(0, 0, canvas.width, canvas.height);
-                        
+                            ctx.save();
+
+                            // Define clipping path
+                            ctx.beginPath();
+                            ctx.arc(200, 200, 200, 0, 2 * Math.PI);
+                            ctx.closePath();
+                            ctx.clip();
+    
+                            // Draw background image
+                            ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+    
+                            // Restore the context state
+                            ctx.restore();
                             let color = colors[Math.floor(Math.random() * colors.length)];
                             ctx.fillStyle = color;
                             ctx.font = "bold 30px Arial";
                             ctx.textAlign = "center";
                             ctx.fillText("Congratulations", canvas.width / 2, 280 + Math.sin(Date.now() / 200) * 10);
-                        
+
                             ctx.fillStyle = color;
                             ctx.font = "bold 30px Arial";
                             ctx.textAlign = "center";
                             ctx.fillText(largestIcon.username, canvas.width / 2, 240 + Math.sin(Date.now() / 200) * 10);
-                        
+
                             animationID = requestAnimationFrame(drawText);
                         }
-                     
+
                         drawText();
 
                     };
                     function stopAnimation() {
                         cancelAnimationFrame(animationID);
                     }
-                    
+
                     let canvas2 = document.getElementById("myCanvas2");
                     let ctx2 = canvas2.getContext("2d");
 
@@ -387,11 +391,11 @@ function drawIcons(currentTime) {
 
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
                         canvas.width = canvas.width;
-                
+
                         deleteAllIcons()
                         hideFireworkGif();
                         stopAnimation();
-                    }, 5000); // 30 saniye beklet
+                    }, 10000); // 30 saniye beklet
                     return;
                 }
             }
