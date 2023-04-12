@@ -6,7 +6,7 @@ let finishGame = false;
 let iconList = [];
 let nextId = 1;
 let winner = [];
-
+let animationID;
 // START
 $(document).ready(() => {
     // Connect
@@ -18,7 +18,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "oyun_aze";
+        let targetLive = "upfollowers.gacor";
         connect(targetLive);
     }, 5000);
 
@@ -142,6 +142,22 @@ let lastSizeChangeTime = 0;
 let lastSize = 0;
 
 
+function showFireworkGif() {
+    const fireworkGif = document.getElementById('fireworkGif');
+    fireworkGif.style.display = 'block';
+    fireworkGif.style.zIndex = 9999; // Canvas üzerinde görünmesini sağlamak için yüksek bir z-index değeri ayarlayın
+    fireworkGif.style.position = 'absolute';
+    fireworkGif.style.top = '30%';
+    fireworkGif.style.left = '50%';
+    fireworkGif.style.width = canvas.width + 'px';
+    fireworkGif.style.height = canvas.height + 'px';
+    fireworkGif.style.transform = 'translate(-50%, -50%)';
+}
+
+function hideFireworkGif() {
+    const fireworkGif = document.getElementById('fireworkGif');
+    fireworkGif.style.display = 'none';
+}
 
 
 function drawIcons(currentTime) {
@@ -272,140 +288,66 @@ function drawIcons(currentTime) {
                     ctx.drawImage(icon.img, icon.x, icon.y, icon.size, icon.size);
                     ctx.restore();
                 });
-                let particles = [];
-                let fireworks = [];
                 // Check if largest icon is equal to canvas size
                 if (largestIcon.size >= canvas.width && largestIcon.size >= canvas.height) {
                     // Stop all movements
 
-                    class Particle {
-                        constructor(x, y, size, speed, color) {
-                            this.x = x;
-                            this.y = y;
-                            this.size = size;
-                            this.speed = speed;
-                            this.color = color;
-                            this.alpha = 1;
-                            this.decay = 0.015;
-                        }
 
-                        update() {
-                            this.x += this.speed.x;
-                            this.y += this.speed.y;
-                            this.size = Math.max(this.size - 0.1, 0);
-                            this.alpha -= this.decay;
-                        }
+                    showFireworkGif();
 
-                        draw() {
-                            ctx.globalAlpha = this.alpha;
-                            ctx.fillStyle = this.color;
-                            ctx.beginPath();
-                            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                            ctx.closePath();
-                            ctx.fill();
-                            ctx.globalAlpha = 1;
-                        }
-                    }
+                    const backgroundImage = new Image();
+                    backgroundImage.src = largestIcon.imgUrl;
+                    backgroundImage.onload = () => {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                    function createFirework(x, y) {
-                        const particleCount = 30;
+                        // Define clipping path
+                        ctx.beginPath();
+                        ctx.arc(200, 200, 200, 0, 2 * Math.PI);
+                        ctx.closePath();
+                        ctx.clip();
 
-                        const colors = ['#ff0000', '#ff7700', '#ffbb00', '#00ff00', '#00aaff', '#8a2be2', '#ff00ff'];
-                        const color = colors[Math.floor(Math.random() * colors.length)];
+                        // Draw background image
+                        ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
-                        for (let i = 0; i < particleCount; i++) {
-                            const size = Math.random() * 3 + 2;
-                            const speed = {
-                                x: Math.random() * 4 - 2,
-                                y: Math.random() * 4 - 2
-                            };
-                            particles.push(new Particle(x, y, size, speed, color));
-                        }
-
-                        return particles;
-                    }
-
-
-                    setInterval(() => {
-                        const x = Math.random() * canvas.width;
-                        const y = Math.random() * canvas.height;
-                        fireworks.push(...createFirework(x, y));
-                    }, 100);
-
-                    let animationId;
-                    function animate() {
-                        ctx.save();
-                        const backgroundImage = new Image();
-                        backgroundImage.src = largestIcon.imgUrl;
-                        backgroundImage.onload = () => {
+                        let colors = [
+                            '#ff0000', // Red
+                            '#00ff00', // Green
+                            '#000000', // Black
+                            '#000000', // Black
+                            '#00aaff', // Light Blue
+                            '#8a2be2', // Purple
+                            '#ff00ff', // Magenta
+                            '#000000', // Black
+                            '#ffffff', // White
+                            '#ffff00', // Bright Yellow
+                            '#ffffff', // White
+                            '#ffffff', // White
+                        ];
+                        
+                        function drawText() {
                             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                            // Define clipping path
-                            ctx.beginPath();
-                            ctx.arc(200, 200, 200, 0, 2 * Math.PI);
-                            ctx.closePath();
-                            ctx.clip();
-
-                            // Draw background image
-                            ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-
-                            // Draw animated text
-                            let colors = [
-                                '#ff0000', // Red
-                                '#00ff00', // Green
-                                '#000000', // Black
-                                '#000000', // Black
-                                '#00aaff', // Light Blue
-                                '#8a2be2', // Purple
-                                '#ff00ff', // Magenta
-                                '#000000', // Black
-                                '#ffffff', // White
-                                '#ffff00', // Bright Yellow
-                                '#ffffff', // White
-                                '#ffffff', // White
-                            ];
-
-
+                        
                             let color = colors[Math.floor(Math.random() * colors.length)];
                             ctx.fillStyle = color;
                             ctx.font = "bold 30px Arial";
                             ctx.textAlign = "center";
                             ctx.fillText("Congratulations", canvas.width / 2, 280 + Math.sin(Date.now() / 200) * 10);
-
-                            // Draw winner name
-
-
+                        
                             ctx.fillStyle = color;
                             ctx.font = "bold 30px Arial";
                             ctx.textAlign = "center";
                             ctx.fillText(largestIcon.username, canvas.width / 2, 240 + Math.sin(Date.now() / 200) * 10);
-                          
-                        };
-
-                        for (let i = 0; i < fireworks.length; i++) {
-                            fireworks[i].update();
-                            fireworks[i].draw();
-
-                            if (fireworks[i].alpha <= 0) {
-                                fireworks.splice(i, 1);
-                                i--;
-                            }
+                        
+                            animationID = requestAnimationFrame(drawText);
                         }
+                     
+                        drawText();
 
-                        animationId = requestAnimationFrame(animate);
-                        ctx.restore();
-                      
-                    }
-
+                    };
                     function stopAnimation() {
-                        cancelAnimationFrame(animationId);
-                        particles = [];
-                        fireworks = [];
+                        cancelAnimationFrame(animationID);
                     }
-
-                    animate();
-
-
+                    
                     let canvas2 = document.getElementById("myCanvas2");
                     let ctx2 = canvas2.getContext("2d");
 
@@ -442,17 +384,14 @@ function drawIcons(currentTime) {
 
                     finishGame = true;
                     setTimeout(function () {
-                        // Stop animation before clearing the canvas
-                        stopAnimation();
-                    
-                        // Clear and reset the first canvas
+
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
                         canvas.width = canvas.width;
-                        ctx.restore();
-                    
-                        deleteAllIcons();
-                    }, 5000);
-                    
+                
+                        deleteAllIcons()
+                        hideFireworkGif();
+                        stopAnimation();
+                    }, 5000); // 30 saniye beklet
                     return;
                 }
             }
@@ -574,7 +513,7 @@ connection.on('social', (data) => {
     if (!finishGame) {
         for (let i = 0; i < iconList.length; i++) {
             if (iconList[i].username === userName) {
-                iconList[i].size += 3; // add 20 to each object's value property
+                iconList[i].size += 0.5; // add 20 to each object's value property
                 let icons = document.getElementsByClassName('icon');
                 for (let j = 0; j < icons.length; j++) {
                     if (icons[j].src === iconList[i].imgurl) {
@@ -596,7 +535,7 @@ connection.on('social', (data) => {
         }
 
         if (!userlistExist) {
-            const iconSize = 40 + 3;
+            const iconSize = 40 + 0.5;
             const iconImgUrl = profilePictureUrl;
 
             const icon = {
