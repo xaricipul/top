@@ -18,7 +18,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "oyun_aze";
+        let targetLive = "serpentine_3d";
         connect(targetLive);
     }, 30000);
 
@@ -567,7 +567,7 @@ connection.on('social', (data) => {
     if (!finishGame) {
         for (let i = 0; i < iconList.length; i++) {
             if (iconList[i].username === userName) {
-                iconList[i].size += 2; // add 20 to each object's value property
+                iconList[i].size += 3; // add 20 to each object's value property
                 let icons = document.getElementsByClassName('icon');
                 for (let j = 0; j < icons.length; j++) {
                     if (icons[j].src === iconList[i].imgurl) {
@@ -589,7 +589,7 @@ connection.on('social', (data) => {
         }
 
         if (!userlistExist) {
-            const iconSize = 40 + 2;
+            const iconSize = 40 + 3;
             const iconImgUrl = profilePictureUrl;
 
             const icon = {
