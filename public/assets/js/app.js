@@ -561,13 +561,14 @@ connection.on('social', (data) => {
     if (finishGame) {
         return;
     }
+    alert("A");
     let userName = data.uniqueId;
     let profilePictureUrl = data.profilePictureUrl;
     let userlistExist = false;
     if (!finishGame) {
         for (let i = 0; i < iconList.length; i++) {
             if (iconList[i].username === userName) {
-                iconList[i].size += 0.5; // add 20 to each object's value property
+                iconList[i].size += 1; // add 20 to each object's value property
                 let icons = document.getElementsByClassName('icon');
                 for (let j = 0; j < icons.length; j++) {
                     if (icons[j].src === iconList[i].imgurl) {
@@ -589,7 +590,7 @@ connection.on('social', (data) => {
         }
 
         if (!userlistExist) {
-            const iconSize = 40 + 0.5;
+            const iconSize = 40 + 1;
             const iconImgUrl = profilePictureUrl;
 
             const icon = {
