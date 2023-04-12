@@ -18,7 +18,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "upfollowers.gacor";
+        let targetLive = "oyun_aze";
         connect(targetLive);
     }, 5000);
 
