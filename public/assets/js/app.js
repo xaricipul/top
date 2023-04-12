@@ -20,7 +20,7 @@ $(document).ready(() => {
     setTimeout(function () {
         let targetLive = "oyun_aze";
         connect(targetLive);
-    }, 30000);
+    }, 5000);
 
 })
 
@@ -334,6 +334,7 @@ function drawIcons(currentTime) {
 
                     let animationId;
                     function animate() {
+                        ctx.save();
                         const backgroundImage = new Image();
                         backgroundImage.src = largestIcon.imgUrl;
                         backgroundImage.onload = () => {
@@ -378,7 +379,7 @@ function drawIcons(currentTime) {
                             ctx.font = "bold 30px Arial";
                             ctx.textAlign = "center";
                             ctx.fillText(largestIcon.username, canvas.width / 2, 240 + Math.sin(Date.now() / 200) * 10);
-
+                          
                         };
 
                         for (let i = 0; i < fireworks.length; i++) {
@@ -392,6 +393,8 @@ function drawIcons(currentTime) {
                         }
 
                         animationId = requestAnimationFrame(animate);
+                        ctx.restore();
+                      
                     }
 
                     function stopAnimation() {
@@ -439,13 +442,17 @@ function drawIcons(currentTime) {
 
                     finishGame = true;
                     setTimeout(function () {
-
+                        // Stop animation before clearing the canvas
+                        stopAnimation();
+                    
+                        // Clear and reset the first canvas
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
                         canvas.width = canvas.width;
-                        stopAnimation();
-                        deleteAllIcons()
-
-                    }, 5000); // 30 saniye beklet
+                        ctx.restore();
+                    
+                        deleteAllIcons();
+                    }, 5000);
+                    
                     return;
                 }
             }
