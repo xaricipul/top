@@ -18,7 +18,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "oyun_aze";
+        let targetLive = "serpentine_3d";
         connect(targetLive);
     }, 5000);
 
