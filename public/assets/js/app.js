@@ -18,7 +18,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "oyun_aze";
+        let targetLive = "upfollowers.gacor";
         connect(targetLive);
     }, 5000);
 
@@ -28,6 +28,16 @@ $(document).ready(() => {
 /*
 * LIVE TIKTOK
 */
+
+function playSound() {
+    var excludedNumbers = [4, 10, 11];
+    var mode;
+    do {
+      mode = Math.floor(Math.random() * 26) + 1;
+    } while (excludedNumbers.includes(mode));
+    
+    document.getElementById("sfx"+mode).play();
+  }
 
 function connect(targetLive) {
     if (targetLive !== '') {
@@ -141,7 +151,6 @@ let largestIconSize = null;
 let lastSizeChangeTime = 0;
 let lastSize = 0;
 
-
 function showFireworkGif() {
     const fireworkGif = document.getElementById('fireworkGif');
     fireworkGif.style.display = 'block';
@@ -153,6 +162,9 @@ function showFireworkGif() {
     fireworkGif.style.height = canvas.height + 'px';
     fireworkGif.style.transform = 'translate(-50%, -50%)';
 }
+
+
+  
 
 function hideFireworkGif() {
     const fireworkGif = document.getElementById('fireworkGif');
@@ -292,6 +304,7 @@ function drawIcons(currentTime) {
                 if (largestIcon.size >= canvas.width && largestIcon.size >= canvas.height) {
                     // Stop all movements
 
+                    playSound();
 
                     showFireworkGif();
 
@@ -384,9 +397,10 @@ function drawIcons(currentTime) {
                         };
                     }
 
-
+ 
 
                     finishGame = true;
+                   
                     setTimeout(function () {
 
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
