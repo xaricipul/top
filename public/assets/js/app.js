@@ -26,7 +26,7 @@ $(document).ready(() => {
 
 
 /*
-* LIVE TIKTO
+* LIVE TIKTOK
 */
 
 function playSound() {
@@ -151,26 +151,49 @@ let largestIconSize = null;
 let lastSizeChangeTime = 0;
 let lastSize = 0;
 
+let isFireworkGifScaled = false;
+
 function showFireworkGif() {
-    const fireworkGif = document.getElementById('fireworkGif');
+    const fireworkGifIds = ['fireworkGif1', 'fireworkGif2', 'fireworkGif3'];
+    const randomIndex = Math.floor(Math.random() * fireworkGifIds.length); // Generate a random index between 0 and 3
+    const fireworkGif = document.getElementById(fireworkGifIds[randomIndex]);
+    const scaleFactor = 0.9;
+
     fireworkGif.style.display = 'block';
-    fireworkGif.style.zIndex = 9999; // Canvas üzerinde görünmesini sağlamak için yüksek bir z-index değeri ayarlayın
+    fireworkGif.style.zIndex = 9999;
     fireworkGif.style.position = 'absolute';
-    fireworkGif.style.top = '30%';
-    fireworkGif.style.left = '50%';
-    fireworkGif.style.width = canvas.width + 'px';
-    fireworkGif.style.height = canvas.height + 'px';
-    fireworkGif.style.transform = 'translate(-50%, -50%)';
+
+    const canvasRect = canvas.getBoundingClientRect();
+    const fireworkGifRect = fireworkGif.getBoundingClientRect();
+
+    if (!isFireworkGifScaled) {
+        const newWidth = fireworkGifRect.width * scaleFactor;
+        const newHeight = fireworkGifRect.height * scaleFactor;
+        fireworkGif.style.width = newWidth + 'px';
+        fireworkGif.style.height = newHeight + 'px';
+        isFireworkGifScaled = true;
+    }
+
+    fireworkGif.style.top = (canvasRect.top + (canvasRect.height / 2) - (fireworkGif.offsetHeight / 2)) + 'px';
+    fireworkGif.style.left = (canvasRect.left + (canvasRect.width / 2) - (fireworkGif.offsetWidth / 2)) + 'px';
 }
 
+window.addEventListener('resize', showFireworkGif);
 
-  
+
 
 function hideFireworkGif() {
-    const fireworkGif = document.getElementById('fireworkGif');
-    fireworkGif.style.display = 'none';
-}
-
+    const fireworkGifIds = ['fireworkGif1', 'fireworkGif2', 'fireworkGif3'];
+    const lastIndex = fireworkGifIds.length - 1;
+    for (let i = 0; i < lastIndex; i++) {
+      const fireworkGif = document.getElementById(fireworkGifIds[i]);
+      fireworkGif.style.display = 'none';
+    }
+    const lastFireworkGif = document.getElementById(fireworkGifIds[lastIndex]);
+    lastFireworkGif.style.display = 'none';
+  }
+  
+  
 
 function drawIcons(currentTime) {
     if (finishGame) {

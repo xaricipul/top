@@ -283,6 +283,7 @@
       transform: rotate(360deg);
     }
   }
+
   .club-light {
     position: fixed;
     width: 100vw;
@@ -293,15 +294,16 @@
   }
 
   @keyframes flash {
+
     0%,
     100% {
       opacity: 0;
     }
+
     50% {
       opacity: 1;
     }
   }
-
 </style>
 
 <body>
@@ -317,70 +319,72 @@
 
 
   <canvas id="myCanvas2" width="400" height="200" style="display: block; margin: 20px auto 0;"></canvas>
-  <img id="fireworkGif" src="fire3.gif" style="display: none; position: absolute;">
+  <img id="fireworkGif1" src="fire1.gif" style="display: none; position: absolute;">
+  <img id="fireworkGif2" src="fire2.gif" style="display: none; position: absolute;">
+  <img id="fireworkGif3" src="fire3.gif" style="display: none; position: absolute;">
   <audio id="sfx1" class="d-block">
-    <source src="../assets/sounds/1.mp3"  preload="auto" type="audio/mpeg">
+    <source src="../assets/sounds/1.mp3" preload="auto" type="audio/mpeg">
   </audio>
   <audio id="sfx2" class="d-block">
-    <source src="../assets/sounds/2.mp3"  preload="auto" type="audio/mpeg">
+    <source src="../assets/sounds/2.mp3" preload="auto" type="audio/mpeg">
   </audio>
   <audio id="sfx3" class="d-block">
     <source src="../assets/sounds/3.mp3" preload="auto" type="audio/mpeg">
   </audio>
   <audio id="sfx5" class="d-block">
-    <source src="../assets/sounds/5.mp3"  preload="auto" type="audio/mpeg">
+    <source src="../assets/sounds/5.mp3" preload="auto" type="audio/mpeg">
   </audio>
   <audio id="sfx6" class="d-block">
-    <source src="../assets/sounds/6.mp3"  preload="auto" type="audio/mpeg">
+    <source src="../assets/sounds/6.mp3" preload="auto" type="audio/mpeg">
   </audio>
   <audio id="sfx7" class="d-block">
-    <source src="../assets/sounds/7.mp3"   preload="auto" type="audio/mpeg">
+    <source src="../assets/sounds/7.mp3" preload="auto" type="audio/mpeg">
   </audio>
   <audio id="sfx8" class="d-block">
-    <source src="../assets/sounds/8.mp3"  preload="auto" type="audio/mpeg">
+    <source src="../assets/sounds/8.mp3" preload="auto" type="audio/mpeg">
   </audio>
   <audio id="sfx9" class="d-block">
-    <source src="../assets/sounds/9.mp3"  preload="auto" type="audio/mpeg">
+    <source src="../assets/sounds/9.mp3" preload="auto" type="audio/mpeg">
   </audio>
   <audio id="sfx12" class="d-block">
-    <source src="../assets/sounds/12.mp3"  preload="auto" type="audio/mpeg">
+    <source src="../assets/sounds/12.mp3" preload="auto" type="audio/mpeg">
   </audio>
   <audio id="sfx13" class="d-block">
-    <source src="../assets/sounds/13.mp3"  preload="auto" type="audio/mpeg">
+    <source src="../assets/sounds/13.mp3" preload="auto" type="audio/mpeg">
   </audio>
   <audio id="sfx14" class="d-block">
-    <source src="../assets/sounds/14.mp3"  preload="auto" type="audio/mpeg">
+    <source src="../assets/sounds/14.mp3" preload="auto" type="audio/mpeg">
   </audio>
   <audio id="sfx15" class="d-block">
-    <source src="../assets/sounds/15.mp3"  preload="auto" type="audio/mpeg">
+    <source src="../assets/sounds/15.mp3" preload="auto" type="audio/mpeg">
   </audio>
   <audio id="sfx16" class="d-block">
-    <source src="../assets/sounds/16.mp3"  preload="auto" type="audio/mpeg">
+    <source src="../assets/sounds/16.mp3" preload="auto" type="audio/mpeg">
   </audio>
   <audio id="sfx17" class="d-block">
     <source src="../assets/sounds/17.mp3" preload="auto" type="audio/mpeg">
   </audio>
   <audio id="sfx18" class="d-block">
-    <source src="../assets/sounds/18.mp3"  preload="auto" type="audio/mpeg">
-  </audio> 
+    <source src="../assets/sounds/18.mp3" preload="auto" type="audio/mpeg">
+  </audio>
   <audio id="sfx19" class="d-block">
-    <source src="../assets/sounds/19.mp3"  preload="auto" type="audio/mpeg">
+    <source src="../assets/sounds/19.mp3" preload="auto" type="audio/mpeg">
   </audio>
   <audio id="sfx20" class="d-block">
-    <source src="../assets/sounds/20.mp3"  preload="auto" type="audio/mpeg">
+    <source src="../assets/sounds/20.mp3" preload="auto" type="audio/mpeg">
   </audio>
-   <audio id="sfx21" class="d-block">
-    <source src="../assets/sounds/21.mp3"  preload="auto" type="audio/mpeg">
+  <audio id="sfx21" class="d-block">
+    <source src="../assets/sounds/21.mp3" preload="auto" type="audio/mpeg">
   </audio> <audio id="sfx22" class="d-block">
-    <source src="../assets/sounds/22.mp3"  preload="auto" type="audio/mpeg">
+    <source src="../assets/sounds/22.mp3" preload="auto" type="audio/mpeg">
   </audio> <audio id="sfx23" class="d-block">
-    <source src="../assets/sounds/23.mp3"  preload="auto" type="audio/mpeg">
+    <source src="../assets/sounds/23.mp3" preload="auto" type="audio/mpeg">
   </audio> <audio id="sfx24" class="d-block">
-    <source src="../assets/sounds/24.mp3"  preload="auto" type="audio/mpeg">
+    <source src="../assets/sounds/24.mp3" preload="auto" type="audio/mpeg">
   </audio> <audio id="sfx25" class="d-block">
-    <source src="../assets/sounds/25.mp3"  preload="auto" type="audio/mpeg">
+    <source src="../assets/sounds/25.mp3" preload="auto" type="audio/mpeg">
   </audio>
-  
+
   <div class="mb-3 mt-2">
     <input id="targetUsername" type="text" placeholder="daxil et @istifadəçi" style="width:140px;" />
     <button id="targetConnect">Qoş</button>
@@ -395,25 +399,25 @@
   </audio> -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-    createClubLights(4);
+      createClubLights(4);
 
-    function createClubLights(count) {
-      for (let i = 0; i < count; i++) {
-        const light = document.createElement("div");
-        light.className = "club-light";
-        light.style.backgroundImage = `radial-gradient(circle, ${randomColor()} 1%, transparent 1%) 50% 50%`;
-        light.style.animationDuration = `${(Math.random() * 0.5 + 0.5).toFixed(2)}s`;
-        light.style.animationDelay = `${(Math.random() * 0.5).toFixed(2)}s`;
+      function createClubLights(count) {
+        for (let i = 0; i < count; i++) {
+          const light = document.createElement("div");
+          light.className = "club-light";
+          light.style.backgroundImage = `radial-gradient(circle, ${randomColor()} 1%, transparent 1%) 50% 50%`;
+          light.style.animationDuration = `${(Math.random() * 0.5 + 0.5).toFixed(2)}s`;
+          light.style.animationDelay = `${(Math.random() * 0.5).toFixed(2)}s`;
 
-        document.body.appendChild(light);
+          document.body.appendChild(light);
+        }
       }
-    }
 
-    function randomColor() {
-      const colors = ["red", "green", "blue", "yellow", "purple", "orange"];
-      return colors[Math.floor(Math.random() * colors.length)];
-    }
-  });
+      function randomColor() {
+        const colors = ["red", "green", "blue", "yellow", "purple", "orange"];
+        return colors[Math.floor(Math.random() * colors.length)];
+      }
+    });
     // Yükleme durumunu gösteren loading elementini göster
     function showLoading() {
       document.getElementById("loading").style.display = "block";
