@@ -1,51 +1,489 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TakipBizz user2 + 1 + mvorxan</title>
+<meta name="description" content="TakipBiz">
+<meta name="author" content="adierebel">
+<link rel="stylesheet" href="assets/css/reset.css?v=1.0">
+<link rel="stylesheet" href="assets/css/style.css?v=1.0">
+<script type="text/javascript" src="words.js"></script>
+<script type="text/javascript" src="msg.js"></script>
+<script type="text/javascript" src="assets/tts/speakClient.js"></script>
+<script type="text/javascript" src="assets/js/jquery.js"></script>
+<script type="text/javascript" src="assets/js/socket.io.js"></script>
+<script type="text/javascript" src="assets/js/connection.js"></script>
+<script type="text/javascript" src="assets/js/app.js"></script>
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Club Lights Effect</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Telefon İçin İkon Oluşturma</title>
+
 </head>
-<body>
-  <div id="clubLights"></div>
-  <script src="script.js"></script>
-</body>
-</html>
 <style>
-body, html {
-  height: 100%;
-  margin: 0;
-}
+  body {
+    background-image: url('back.jpg');
+  }
 
-#clubLights {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  opacity: 0;
-  background-color: transparent;
-}
+  #myCanvas {
+    display: block;
+    margin: 50px auto 0;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    background-image: url('back11.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+    padding: 20px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+  }
 
+  #myCanvas:hover {
+    border-color: #333;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    transform: scale(1.05);
+  }
+
+  /* Canvas içerisindeki metinler için stiller */
+  #myCanvas p {
+    font-family: "Arial", sans-serif;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Canvas içerisindeki şekiller için stiller */
+  #myCanvas .square {
+    fill: #f44336;
+    stroke: #d32f2f;
+    stroke-width: 2;
+  }
+
+  #myCanvas .circle {
+    fill: #2196f3;
+    stroke: #1976d2;
+    stroke-width: 2;
+  }
+
+  #myCanvas .triangle {
+    fill: #4caf50;
+    stroke: #388e3c;
+    stroke-width: 2;
+  }
+
+  /* Canvas içerisindeki animasyonlu objeler için stiller */
+  #myCanvas .animated-object {
+    fill: #ffc107;
+    stroke: #ffa000;
+    stroke-width: 2;
+    animation: move-object 2s ease-in-out alternate infinite;
+  }
+
+  @keyframes move-object {
+    from {
+      transform: translate(0, 0);
+    }
+
+    to {
+      transform: translate(20px, 20px);
+    }
+  }
+
+  #myCanvas2 {
+    display: block;
+    margin: 50px auto 0;
+    border: 1px solid black;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    background-color: rgb(43, 81, 185);
+    border-radius: 10px;
+    padding: 20px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+  }
+
+  #myCanvas2:hover {
+    border-color: #333;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    transform: scale(1.05);
+  }
+
+  /* Canvas içerisindeki metinler için stiller */
+  #myCanvas2 p {
+    font-family: "Arial", sans-serif;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Canvas içerisindeki şekiller için stiller */
+  #myCanvas2 .square {
+    fill: #f44336;
+    stroke: #d32f2f;
+    stroke-width: 2;
+  }
+
+  #myCanvas2 .circle {
+    fill: #2196f3;
+    stroke: #1976d2;
+    stroke-width: 2;
+  }
+
+  #myCanvas2 .triangle {
+    fill: #4caf50;
+    stroke: #388e3c;
+    stroke-width: 2;
+  }
+
+  /* Canvas içerisindeki animasyonlu objeler için stiller */
+  #myCanvas2 .animated-object {
+    fill: #ffc107;
+    stroke: #ffa000;
+    stroke-width: 2;
+    animation: move-object 2s ease-in-out alternate infinite;
+  }
+
+  @keyframes move-object {
+    from {
+      transform: translate(0, 0);
+    }
+
+    to {
+      transform: translate(20px, 20px);
+    }
+  }
+
+
+
+  #myCanvas3 {
+    display: block;
+    margin: 50px auto 0;
+    border: 1px solid black;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    background-color: rgb(1, 210, 172);
+    border-radius: 10px;
+    padding: 20px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+  }
+
+  #myCanvas3:hover {
+    border-color: #333;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    transform: scale(1.05);
+  }
+
+  /* Canvas içerisindeki metinler için stiller */
+  #myCanvas3 p {
+    font-family: "Arial", sans-serif;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Canvas içerisindeki şekiller için stiller */
+  #myCanvas3 .square {
+    fill: #f44336;
+    stroke: #d32f2f;
+    stroke-width: 2;
+  }
+
+  #myCanvas3 .circle {
+    fill: hwb(19 13% 5%);
+    stroke: #df4a00;
+    stroke-width: 2;
+  }
+
+  #myCanvas3 .triangle {
+    fill: #4caf50;
+    stroke: #388e3c;
+    stroke-width: 2;
+  }
+
+  /* Canvas içerisindeki animasyonlu objeler için stiller */
+  #myCanvas3 .animated-object {
+    fill: #ffc107;
+    stroke: #ffa000;
+    stroke-width: 2;
+    animation: move-object 2s ease-in-out alternate infinite;
+  }
+
+  @keyframes move-object {
+    from {
+      transform: translate(0, 0);
+    }
+
+    to {
+      transform: translate(20px, 20px);
+    }
+  }
+
+  #loading {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  #loading p {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .spinner {
+    margin: 0 auto;
+    width: 40px;
+    height: 40px;
+    position: relative;
+  }
+
+  .spinner div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    margin: 4px;
+    border: 4px solid #000;
+    border-radius: 50%;
+    animation: spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #000 transparent transparent transparent;
+  }
+
+  .spinner div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+
+  .spinner div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+
+  .spinner div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+
+  @keyframes spinner {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .club-light {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle, transparent 1%, transparent 1%) 50% 50%;
+    opacity: 0;
+    animation: flash 1s linear infinite;
+  }
+
+  @keyframes flash {
+    0%,
+    100% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
 
 </style>
-<script>
-const clubLights = document.getElementById("clubLights");
 
-function randomColor() {
-  const colors = ["red", "green", "blue", "yellow", "purple", "cyan", "magenta", "white"];
-  return colors[Math.floor(Math.random() * colors.length)];
-}
+<body>
+  <div id="loading">
+    <p>Loading...</p>
+    <div class="spinner"></div>
+  </div>
+  <canvas id="myCanvas" width="400" height="400" style="display: block; margin: 20px auto 0;">
 
-function changeColor() {
-  clubLights.style.backgroundColor = randomColor();
-  clubLights.style.opacity = Math.random();
-}
+  </canvas>
 
-function startClubLights() {
-  setInterval(changeColor, 100); // Change the interval to adjust the speed of the effect.
-}
+  <canvas id="myCanvas3" width="400" height="70" style="display: block; margin: 20px auto 0;"></canvas>
 
-startClubLights();
 
-</script>
+  <canvas id="myCanvas2" width="400" height="200" style="display: block; margin: 20px auto 0;"></canvas>
+  <img id="fireworkGif" src="fire3.gif" style="display: none; position: absolute;">
+  <audio id="sfx1" class="d-block">
+    <source src="../assets/sounds/1.mp3"  preload="auto" type="audio/mpeg">
+  </audio>
+  <audio id="sfx2" class="d-block">
+    <source src="../assets/sounds/2.mp3"  preload="auto" type="audio/mpeg">
+  </audio>
+  <audio id="sfx3" class="d-block">
+    <source src="../assets/sounds/3.mp3" preload="auto" type="audio/mpeg">
+  </audio>
+  <audio id="sfx5" class="d-block">
+    <source src="../assets/sounds/5.mp3"  preload="auto" type="audio/mpeg">
+  </audio>
+  <audio id="sfx6" class="d-block">
+    <source src="../assets/sounds/6.mp3"  preload="auto" type="audio/mpeg">
+  </audio>
+  <audio id="sfx7" class="d-block">
+    <source src="../assets/sounds/7.mp3"   preload="auto" type="audio/mpeg">
+  </audio>
+  <audio id="sfx8" class="d-block">
+    <source src="../assets/sounds/8.mp3"  preload="auto" type="audio/mpeg">
+  </audio>
+  <audio id="sfx9" class="d-block">
+    <source src="../assets/sounds/9.mp3"  preload="auto" type="audio/mpeg">
+  </audio>
+  <audio id="sfx12" class="d-block">
+    <source src="../assets/sounds/12.mp3"  preload="auto" type="audio/mpeg">
+  </audio>
+  <audio id="sfx13" class="d-block">
+    <source src="../assets/sounds/13.mp3"  preload="auto" type="audio/mpeg">
+  </audio>
+  <audio id="sfx14" class="d-block">
+    <source src="../assets/sounds/14.mp3"  preload="auto" type="audio/mpeg">
+  </audio>
+  <audio id="sfx15" class="d-block">
+    <source src="../assets/sounds/15.mp3"  preload="auto" type="audio/mpeg">
+  </audio>
+  <audio id="sfx16" class="d-block">
+    <source src="../assets/sounds/16.mp3"  preload="auto" type="audio/mpeg">
+  </audio>
+  <audio id="sfx17" class="d-block">
+    <source src="../assets/sounds/17.mp3" preload="auto" type="audio/mpeg">
+  </audio>
+  <audio id="sfx18" class="d-block">
+    <source src="../assets/sounds/18.mp3"  preload="auto" type="audio/mpeg">
+  </audio> 
+  <audio id="sfx19" class="d-block">
+    <source src="../assets/sounds/19.mp3"  preload="auto" type="audio/mpeg">
+  </audio>
+  <audio id="sfx20" class="d-block">
+    <source src="../assets/sounds/20.mp3"  preload="auto" type="audio/mpeg">
+  </audio>
+   <audio id="sfx21" class="d-block">
+    <source src="../assets/sounds/21.mp3"  preload="auto" type="audio/mpeg">
+  </audio> <audio id="sfx22" class="d-block">
+    <source src="../assets/sounds/22.mp3"  preload="auto" type="audio/mpeg">
+  </audio> <audio id="sfx23" class="d-block">
+    <source src="../assets/sounds/23.mp3"  preload="auto" type="audio/mpeg">
+  </audio> <audio id="sfx24" class="d-block">
+    <source src="../assets/sounds/24.mp3"  preload="auto" type="audio/mpeg">
+  </audio> <audio id="sfx25" class="d-block">
+    <source src="../assets/sounds/25.mp3"  preload="auto" type="audio/mpeg">
+  </audio>
+  
+  <div class="mb-3 mt-2">
+    <input id="targetUsername" type="text" placeholder="daxil et @istifadəçi" style="width:140px;" />
+    <button id="targetConnect">Qoş</button>
+  </div>
+  <td>Qoşulma statusu</td>
+  <td>&nbsp;:&nbsp;</td>
+  <span id="stateText">Qoşulmayıb</span>
+  <div id="icon-container"></div>
+  <!-- <iframe src="silence.mp3" allow="autoplay" id="audio" hidden></iframe>
+  <audio id="player" autoplay loop controls>
+    <source src="1.mp3" type="audio/mp3">
+  </audio> -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    createClubLights(4);
+
+    function createClubLights(count) {
+      for (let i = 0; i < count; i++) {
+        const light = document.createElement("div");
+        light.className = "club-light";
+        light.style.backgroundImage = `radial-gradient(circle, ${randomColor()} 1%, transparent 1%) 50% 50%`;
+        light.style.animationDuration = `${(Math.random() * 0.5 + 0.5).toFixed(2)}s`;
+        light.style.animationDelay = `${(Math.random() * 0.5).toFixed(2)}s`;
+
+        document.body.appendChild(light);
+      }
+    }
+
+    function randomColor() {
+      const colors = ["red", "green", "blue", "yellow", "purple", "orange"];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+  });
+    // Yükleme durumunu gösteren loading elementini göster
+    function showLoading() {
+      document.getElementById("loading").style.display = "block";
+    }
+
+    // Yükleme durumunu gösteren loading elementini gizle
+    function hideLoading() {
+      document.getElementById("loading").style.display = "none";
+    }
+
+    // showLoading();
+    // Radyo player'ı yüklenince
+    // document.getElementById("player").addEventListener("canplay", function () {
+    //   // Loading elementini gizle
+    //   hideLoading();
+    // });
+
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+    const globalVelocity = { x: 5, y: 5 };
+    const canvas3 = document.getElementById("myCanvas3");
+    const ctx3 = canvas3.getContext("2d");
+
+    const img = new Image();
+
+    img.onload = function () {
+      ctx3.font = "20px Arial";
+      ctx3.fillStyle = "#333";
+      ctx3.fillText("1", 0, 22);
+      ctx3.drawImage(img, 10, 0, 30, 30);
+      ctx3.font = "16px Arial";
+      ctx3.fillStyle = "#333";
+      ctx3.fillText("zoom (10x)", 50, 20);
+    }
+    const img2 = new Image();
+    img2.src = "like.png";
+    img2.onload = function () {
+      ctx3.font = "20px Arial";
+      ctx3.fillStyle = "#333";
+      ctx3.fillText("5", 0, 58);
+      ctx3.drawImage(img2, 15, 38, 25, 25);
+      ctx3.font = "16px Arial";
+      ctx3.fillStyle = "#333";
+      ctx3.fillText("zoom (1x)", 50, 60);
+    }
+    const img4 = new Image();
+    img4.src = "share.png";
+    img4.onload = function () {
+      ctx3.font = "20px Arial";
+      ctx3.fillStyle = "#333";
+      ctx3.fillText("20", 175, 58);
+      ctx3.drawImage(img4, 204, 38, 25, 25);
+      ctx3.font = "16px Arial";
+      ctx3.fillStyle = "#333";
+      ctx3.fillText("zoom (5x)", 235, 60);
+    }
+    const img3 = new Image();
+    img3.src = "heart.png";
+    img3.onload = function () {
+      ctx3.font = "20px Arial";
+      ctx3.fillStyle = "#333";
+      ctx3.fillText("1", 180, 22);
+      ctx3.drawImage(img3, 200, 1, 30, 30);
+      ctx3.font = "16px Arial";
+      ctx3.fillStyle = "#333";
+      ctx3.fillText("zoom (50x)", 235, 20);
+    }
+
+    img.src = "2g.png";
+  </script>
+</body>
+
+</html>
