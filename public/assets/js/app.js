@@ -26,7 +26,7 @@ $(document).ready(() => {
 
 
 /*
-* LIVE TIKTOK
+* LIVE TIKTO
 */
 
 function playSound() {
