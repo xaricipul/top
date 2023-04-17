@@ -18,7 +18,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "oyun_aze";
+        let targetLive = "slotaze";
         connect(targetLive);
     }, 5000);
 
@@ -554,7 +554,7 @@ connection.on('social', (data) => {
     if (!finishGame) {
         for (let i = 0; i < iconList.length; i++) {
             if (iconList[i].username === userName) {
-                iconList[i].size += 0.5; // add 20 to each object's value property
+                iconList[i].size += 1; // add 20 to each object's value property
                 let icons = document.getElementsByClassName('icon');
                 for (let j = 0; j < icons.length; j++) {
                     if (icons[j].src === iconList[i].imgurl) {
