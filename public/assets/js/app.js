@@ -18,7 +18,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "slotaze";
+        let targetLive = "oyun_aze";
         connect(targetLive);
     }, 5000);
 
@@ -391,11 +391,11 @@ function drawIcons(currentTime) {
                     let canvas2 = document.getElementById("myCanvas2");
                     let ctx2 = canvas2.getContext("2d");
 
-                    if (winner.length === 3) {
+                    if (winner.length === 5) {
 
                         ctx2.clearRect(0, 0, canvas.width, canvas.height);
 
-                        winner.splice(0, 3);
+                        winner.splice(0, 5);
                     }
 
 
@@ -404,7 +404,7 @@ function drawIcons(currentTime) {
 
                     // Create the winner list
                     ctx2.font = "20px Arial";
-                    ctx2.fillStyle = "white";
+                    ctx2.fillStyle = "black";
                     ctx2.fillText("Winners:", 10, 30);
 
                     for (let i = 0; i < winner.length; i++) {
@@ -412,11 +412,9 @@ function drawIcons(currentTime) {
                         let img = new Image();
                         img.src = winner[i].imgurl;
 
-                        // Draw the image and username
-                        // Draw the image and username
                         img.onload = function () {
                             ctx2.drawImage(img, 10, 50 + i * 50, 40, 40); // Draw the image with a size of 40 x 40 pixels
-                            ctx2.fillText(i + 1 + ' - ' + winner[i].username, 60, 70 + i * 60); // Draw the username
+                            ctx2.fillText(i + 1 + ' - ' + winner[i].username, 60, 80 + i * 50); // Draw the username
                         };
                     }
 
