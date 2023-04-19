@@ -18,7 +18,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "oyun_aze";
+        let targetLive = "slotaze";
         connect(targetLive);
     }, 5000);
 
@@ -33,11 +33,11 @@ function playSound() {
     var excludedNumbers = [4, 10, 11];
     var mode;
     do {
-      mode = Math.floor(Math.random() * 26) + 1;
+        mode = Math.floor(Math.random() * 26) + 1;
     } while (excludedNumbers.includes(mode));
-    
-    document.getElementById("sfx"+mode).play();
-  }
+
+    document.getElementById("sfx" + mode).play();
+}
 
 function connect(targetLive) {
     if (targetLive !== '') {
@@ -186,14 +186,14 @@ function hideFireworkGif() {
     const fireworkGifIds = ['fireworkGif1', 'fireworkGif2', 'fireworkGif3'];
     const lastIndex = fireworkGifIds.length - 1;
     for (let i = 0; i < lastIndex; i++) {
-      const fireworkGif = document.getElementById(fireworkGifIds[i]);
-      fireworkGif.style.display = 'none';
+        const fireworkGif = document.getElementById(fireworkGifIds[i]);
+        fireworkGif.style.display = 'none';
     }
     const lastFireworkGif = document.getElementById(fireworkGifIds[lastIndex]);
     lastFireworkGif.style.display = 'none';
-  }
-  
-  
+}
+
+let lastCheckedSize = null;
 
 function drawIcons(currentTime) {
     if (finishGame) {
@@ -204,7 +204,6 @@ function drawIcons(currentTime) {
     if (!finishGame) {
         // Calculate elapsed time since last draw
         const elapsedTime = currentTime - lastDrawTime;
-
         if (elapsedTime >= drawInterval) {
             let overlappingIcon = null;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -225,15 +224,6 @@ function drawIcons(currentTime) {
                 }
                 if (!icon.hasOwnProperty("y")) {
                     icon.y = Math.random() * (canvas.height - icon.size);
-                }
-
-
-                // Set random move speed for each icon
-                if (!icon.hasOwnProperty("moveSpeed")) {
-                    icon.moveSpeed = {
-                        x: randomRange(minSpeed, maxSpeed) * (Math.random() > 0.5 ? 1 : -1),
-                        y: randomRange(minSpeed, maxSpeed) * (Math.random() > 0.5 ? 1 : -1),
-                    };
                 }
 
                 // Set random move speed for each icon
@@ -294,17 +284,25 @@ function drawIcons(currentTime) {
                     lastSizeChangeTime = currentTime;
                     lastSize = largestIcon.size;
                 }
+                // Check if it's been 1 minute since the last size change and set size to 41
                 if (currentTime - lastSizeChangeTime >= 60000 && largestIcon.size === lastSize) {
                     largestIcon.size = 41;
                 }
+
                 largestIcon.img.src = largestIcon.imgUrl;
 
                 // Set zIndex to highest value
                 largestIcon.zIndex = iconList.length;
+
                 // Check zIndex values for all icons in array
                 iconList.forEach((icon, index) => {
                     if (icon !== largestIcon && icon.zIndex >= largestIcon.zIndex) {
                         icon.zIndex = index;
+                    }
+
+                    // Remove any icons that haven't changed size in the last 2 minutes
+                    if (currentTime - icon.lastSizeChangeTime >= 120000 && icon.size === icon.lastSize) {
+                        iconList.splice(index, 1);
                     }
                 });
 
@@ -317,41 +315,26 @@ function drawIcons(currentTime) {
                     ctx.strokeStyle = 'yellow';
                     ctx.lineWidth = 2;
                     ctx.stroke();
+
                     // Draw the icon image inside the circle
                     ctx.save();
                     ctx.clip();
                     ctx.drawImage(icon.img, icon.x, icon.y, icon.size, icon.size);
                     ctx.restore();
                 });
+
                 // Check if largest icon is equal to canvas size
                 if (largestIcon.size >= canvas.width && largestIcon.size >= canvas.height) {
                     // Stop all movements
-
                     playSound();
-
                     showFireworkGif();
-
                     const backgroundImage = new Image();
                     backgroundImage.src = largestIcon.imgUrl;
                     backgroundImage.onload = () => {
                         // Save the current context state
-                      
+                        let currentContextState = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
-                        let colors = [
-                            '#ff0000', // Red
-                            '#00ff00', // Green
-                            '#000000', // Black
-                            '#000000', // Black
-                            '#00aaff', // Light Blue
-                            '#8a2be2', // Purple
-                            '#ff00ff', // Magenta
-                            '#000000', // Black
-                            '#ffffff', // White
-                            '#ffff00', // Bright Yellow
-                            '#ffffff', // White
-                            '#ffffff', // White
-                        ];
-
+                        // Define function to draw text
                         function drawText() {
                             ctx.clearRect(0, 0, canvas.width, canvas.height);
                             ctx.save();
@@ -361,12 +344,14 @@ function drawIcons(currentTime) {
                             ctx.arc(200, 200, 200, 0, 2 * Math.PI);
                             ctx.closePath();
                             ctx.clip();
-    
+
                             // Draw background image
                             ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-    
+
                             // Restore the context state
                             ctx.restore();
+
+                            // Set random color for text
                             let color = colors[Math.floor(Math.random() * colors.length)];
                             ctx.fillStyle = color;
                             ctx.font = "bold 30px Arial";
@@ -382,52 +367,19 @@ function drawIcons(currentTime) {
                         }
 
                         drawText();
-
                     };
+
+                    // Stop animation after 10 seconds
                     function stopAnimation() {
                         cancelAnimationFrame(animationID);
                     }
 
-                    let canvas2 = document.getElementById("myCanvas2");
-                    let ctx2 = canvas2.getContext("2d");
-
-                    if (winner.length === 5) {
-
-                        ctx2.clearRect(0, 0, canvas.width, canvas.height);
-
-                        winner.splice(0, 5);
-                    }
-
-
-                    addWinner(largestIcon.username, largestIcon.imgUrl);
-
-
-                    // Create the winner list
-                    ctx2.font = "20px Arial";
-                    ctx2.fillStyle = "black";
-                    ctx2.fillText("Winners:", 10, 30);
-
-                    for (let i = 0; i < winner.length; i++) {
-                        // Load the image
-                        let img = new Image();
-                        img.src = winner[i].imgurl;
-
-                        img.onload = function () {
-                            ctx2.drawImage(img, 10, 50 + i * 50, 40, 40); // Draw the image with a size of 40 x 40 pixels
-                            ctx2.fillText(i + 1 + ' - ' + winner[i].username, 60, 80 + i * 50); // Draw the username
-                        };
-                    }
-
- 
-
+                    // Clear the canvas and delete all icons after 10 seconds
                     finishGame = true;
-                   
                     setTimeout(function () {
-
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
                         canvas.width = canvas.width;
-
-                        deleteAllIcons()
+                        deleteAllIcons();
                         hideFireworkGif();
                         stopAnimation();
                     }, 10000); // 30 saniye beklet
@@ -439,7 +391,6 @@ function drawIcons(currentTime) {
         animationFrameId = requestAnimationFrame(drawIcons);
     }
 }
-
 
 
 function addWinner(userName, imgUrl) {
