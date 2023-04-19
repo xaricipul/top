@@ -10,18 +10,17 @@ let animationID;
 // START
 $(document).ready(() => {
  
-    $("#targetConnect").click(function (e) {
-        // Check
-        let targetLive = $("#targetUsername").val();
-        connect(targetLive);
-
-    });
-
-    // setTimeout(function () {
-    //     let targetLive = "game_live_az";
+    // $("#targetConnect").click(function (e) {
+    //     // Check
+    //     let targetLive = $("#targetUsername").val();
     //     connect(targetLive);
-    // }, 5000);
 
+    // });
+
+    setTimeout(function () {
+        let targetLive = "dyrektorscp";
+        connect(targetLive);
+    }, 5000);
 })
 
 
