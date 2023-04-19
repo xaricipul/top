@@ -330,14 +330,14 @@
   </audio> -->
   <script>
     var images = [];
-    for (var i = 1; i <= 100; i++) {
-      images.push(i + '.gif');
+    for (var i = 100; i <= 156; i++) {
+      images.push(i + '.jpg');
     }
 
     setInterval(function () {
       var randomIndex = Math.floor(Math.random() * images.length);
       canvas.style.backgroundImage = 'url(' + images[randomIndex] + ')';
-    }, 150000);
+    }, 100000);
 
     document.addEventListener("DOMContentLoaded", function () {
       createClubLights(4);
