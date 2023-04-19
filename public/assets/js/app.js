@@ -18,7 +18,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "slotaze";
+        let targetLive = "game_live_aze";
         connect(targetLive);
     }, 5000);
 
