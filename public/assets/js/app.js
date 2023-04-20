@@ -403,6 +403,38 @@ function drawIcons(currentTime) {
                         cancelAnimationFrame(animationID);
                     }
 
+                  let ctx2 = canvas2.getContext("2d");
+
+                    if (winner.length === 3) {
+
+                        ctx2.clearRect(0, 0, canvas.width, canvas.height);
+
+                        winner.splice(0, 3);
+                    }
+
+
+                    addWinner(largestIcon.username, largestIcon.imgUrl);
+
+
+                    // Create the winner list
+                    ctx2.font = "20px Arial";
+                    ctx2.fillStyle = "white";
+                    ctx2.fillText("Winners:", 10, 30);
+
+                    for (let i = 0; i < winner.length; i++) {
+                        // Load the image
+                        let img = new Image();
+                        img.src = winner[i].imgurl;
+
+                        // Draw the image and username
+                        // Draw the image and username
+                        img.onload = function () {
+                            ctx2.drawImage(img, 10, 50 + i * 50, 40, 40); // Draw the image with a size of 40 x 40 pixels
+                            ctx2.fillText(i + 1 + ' - ' + winner[i].username, 60, 70 + i * 60); // Draw the username
+                        };
+                    }
+
+
                     // Clear the canvas and delete all icons after 10 seconds
                     finishGame = true;
                     setTimeout(function () {
