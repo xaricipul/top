@@ -403,7 +403,8 @@ function drawIcons(currentTime) {
                         cancelAnimationFrame(animationID);
                     }
 
-                  let ctx2 = canvas2.getContext("2d");
+                    let canvas2 = document.getElementById("myCanvas2");
+                    let ctx2 = canvas2.getContext("2d");
 
                     if (winner.length === 3) {
 
@@ -418,7 +419,7 @@ function drawIcons(currentTime) {
 
                     // Create the winner list
                     ctx2.font = "20px Arial";
-                    ctx2.fillStyle = "white";
+                    ctx2.fillStyle = "black";
                     ctx2.fillText("Winners:", 10, 30);
 
                     for (let i = 0; i < winner.length; i++) {
@@ -433,7 +434,6 @@ function drawIcons(currentTime) {
                             ctx2.fillText(i + 1 + ' - ' + winner[i].username, 60, 70 + i * 60); // Draw the username
                         };
                     }
-
 
                     // Clear the canvas and delete all icons after 10 seconds
                     finishGame = true;
