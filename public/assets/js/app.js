@@ -9,7 +9,7 @@ let winner = [];
 let animationID;
 // START
 $(document).ready(() => {
- 
+
     // $("#targetConnect").click(function (e) {
     //     // Check
     //     let targetLive = $("#targetUsername").val();
@@ -18,7 +18,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "dyrektorscp";
+        let targetLive = "oyun_aze";
         connect(targetLive);
     }, 5000);
 })
@@ -177,9 +177,11 @@ function showFireworkGif() {
     fireworkGif.style.left = (canvasRect.left + (canvasRect.width / 2) - (fireworkGif.offsetWidth / 2)) + 'px';
 }
 
-window.addEventListener('resize', showFireworkGif);
+if (!finishGame) {
 
+    window.addEventListener('resize', showFireworkGif);
 
+}
 
 function hideFireworkGif() {
     const fireworkGifIds = ['fireworkGif1', 'fireworkGif2', 'fireworkGif3'];
@@ -232,6 +234,8 @@ function drawIcons(currentTime) {
                         y: randomRange(minSpeed, maxSpeed) * (Math.random() > 0.5 ? 1 : -1),
                     };
                 }
+
+
 
                 // Update the icon's position
                 icon.x += icon.moveSpeed.x;
@@ -294,16 +298,39 @@ function drawIcons(currentTime) {
                 largestIcon.zIndex = iconList.length;
 
                 // Check zIndex values for all icons in array
-                iconList.forEach((icon, index) => {
-                    if (icon !== largestIcon && icon.zIndex >= largestIcon.zIndex) {
-                        icon.zIndex = index;
-                    }
+                // ...
 
-                    // Remove any icons that haven't changed size in the last 2 minutes
-                    if (currentTime - icon.lastSizeChangeTime >= 120000 && icon.size === icon.lastSize) {
-                        iconList.splice(index, 1);
+                // ...
+                for (let i = iconList.length - 1; i >= 0; i--) {
+                    const icon = iconList[i];
+                
+                    if (icon !== largestIcon && icon.zIndex >= largestIcon.zIndex) {
+                        icon.zIndex = i;
                     }
-                });
+                
+                    // Check if the icon size hasn't changed for 1 minute
+                    if (!icon.hasOwnProperty("lastSizeChangeTime")) {
+                        icon.lastSizeChangeTime = currentTime;
+                        icon.lastSize = icon.size;
+                    } else {
+                        if (icon.size !== icon.lastSize) {
+                            icon.lastSizeChangeTime = currentTime;
+                            icon.lastSize = icon.size;
+                        } else if (currentTime - icon.lastSizeChangeTime >= 90000) {
+                            iconList.splice(i, 1); // Remove the icon if its size hasn't changed for 1 minute
+                        }
+                    }
+                }
+                
+                
+
+
+
+                // ...
+
+
+                // ...
+
 
                 // Draw all icons with correct zIndex values
                 iconList.sort((a, b) => a.zIndex - b.zIndex);
@@ -328,10 +355,12 @@ function drawIcons(currentTime) {
                     playSound();
                     showFireworkGif();
                     const backgroundImage = new Image();
+                    backgroundImage.crossOrigin = "anonymous"; // Add this line
+
                     backgroundImage.src = largestIcon.imgUrl;
                     backgroundImage.onload = () => {
                         // Save the current context state
-                        let currentContextState = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                        // let currentContextState = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
                         // Define function to draw text
                         function drawText() {
@@ -349,6 +378,7 @@ function drawIcons(currentTime) {
 
                             // Restore the context state
                             ctx.restore();
+                            const colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
 
                             // Set random color for text
                             let color = colors[Math.floor(Math.random() * colors.length)];
