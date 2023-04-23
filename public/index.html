@@ -21,7 +21,7 @@
 </head>
 <style>
   body {
-    background-image: url('back10.gif');
+    background-image: url('back.jpg');
   }
 
   #myCanvas {
@@ -29,7 +29,7 @@
     margin: 50px auto 0;
     border: 1px solid #ddd;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    background-image: url('59.gif');
+    background-image: url('back11.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 10px;
@@ -89,7 +89,6 @@
       transform: translate(20px, 20px);
     }
   }
-
   #myCanvas2 {
   display: block;
   margin: 50px auto 0;
@@ -156,6 +155,72 @@
   }
 
 
+
+  #myCanvas3 {
+    display: block;
+    margin: 50px auto 0;
+    border: 1px solid black;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    background-color: rgb(1, 210, 172);
+    border-radius: 10px;
+    padding: 20px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+  }
+
+  #myCanvas3:hover {
+    border-color: #333;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    transform: scale(1.05);
+  }
+
+  /* Canvas içerisindeki metinler için stiller */
+  #myCanvas3 p {
+    font-family: "Arial", sans-serif;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Canvas içerisindeki şekiller için stiller */
+  #myCanvas3 .square {
+    fill: #f44336;
+    stroke: #d32f2f;
+    stroke-width: 2;
+  }
+
+  #myCanvas3 .circle {
+    fill: hwb(19 13% 5%);
+    stroke: #df4a00;
+    stroke-width: 2;
+  }
+
+  #myCanvas3 .triangle {
+    fill: #4caf50;
+    stroke: #388e3c;
+    stroke-width: 2;
+  }
+
+  /* Canvas içerisindeki animasyonlu objeler için stiller */
+  #myCanvas3 .animated-object {
+    fill: #ffc107;
+    stroke: #ffa000;
+    stroke-width: 2;
+    animation: move-object 2s ease-in-out alternate infinite;
+  }
+
+  @keyframes move-object {
+    from {
+      transform: translate(0, 0);
+    }
+
+    to {
+      transform: translate(20px, 20px);
+    }
+  }
 
   #loading {
     display: none;
@@ -248,8 +313,10 @@
 
   </canvas>
 
+  <canvas id="myCanvas3" width="400" height="70" style="display: block; margin: 20px auto 0;"></canvas>
 
-  <canvas id="myCanvas2" width="400" height="330px" style="display: block; margin: 20px auto 0;"></canvas>
+
+  <canvas id="myCanvas2" width="400" height="200" style="display: block; margin: 20px auto 0;"></canvas>
   <img id="fireworkGif1" src="fire1.gif" style="display: none; position: absolute;">
   <img id="fireworkGif2" src="fire2.gif" style="display: none; position: absolute;">
   <img id="fireworkGif3" src="fire3.gif" style="display: none; position: absolute;">
@@ -329,7 +396,8 @@
     <source src="1.mp3" type="audio/mp3">
   </audio> -->
   <script>
-    var images = [];
+    document.addEventListener("DOMContentLoaded", function () {
+      var images = [];
     for (var i = 100; i <= 156; i++) {
       images.push(i + '.jpg');
     }
@@ -338,22 +406,6 @@
       var randomIndex = Math.floor(Math.random() * images.length);
       canvas.style.backgroundImage = 'url(' + images[randomIndex] + ')';
     }, 100000);
-
-    document.addEventListener("DOMContentLoaded", function () {
-      createClubLights(4);
-
-      function createClubLights(count) {
-        for (let i = 0; i < count; i++) {
-          const light = document.createElement("div");
-          light.className = "club-light";
-          light.style.backgroundImage = `radial-gradient(circle, ${randomColor()} 1%, transparent 1%) 50% 50%`;
-          light.style.animationDuration = `${(Math.random() * 0.5 + 0.5).toFixed(2)}s`;
-          light.style.animationDelay = `${(Math.random() * 0.5).toFixed(2)}s`;
-
-          document.body.appendChild(light);
-        }
-      }
-
       function randomColor() {
         const colors = ["red", "green", "blue", "yellow", "purple", "orange"];
         return colors[Math.floor(Math.random() * colors.length)];
@@ -379,9 +431,53 @@
     const canvas = document.getElementById("myCanvas");
     const ctx = canvas.getContext("2d");
     const globalVelocity = { x: 5, y: 5 };
+    const canvas3 = document.getElementById("myCanvas3");
+    const ctx3 = canvas3.getContext("2d");
 
     const img = new Image();
 
+    img.onload = function () {
+      ctx3.font = "20px Arial";
+      ctx3.fillStyle = "#333";
+      ctx3.fillText("1", 0, 22);
+      ctx3.drawImage(img, 10, 0, 30, 30);
+      ctx3.font = "16px Arial";
+      ctx3.fillStyle = "#333";
+      ctx3.fillText("zoom (10x)", 50, 20);
+    }
+    const img2 = new Image();
+    img2.src = "like.png";
+    img2.onload = function () {
+      ctx3.font = "20px Arial";
+      ctx3.fillStyle = "#333";
+      ctx3.fillText("5", 0, 58);
+      ctx3.drawImage(img2, 15, 38, 25, 25);
+      ctx3.font = "16px Arial";
+      ctx3.fillStyle = "#333";
+      ctx3.fillText("zoom (1x)", 50, 60);
+    }
+    const img4 = new Image();
+    img4.src = "share.png";
+    img4.onload = function () {
+      ctx3.font = "20px Arial";
+      ctx3.fillStyle = "#333";
+      ctx3.fillText("20", 175, 58);
+      ctx3.drawImage(img4, 204, 38, 25, 25);
+      ctx3.font = "16px Arial";
+      ctx3.fillStyle = "#333";
+      ctx3.fillText("zoom (5x)", 235, 60);
+    }
+    const img3 = new Image();
+    img3.src = "heart.png";
+    img3.onload = function () {
+      ctx3.font = "20px Arial";
+      ctx3.fillStyle = "#333";
+      ctx3.fillText("1", 180, 22);
+      ctx3.drawImage(img3, 200, 1, 30, 30);
+      ctx3.font = "16px Arial";
+      ctx3.fillStyle = "#333";
+      ctx3.fillText("zoom (50x)", 235, 20);
+    }
 
     img.src = "2g.png";
   </script>
