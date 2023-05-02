@@ -18,7 +18,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "sovet05scp";
+        let targetLive = "oyun_aze";
         connect(targetLive);
     }, 5000);
 })
