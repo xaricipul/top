@@ -27,9 +27,8 @@ $(document).ready(() => {
 })
 
 function onEnd() {
-    isSpeaking = false; // Seslendirme bittiğini belirt
-    messagesQueue.shift(); // İlk mesajı kuyruktan çıkar
-    processQueue(); // Kuyruğu yeniden işle
+    messagesQueue.shift();
+    processQueue();
 }
 function containsBannedWords(text) {
     const bannedWords = ["pox", "cindir", "amciq", "got", "meme", "məmə", "dillaq", "dıllağ", "göt", "amcıq", "Bok", "am", "kahbe", "Qəhbə", "Qancıx", "Götveren"];
@@ -52,15 +51,15 @@ function speak(text) {
 
     }
     responsiveVoice.speak(ms, "Turkish Male", { rate: defaultRate, onend: onEnd });
-}let isSpeaking = false;
+}
+
 
 function processQueue() {
-    // Eğer sırada mesajlar varsa ve şu an seslendirme yapılmıyorsa
-    if (messagesQueue.length > 0 && !isSpeaking) {
+    if (messagesQueue.length > 0 && !responsiveVoice.isPlaying()) {
         let message = messagesQueue[0].text;
         let language = messagesQueue[0].language;
 
-        isSpeaking = true; // Seslendirme başladığını belirt
+        // Dil tespiti
 
         // Dil tercihine göre seslendirme yapın
         switch (language) {
@@ -82,10 +81,7 @@ function processQueue() {
 }
 
 
-
-
-let lastMessageTime = 0;
-function addRandomMessage(timestamp) {
+function addRandomMessage() {
     const messages = [
         { text: "Don't miss out, follow and like now", language: "en" },
         { text: "İlk üçe gir ve takip al", language: "tr" },
@@ -164,28 +160,12 @@ function addRandomMessage(timestamp) {
         { text: "Paylaştığında hesabın ekranda görünecek", language: "tr" }
 
     ];
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
 
-
-    if (!lastMessageTime) {
-        lastMessageTime = timestamp;
-    }
-
-    if (!lastMessageTime) {
-        lastMessageTime = timestamp;
-    }
-   if (elapsed >= 10000) { // 10000ms = 10s
-        // Rastgele mesajı ekle
-        const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-        messagesQueue.push(randomMessage);
-        processQueue();
-
-        // Zamanlayıcıyı sıfırla
-        lastMessageTime = timestamp;
-    }
-    window.requestAnimationFrame(addRandomMessage);
+    messagesQueue.push(randomMessage);
+    processQueue();
 }
 
-// Otomatik seslendirme başlatma
 // Otomatik seslendirme başlatma
 window.addEventListener("load", async () => {
     try {
@@ -193,12 +173,19 @@ window.addEventListener("load", async () => {
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         await audioContext.resume();
 
-        // requestAnimationFrame ile addRandomMessage fonksiyonunu çağırarak başlatın
-        window.requestAnimationFrame(addRandomMessage);
+        // // 30 saniyede bir rastgele mesaj ekleyin ve otomatik seslendirme başlatın
+        // setInterval(addRandomMessage, 10000);
+
+        // setTimeout(() => {
+        //     addRandomMessage();
+        // }, 10000);
     } catch (error) {
         console.error("Otomatik seslendirme başlatılamadı:", error);
     }
 });
+
+setInterval(addRandomMessage, 10000);
+
 
 /*
 * LIVE TIKTOK
