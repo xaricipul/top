@@ -27,8 +27,9 @@ $(document).ready(() => {
 })
 
 function onEnd() {
-    messagesQueue.shift();
-    processQueue();
+    isSpeaking = false; // Seslendirme bittiğini belirt
+    messagesQueue.shift(); // İlk mesajı kuyruktan çıkar
+    processQueue(); // Kuyruğu yeniden işle
 }
 function containsBannedWords(text) {
     const bannedWords = ["pox", "cindir", "amciq", "got", "meme", "məmə", "dillaq", "dıllağ", "göt", "amcıq", "Bok", "am", "kahbe", "Qəhbə", "Qancıx", "Götveren"];
@@ -51,15 +52,15 @@ function speak(text) {
 
     }
     responsiveVoice.speak(ms, "Turkish Male", { rate: defaultRate, onend: onEnd });
-}
-
+}let isSpeaking = false;
 
 function processQueue() {
-    if (messagesQueue.length > 0 && !responsiveVoice.isPlaying()) {
+    // Eğer sırada mesajlar varsa ve şu an seslendirme yapılmıyorsa
+    if (messagesQueue.length > 0 && !isSpeaking) {
         let message = messagesQueue[0].text;
         let language = messagesQueue[0].language;
 
-        // Dil tespiti
+        isSpeaking = true; // Seslendirme başladığını belirt
 
         // Dil tercihine göre seslendirme yapın
         switch (language) {
@@ -79,6 +80,9 @@ function processQueue() {
         }
     }
 }
+
+
+
 
 let lastMessageTime = 0;
 function addRandomMessage(timestamp) {
