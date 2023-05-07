@@ -80,9 +80,8 @@ function processQueue() {
     }
 }
 
-
-// 30 saniyede bir rastgele mesaj ekleyin ve otomatik seslendirme başlatın
-function addRandomMessage() {
+let lastMessageTime = 0;
+function addRandomMessage(timestamp) {
     const messages = [
         { text: "Don't miss out, follow and like now", language: "en" },
         { text: "İlk üçe gir ve takip al", language: "tr" },
@@ -161,12 +160,28 @@ function addRandomMessage() {
         { text: "Paylaştığında hesabın ekranda görünecek", language: "tr" }
 
     ];
-    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
 
-    messagesQueue.push(randomMessage);
-    processQueue();
+
+    if (!lastMessageTime) {
+        lastMessageTime = timestamp;
+    }
+
+    if (!lastMessageTime) {
+        lastMessageTime = timestamp;
+    }
+   if (elapsed >= 10000) { // 10000ms = 10s
+        // Rastgele mesajı ekle
+        const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+        messagesQueue.push(randomMessage);
+        processQueue();
+
+        // Zamanlayıcıyı sıfırla
+        lastMessageTime = timestamp;
+    }
+    window.requestAnimationFrame(addRandomMessage);
 }
 
+// Otomatik seslendirme başlatma
 // Otomatik seslendirme başlatma
 window.addEventListener("load", async () => {
     try {
@@ -174,8 +189,8 @@ window.addEventListener("load", async () => {
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         await audioContext.resume();
 
-        // 30 saniyede bir rastgele mesaj ekleyin ve otomatik seslendirme başlatın
-        setInterval(addRandomMessage, 10000);
+        // requestAnimationFrame ile addRandomMessage fonksiyonunu çağırarak başlatın
+        window.requestAnimationFrame(addRandomMessage);
     } catch (error) {
         console.error("Otomatik seslendirme başlatılamadı:", error);
     }
