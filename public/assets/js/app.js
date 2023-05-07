@@ -21,7 +21,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "slotaze";
+        let targetLive = "upfollowers.gacor_84";
         connect(targetLive);
     }, 5000);
 })
