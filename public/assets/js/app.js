@@ -21,7 +21,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "upfollowers.gacor_84";
+        let targetLive = "game_live_az";
         connect(targetLive);
     }, 5000);
 })
