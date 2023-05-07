@@ -1,425 +1,157 @@
 <!DOCTYPE html>
-<html>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TakipBizz user2 + 1 + mvorxan</title>
-<meta name="description" content="TakipBiz">
-<meta name="author" content="adierebel">
-<link rel="stylesheet" href="assets/css/reset.css?v=1.0">
-<link rel="stylesheet" href="assets/css/style.css?v=1.0">
-<script type="text/javascript" src="words.js"></script>
-<script type="text/javascript" src="msg.js"></script>
-<script type="text/javascript" src="assets/tts/speakClient.js"></script>
-<script type="text/javascript" src="assets/js/jquery.js"></script>
-<script type="text/javascript" src="assets/js/socket.io.js"></script>
-<script type="text/javascript" src="assets/js/connection.js"></script>
-<script type="text/javascript" src="assets/js/app.js"></script>
-
+<html lang="en">
 <head>
-  <title>Telefon İçin İkon Oluşturma</title>
+  <script type="text/javascript" src="words.js"></script>
+  <script type="text/javascript" src="msg.js"></script>
+  <script type="text/javascript" src="assets/tts/speakClient.js"></script>
+  <script type="text/javascript" src="assets/js/jquery.js"></script>
+  <script type="text/javascript" src="assets/js/socket.io.js"></script>
+  <script type="text/javascript" src="assets/js/connection.js"></script>
+  <script type="text/javascript"  type="module" src="assets/js/app.js"></script>
+  <script src="https://code.responsivevoice.org/responsivevoice.js?key=2u7Qd768"></script>
 
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Örnek Mobil Sayfa</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+<body>
+    <div class="container">
+        <div id="comments"></div>
+        <div id="gifts"></div>
+    </div>
+</body>
+</html>
 <style>
   body {
-    background-image: url('back.jpg');
-  }
-
-  #myCanvas {
-    display: block;
-    margin: 50px auto 0;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    background-image: url('back11.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: 10px;
-    padding: 20px;
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
-  }
-
-  #myCanvas:hover {
-    border-color: #333;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    transform: scale(1.05);
-  }
-
-  /* Canvas içerisindeki metinler için stiller */
-  #myCanvas p {
-    font-family: "Arial", sans-serif;
-    font-size: 24px;
-    color: #333;
-    text-align: center;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-  }
-
-  /* Canvas içerisindeki şekiller için stiller */
-  #myCanvas .square {
-    fill: #f44336;
-    stroke: #d32f2f;
-    stroke-width: 2;
-  }
-
-  #myCanvas .circle {
-    fill: #2196f3;
-    stroke: #1976d2;
-    stroke-width: 2;
-  }
-
-  #myCanvas .triangle {
-    fill: #4caf50;
-    stroke: #388e3c;
-    stroke-width: 2;
-  }
-
-  /* Canvas içerisindeki animasyonlu objeler için stiller */
-  #myCanvas .animated-object {
-    fill: #ffc107;
-    stroke: #ffa000;
-    stroke-width: 2;
-    animation: move-object 2s ease-in-out alternate infinite;
-  }
-
-  @keyframes move-object {
-    from {
-      transform: translate(0, 0);
-    }
-
-    to {
-      transform: translate(20px, 20px);
-    }
-  }
-  #myCanvas2 {
-  display: block;
-  margin: 50px auto 0;
-  border: 1px solid #ddd;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  background-image: url('canvas2.gif');
-  background-position: -80px -150px; /* new line */
-  border-radius: 10px;
-  padding: 20px;
-  transition: all 0.3s ease-in-out;
-  cursor: pointer;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
 }
 
-  #myCanvas2:hover {
-    border-color: #333;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    transform: scale(1.05);
-  }
+/* ... */
 
-  /* Canvas içerisindeki metinler için stiller */
-  #myCanvas2 p {
-    font-family: "Arial", sans-serif;
-    font-size: 24px;
-    color: #333;
-    text-align: center;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-  }
+/* ... */
 
-  /* Canvas içerisindeki şekiller için stiller */
-  #myCanvas2 .square {
-    fill: #f44336;
-    stroke: #d32f2f;
-    stroke-width: 2;
-  }
-
-  #myCanvas2 .circle {
-    fill: #2196f3;
-    stroke: #1976d2;
-    stroke-width: 2;
-  }
-
-  #myCanvas2 .triangle {
-    fill: #4caf50;
-    stroke: #388e3c;
-    stroke-width: 2;
-  }
-
-  /* Canvas içerisindeki animasyonlu objeler için stiller */
-  #myCanvas2 .animated-object {
-    fill: #ffc107;
-    stroke: #ffa000;
-    stroke-width: 2;
-    animation: move-object 2s ease-in-out alternate infinite;
-  }
-
-  @keyframes move-object {
-    from {
-      transform: translate(0, 0);
-    }
-
-    to {
-      transform: translate(20px, 20px);
-    }
-  }
+.container {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  border: 20px solid #ccc;
+  margin: 0 auto;
+  background-color: #f8f8f8;
+  background-image: url("down.jpg");
+  background-repeat: no-repeat;
+  background-size: 450px 450px;
+  top: 150px;
+}
 
 
-/* 
-  #myCanvas3 {
-    display: block;
-    margin: 50px auto 0;
-    border: 1px solid black;
-    margin: 0 auto;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    background-color: rgb(1, 210, 172);
-    border-radius: 10px;
-    padding: 20px;
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
-  }
-
-  #myCanvas3:hover {
-    border-color: #333;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    transform: scale(1.05);
-  }
-
-
-  #myCanvas3 p {
-    font-family: "Arial", sans-serif;
-    font-size: 24px;
-    color: #333;
-    text-align: center;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-  }
-
-  #myCanvas3 .square {
-    fill: #f44336;
-    stroke: #d32f2f;
-    stroke-width: 2;
-  }
-
-  #myCanvas3 .circle {
-    fill: hwb(19 13% 5%);
-    stroke: #df4a00;
-    stroke-width: 2;
-  }
-
-  #myCanvas3 .triangle {
-    fill: #4caf50;
-    stroke: #388e3c;
-    stroke-width: 2;
-  }
-
-  #myCanvas3 .animated-object {
-    fill: #ffc107;
-    stroke: #ffa000;
-    stroke-width: 2;
-    animation: move-object 2s ease-in-out alternate infinite;
-  }
-
-  @keyframes move-object {
-    from {
-      transform: translate(0, 0);
-    }
-
-    to {
-      transform: translate(20px, 20px);
-    }
-  } */
-
-  #loading {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    border-radius: 10px;
-  }
-
-  #loading p {
-    text-align: center;
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-
-  .spinner {
-    margin: 0 auto;
-    width: 40px;
-    height: 40px;
-    position: relative;
-  }
-
-  .spinner div {
-    box-sizing: border-box;
-    display: block;
+.comment, .gift {
     position: absolute;
-    width: 32px;
-    height: 32px;
-    margin: 4px;
-    border: 4px solid #000;
-    border-radius: 50%;
-    animation: spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #000 transparent transparent transparent;
+    white-space: nowrap;
+    color: white;
+}
+
+.gift {
+  position: absolute;
+  font-weight: bold;
+  font-size: 20px;
+  animation: gift-animation 2s ease-in-out infinite;
+}
+
+.gift span {
+  animation: colorChange 2s infinite;
+}
+
+.gift span:nth-child(1) {
+  color: #FF4136;
+}
+
+.gift span:nth-child(2) {
+  color: #FF851B;
+}
+
+.gift span:nth-child(3) {
+  color: #FFDC00;
+}
+
+.gift span:nth-child(4) {
+  color: #2ECC40;
+}
+
+.gift span:nth-child(5) {
+  color: #0074D9;
+}
+
+.gift span:nth-child(6) {
+  color: #B10DC9;
+}
+
+.gift span:nth-child(7) {
+  color: #F012BE;
+}
+
+.gift span:nth-child(8) {
+  color: #85144b;
+}
+
+.gift span:nth-child(9) {
+  color: #39CCCC;
+}
+
+.gift span:nth-child(10) {
+  color: #FFDC00;
+}
+
+@keyframes gift-animation {
+  0% {
+    transform: rotate(0deg) translate(0, 0);
+    opacity: 1;
+    box-shadow: none;
   }
-
-  .spinner div:nth-child(1) {
-    animation-delay: -0.45s;
+  25% {
+    transform: rotate(-10deg) translate(5px, -5px);
+    opacity: 0.75;
+    box-shadow: 0px 0px 10px #FF4136;
   }
-
-  .spinner div:nth-child(2) {
-    animation-delay: -0.3s;
+  50% {
+    transform: rotate(0deg) translate(0, 0);
+    opacity: 1;
+    box-shadow: none;
   }
-
-  .spinner div:nth-child(3) {
-    animation-delay: -0.15s;
+  75% {
+    transform: rotate(10deg) translate(-5px, 5px);
+    opacity: 0.75;
+    box-shadow: 0px 0px 10px #0074D9;
   }
-
-  @keyframes spinner {
-    0% {
-      transform: rotate(0deg);
-    }
-
-    100% {
-      transform: rotate(360deg);
-    }
+  100% {
+    transform: rotate(0deg) translate(0, 0);
+    opacity: 1;
+    box-shadow: none;
   }
+}
 
-  .club-light {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    background: radial-gradient(circle, transparent 1%, transparent 1%) 50% 50%;
-    opacity: 0;
-    animation: flash 1s linear infinite;
-  }
+@keyframes colorChange {
+  0% { color: #FF4136; }
+  10% { color: #FF851B; }
+  20% { color: #FFDC00; }
+  30% { color: #2ECC40; }
+  40% { color: #0074D9; }
+  50% { color: #B10DC9; }
+  60% { color: #F012BE; }
+  70% { color: #85144b; }
+  80% { color: #39CCCC; }
+  90% { color: #FFDC00; }
+  100% { color: #FF4136; }
+}
 
-  @keyframes flash {
 
-    0%,
-    100% {
-      opacity: 0;
-    }
 
-    50% {
-      opacity: 1;
-    }
-  }
 </style>
-
-<body>
-  <div id="loading">
-    <p>Loading...</p>
-    <div class="spinner"></div>
-  </div>
-  <canvas id="myCanvas" width="400" height="400" style="display: block; margin: 20px auto 0;">
-
-  </canvas>
-
-  <canvas id="myCanvas2" width="400" height="200" style="display: block; margin: 20px auto 0;"></canvas>
-  <img id="fireworkGif1" src="fire1.gif" style="display: none; position: absolute;">
-  <img id="fireworkGif2" src="fire2.gif" style="display: none; position: absolute;">
-  <img id="fireworkGif3" src="fire3.gif" style="display: none; position: absolute;">
-  <audio id="sfx1" class="d-block">
-    <source src="../assets/sounds/1.mp3" preload="auto" type="audio/mpeg">
-  </audio>
-  <audio id="sfx2" class="d-block">
-    <source src="../assets/sounds/2.mp3" preload="auto" type="audio/mpeg">
-  </audio>
-  <audio id="sfx3" class="d-block">
-    <source src="../assets/sounds/3.mp3" preload="auto" type="audio/mpeg">
-  </audio>
-  <audio id="sfx5" class="d-block">
-    <source src="../assets/sounds/5.mp3" preload="auto" type="audio/mpeg">
-  </audio>
-  <audio id="sfx6" class="d-block">
-    <source src="../assets/sounds/6.mp3" preload="auto" type="audio/mpeg">
-  </audio>
-  <audio id="sfx7" class="d-block">
-    <source src="../assets/sounds/7.mp3" preload="auto" type="audio/mpeg">
-  </audio>
-  <audio id="sfx8" class="d-block">
-    <source src="../assets/sounds/8.mp3" preload="auto" type="audio/mpeg">
-  </audio>
-  <audio id="sfx9" class="d-block">
-    <source src="../assets/sounds/9.mp3" preload="auto" type="audio/mpeg">
-  </audio>
-  <audio id="sfx12" class="d-block">
-    <source src="../assets/sounds/12.mp3" preload="auto" type="audio/mpeg">
-  </audio>
-  <audio id="sfx13" class="d-block">
-    <source src="../assets/sounds/13.mp3" preload="auto" type="audio/mpeg">
-  </audio>
-  <audio id="sfx14" class="d-block">
-    <source src="../assets/sounds/14.mp3" preload="auto" type="audio/mpeg">
-  </audio>
-  <audio id="sfx15" class="d-block">
-    <source src="../assets/sounds/15.mp3" preload="auto" type="audio/mpeg">
-  </audio>
-  <audio id="sfx16" class="d-block">
-    <source src="../assets/sounds/16.mp3" preload="auto" type="audio/mpeg">
-  </audio>
-  <audio id="sfx17" class="d-block">
-    <source src="../assets/sounds/17.mp3" preload="auto" type="audio/mpeg">
-  </audio>
-  <audio id="sfx18" class="d-block">
-    <source src="../assets/sounds/18.mp3" preload="auto" type="audio/mpeg">
-  </audio>
-  <audio id="sfx19" class="d-block">
-    <source src="../assets/sounds/19.mp3" preload="auto" type="audio/mpeg">
-  </audio>
-  <audio id="sfx20" class="d-block">
-    <source src="../assets/sounds/20.mp3" preload="auto" type="audio/mpeg">
-  </audio>
-  <audio id="sfx21" class="d-block">
-    <source src="../assets/sounds/21.mp3" preload="auto" type="audio/mpeg">
-  </audio> <audio id="sfx22" class="d-block">
-    <source src="../assets/sounds/22.mp3" preload="auto" type="audio/mpeg">
-  </audio> <audio id="sfx23" class="d-block">
-    <source src="../assets/sounds/23.mp3" preload="auto" type="audio/mpeg">
-  </audio> <audio id="sfx24" class="d-block">
-    <source src="../assets/sounds/24.mp3" preload="auto" type="audio/mpeg">
-  </audio> <audio id="sfx25" class="d-block">
-    <source src="../assets/sounds/25.mp3" preload="auto" type="audio/mpeg">
-  </audio>
-
-  <div class="mb-3 mt-2">
-    <input id="targetUsername" type="text" placeholder="daxil et @istifadəçi" style="width:140px;" />
-    <button id="targetConnect">Qoş</button>
-  </div>
-  <td>Qoşulma statusu</td>
-  <td>&nbsp;:&nbsp;</td>
-  <span id="stateText">Qoşulmayıb</span>
-  <div id="icon-container"></div>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      var images = [];
-    for (var i = 1; i <= 100; i++) {
-      images.push(i + '.gif');
-    }
-
-    setInterval(function () {
-      var randomIndex = Math.floor(Math.random() * images.length);
-      canvas.style.backgroundImage = 'url(' + images[randomIndex] + ')';
-    }, 100000);
-      function randomColor() {
-        const colors = ["red", "green", "blue", "yellow", "purple", "orange"];
-        return colors[Math.floor(Math.random() * colors.length)];
-      }
-    });
-    // Yükleme durumunu gösteren loading elementini göster
-    function showLoading() {
-      document.getElementById("loading").style.display = "block";
-    }
-
-    // Yükleme durumunu gösteren loading elementini gizle
-    function hideLoading() {
-      document.getElementById("loading").style.display = "none";
-    }
-
+<script>
   
 
-    const canvas = document.getElementById("myCanvas");
-    const ctx = canvas.getContext("2d");
-    const globalVelocity = { x: 5, y: 5 };
-    
-    
-  </script>
-</body>
-
-</html>
+</script>
