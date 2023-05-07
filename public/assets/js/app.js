@@ -21,7 +21,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "upfollowers.gacor_84";
+        let targetLive = "slotaze";
         connect(targetLive);
     }, 5000);
 })
@@ -159,10 +159,6 @@ function addRandomMessage() {
         { text: "Beğendiğinde hesabın ekranda görünecek", language: "tr" },
         { text: "When you share, your account will be displayed on the screen", language: "en" },
         { text: "Paylaştığında hesabın ekranda görünecek", language: "tr" }
-    
-    
-    
-    
 
     ];
     const randomMessage = messages[Math.floor(Math.random() * messages.length)];
