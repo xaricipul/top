@@ -310,6 +310,8 @@ connection.on('like', (data) => {
 
     const messages = [
         { text: " Beğendiğin için teşekkür ederim", language: "tr" },
+        { text: " Harikasın Beğenmeye devam et", language: "tr" },
+        { text: " Seni seviyorum Beğenmeye devam et", language: "tr" },
         // { text: " Thank you for liking", language: "en" },
     ];
 
@@ -339,7 +341,12 @@ connection.on('member', (data) => {
 
     const messages = [
         { text: " hoş geldin", language: "tr" },
-        { text: " welcome", language: "en" },
+        { text: " Seni bekliyorduk", language: "tr" },
+        { text: " Hoş geldin , arkadaşlarını davet et", language: "tr" },
+        { text: " Hoş geldin , Seni Seviyorum", language: "tr" },
+        { text: " Desteğin için teşekkür ederim", language: "tr" },
+
+        // { text: " welcome", language: "en" },
     ];
 
     function getRandomMessage(messages) {
@@ -373,6 +380,8 @@ connection.on('social', (data) => {
         { text: "Canlını paylaşdığın için teşekkür ederim", language: "tr" },
         // { text: "Thank you for the gift!", language: "en" },
         { text: "Harikasın Canlını paylaşmağa devam et ", language: "tr" },
+
+        { text: "Arkadaşlarını  ", language: "tr" },
         // { text: "They are showing themselves, follow them", language: "en" },
     ];
 
