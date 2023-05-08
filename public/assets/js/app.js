@@ -279,6 +279,35 @@ connection.on('member', (data) => {
     let profilePictureUrl = data.profilePictureUrl;
     comment(userName);
 
+    messagesQueue = messagesQueue.filter(item => item.type !== 'random');
+
+
+    const messages = [
+        { text: " hoş geldin", language: "tr" },
+        { text: " Seni bekliyorduk", language: "tr" },
+        { text: " Hoş geldin ,Lütfen arkadaşlarını davet et", language: "tr" },
+        { text: " Hoş geldin , Seni Seviyoruz", language: "tr" },
+        { text: " Desteğin için teşekkür ederiz", language: "tr" },
+        
+
+        // { text: " welcome", language: "en" },
+    ];
+
+    function getRandomMessage(messages) {
+        const randomIndex = Math.floor(Math.random() * messages.length);
+        return messages[randomIndex];
+    }
+    const randomMessage = getRandomMessage(messages);
+
+
+    let end = { text: data.nickname + randomMessage.text, language: randomMessage.language, type: 'member' };
+
+    if (!usernames.has(userName)) {
+        messagesQueue.push(end);
+        processQueue();
+    }
+    gift1(userName);
+
 })
 
 connection.on('social', (data) => {
