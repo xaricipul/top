@@ -21,7 +21,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "game_live_az";
+        let targetLive = "soz_oyunu";
         connect(targetLive);
     }, 5000);
 })
@@ -184,7 +184,7 @@ window.addEventListener("load", async () => {
     }
 });
 
-setInterval(addRandomMessage, 10000);
+setInterval(addRandomMessage, 15000);
 
 
 /*
@@ -423,7 +423,7 @@ connection.on('gift', (data) => {
         { text: "Harikasın, hesbaını takip edin", language: "tr" },
         { text: "Kesene bereket", language: "tr" },
         { text: "Bir Tanesin ,Her kes takip etsin", language: "tr" },
-        { text: "Seni çok seviyorum ,Her hesabına takip atsin", language: "tr" },
+        { text: "Seni çok seviyorum ,Her hesabına takip atsin", language: "tr" }
         // { text: "They are showing themselves, follow them", language: "en" },
     ];
 
