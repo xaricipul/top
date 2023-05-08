@@ -9,8 +9,10 @@ let userdata = [];
 let commentsDiv;
 let giftsDiv;
 
-let messagesQueue = [];
+let lastActivityTime = Date.now();
 
+
+let messagesQueue = [];
 $(document).ready(() => {
 
     // $("#targetConnect").click(function (e) {
@@ -21,7 +23,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "soz_oyunu";
+        let targetLive = "oyun_aze";
         connect(targetLive);
     }, 5000);
 })
@@ -55,27 +57,32 @@ function speak(text) {
 
 
 function processQueue() {
-    if (messagesQueue.length > 0 && !responsiveVoice.isPlaying()) {
-        let message = messagesQueue[0].text;
-        let language = messagesQueue[0].language;
+    if (messagesQueue.length > 0) {
+        // Şu anda seslendirme yapılıp yapılmadığını kontrol et
+        if (!responsiveVoice.isPlaying()) {
+            let message = messagesQueue[0].text;
+            let language = messagesQueue[0].language;
 
-        // Dil tespiti
+            // Dil tercihine göre seslendirme yapın
+            switch (language) {
+                case 'tr':
+                    // Türkçe seslendirme
+                    responsiveVoice.speak(message, "Turkish Male", { rate: defaultRate, onend: onEnd });
+                    break;
+                case 'en':
+                    // İngilizce seslendirme
+                    responsiveVoice.speak(message, "UK English Male", { rate: defaultRate, onend: onEnd });
+                    break;
 
-        // Dil tercihine göre seslendirme yapın
-        switch (language) {
-            case 'tr':
-                // Türkçe seslendirme
-                responsiveVoice.speak(message, "Turkish Male", { rate: defaultRate, onend: onEnd });
-                break;
-            case 'en':
-                // İngilizce seslendirme
-                responsiveVoice.speak(message, "UK English Male", { rate: defaultRate, onend: onEnd });
-                break;
-
-            default:
-                // Dil tespit edilemediğinde varsayılan olarak İngilizce kullanın
-                responsiveVoice.speak(message, "Turkish Male", { rate: defaultRate, onend: onEnd });
-                break;
+                default:
+                    // Dil tespit edilemediğinde varsayılan olarak İngilizce kullanın
+                    responsiveVoice.speak(message, "Turkish Male", { rate: defaultRate, onend: onEnd });
+                    break;
+            }
+        } else {
+            // Eğer şu anda seslendirme yapılıyorsa, bekleyen sesleri sil ve yeni mesajları ekle
+            messagesQueue.shift();
+            processQueue();
         }
     }
 }
@@ -83,86 +90,49 @@ function processQueue() {
 
 function addRandomMessage() {
     const messages = [
-        // { text: "Don't miss out, follow and like now", language: "en" },
         { text: "İlk üçe gir ve takip al", language: "tr" },
-        // { text: "Follow those who send likes and gifts", language: "en" },
-        // { text: "Join the top ranks and get followed", language: "en" },
-       //  { text: "First to comment gets a follow", language: "en" },
         { text: "Hepinize Teşekkür ederim", language: "tr" },
-        // { text: "Top 3 gifters will get a follow back", language: "en" },
-        // { text: "Support each other with likes and follows", language: "en" },
         { text: "Beğeni ve hediye gönderenleri takip et", language: "tr" },
-        // { text: "Live Share", language: "en" },
         { text: "Canlını paylaş", language: "tr" },
-        // { text: "Show some love, like and follow", language: "en" },
         { text: "Sevginizi gösterin, beğen ve takip et", language: "tr" },
         { text: "Yorum yaz, karşılığında takip ederim", language: "tr" },
         { text: "Harikasınız", language: "tr" },
-        // { text: "Spread the love, follow and support", language: "en" },
         { text: "Sevgiyi yay, takip et ve destekle", language: "tr" },
-        // { text: "Let's grow together, like and follow", language: "en" },
         { text: "Birlikte büyüyelim, beğen ve takip et", language: "tr" },
-         //{ text: "Join the community, follow and engage", language: "en" },
         { text: "Topluluğa katıl, takip et ve etkileşime gir", language: "tr" },
-        // { text: "Follow for daily content", language: "en" },
         { text: "Günlük içerik için takip et", language: "tr" },
-        // { text: "Like and comment for a follow back", language: "en" },
         { text: "Beğen ve yorum yap, karşılığında takip ederim", language: "tr" },
-        // { text: "Stay connected, follow and share", language: "en" },
         { text: "Bağlantıda kal, takip et ve paylaş", language: "tr" },
-       //  { text: "Turn on notifications for updates", language: "en" },
         { text: "Güncellemeler için bildirimleri aç", language: "tr" },
-        // { text: "You're amazing, thank you", language: "en" },
         { text: "Müthişsiniz, teşekkürler", language: "tr" },
-        // { text: "Keep the positivity going, like and follow", language: "en" },
         { text: "Pozitif enerjiyi sürdür, beğen ve takip et", language: "tr" },
-        // { text: "Together we're stronger, support and follow", language: "en" },
         { text: "Birlikte daha güçlüyüz, destekle ve takip et", language: "tr" },
-        // { text: "Sharing is caring, follow and repost", language: "en" },
         { text: "Paylaşmak önemsemektir, takip et ve yeniden paylaş", language: "tr" },
-         //{ text: "Stay tuned for more content", language: "en" },
         { text: "Daha fazla içerik için takipte kal", language: "tr" },
-        // { text: "Discover new friends, follow and interact", language: "en" },
         { text: "Yeni arkadaşlar keşfet, takip et ve etkileşime gir", language: "tr" },
-        // { text: "Let's inspire each other, like and follow", language: "en" },
         { text: "Birbirimize ilham verelim, beğen ve takip et", language: "tr" },
-        // { text: "Follow for exclusive content", language: "en" },
         { text: "Özel içerik için takip et", language: "tr" },
-        // { text: "Drop a like and get a follow", language: "en" },
         { text: "Beğeni bırak, takipçi kazan", language: "tr" },
-        // { text: "Keep up the great work, thank you", language: "en" },
         { text: "Harika işler çıkarmaya devam edin, teşekkürler", language: "tr" },
-        // { text: "Connect and grow, follow and support", language: "en" },
         { text: "Bağlan ve büyü, takip et ve destekle", language: "tr" },
-        // { text: "Follow for motivational content", language: "en" },
         { text: "Motivasyon içerikleri için takip et", language: "tr" },
-        // { text: "Join the conversation, comment and follow", language: "en" },
         { text: "Sohbete katıl, yorum yap ve takip et", language: "tr" },
-        // { text: "Explore new ideas, follow and share", language: "en" },
         { text: "Yeni fikirler keşfet, takip et ve paylaş", language: "tr" },
-        // { text: "Stay updated, follow and turn on notifications", language: "en" },
         { text: "Güncel kal, takip et ve bildirimleri aç", language: "tr" },
-       //  { text: "Follow and share your thoughts", language: "en" },
         { text: "Takip et ve düşüncelerini paylaş", language: "tr" },
-       //  { text: "Like and comment for mutual support", language: "en" },
         { text: "Karşılıklı destek için beğen ve yorum yap", language: "tr" },
-       //  { text: "Build a positive community, follow and engage", language: "en" },
         { text: "Pozitif bir topluluk oluştur, takip et ve etkileşime gir", language: "tr" },
-        // { text: "We appreciate your support, thank you", language: "en" },
         { text: "Desteğiniz için teşekkür ederiz", language: "tr" },
-        // { text: "When you send a gift, your account will be displayed on the screen", language: "en" },
         { text: "Hediye gönderdiğinde hesabını seslendiriyorum", language: "tr" },
-        // { text: "When you write a message, your account will be displayed on the screen", language: "en" },
-        { text: "Mesaj yazdığında hesabını seslendiriyorum", language: "tr" },
-        // { text: "When you like, your account will be displayed on the screen", language: "en" },
-        { text: "Beğendiğinde hesabını seslendiriyorum", language: "tr" },
-        // { text: "When you share, your account will be displayed on the screen", language: "en" },
-        { text: "Canlını Paylaştığında hesabını seslendiriyorum", language: "tr" }
+        { text: "Lütfen yayımı beyenin", language: "tr" },
+        { text: "Sandık koy daha çok takipçi kazan", language: "tr" },
+
+
 
     ];
     const randomMessage = messages[Math.floor(Math.random() * messages.length)];
 
-    messagesQueue.push(randomMessage);
+    messagesQueue.push({ ...randomMessage, type: 'random' }); // type ekle
     processQueue();
 }
 
@@ -173,23 +143,12 @@ window.addEventListener("load", async () => {
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         await audioContext.resume();
 
-        // // 30 saniyede bir rastgele mesaj ekleyin ve otomatik seslendirme başlatın
-        // setInterval(addRandomMessage, 10000);
 
-        // setTimeout(() => {
-        //     addRandomMessage();
-        // }, 10000);
     } catch (error) {
         console.error("Otomatik seslendirme başlatılamadı:", error);
     }
 });
 
-setInterval(addRandomMessage, 15000);
-
-
-/*
-* LIVE TIKTOK
-*/
 
 function connect(targetLive) {
     if (targetLive !== '') {
@@ -228,6 +187,7 @@ window.onload = () => {
 
 };
 
+setInterval(addRandomMessage, 10000);
 
 function comment(username) {
     if (!userdata.includes(username)) {
@@ -253,7 +213,7 @@ function comment(username) {
     }
 }
 
-function gift(username) {
+function lakaka(username) {
     const giftDiv = document.createElement("div");
     giftDiv.className = "gift";
     giftDiv.innerText = "";
@@ -279,7 +239,9 @@ function gift(username) {
 
 
 }
-function gift1(username) {
+function lakaka1(username) {
+
+
     // Eğer username zaten usernames Map'inde bulunuyorsa, işlemi sonlandır
     if (usernames.has(username)) {
         return;
@@ -306,30 +268,8 @@ connection.on('like', (data) => {
     let userName = data.uniqueId;
     let likeCount = data.likeCount;
     let profilePictureUrl = data.profilePictureUrl;
-    comment(userName);
-
-    const messages = [
-        { text: " Beğendiğin için teşekkür ederim", language: "tr" },
-        { text: " Harikasın Beğenmeye devam et", language: "tr" },
-        { text: " Seni seviyorum Beğenmeye devam et", language: "tr" },
-        // { text: " Thank you for liking", language: "en" },
-    ];
-
-    function getRandomMessage(messages) {
-        const randomIndex = Math.floor(Math.random() * messages.length);
-        return messages[randomIndex];
-    }
-    const randomMessage = getRandomMessage(messages);
 
 
-    let end = { text: data.nickname + randomMessage.text, language: randomMessage.language, };
-
-    if (!usernames.has(userName)) {
-        messagesQueue.push(end);
-        processQueue();
-    }
-
-    gift1(userName);
 });
 
 
@@ -338,31 +278,6 @@ connection.on('member', (data) => {
     let userName = data.uniqueId;
     let profilePictureUrl = data.profilePictureUrl;
     comment(userName);
-
-    const messages = [
-        { text: " hoş geldin", language: "tr" },
-        { text: " Seni bekliyorduk", language: "tr" },
-        { text: " Hoş geldin , arkadaşlarını davet et", language: "tr" },
-        { text: " Hoş geldin , Seni Seviyorum", language: "tr" },
-        { text: " Desteğin için teşekkür ederim", language: "tr" },
-
-        // { text: " welcome", language: "en" },
-    ];
-
-    function getRandomMessage(messages) {
-        const randomIndex = Math.floor(Math.random() * messages.length);
-        return messages[randomIndex];
-    }
-    const randomMessage = getRandomMessage(messages);
-
-
-    let end = { text: data.nickname + randomMessage.text, language: randomMessage.language, };
-
-    if (!usernames.has(userName)) {
-        messagesQueue.push(end);
-        processQueue();
-    }
-    gift1(userName);
 
 })
 
@@ -374,57 +289,25 @@ connection.on('social', (data) => {
 
     comment(userName);
 
-    const messages = [
-        { text: " takip etdiğin için teşekkür ederim", language: "tr" },
-        // { text: " everyone, follow this account", language: "en" },
-        { text: "Canlını paylaşdığın için teşekkür ederim", language: "tr" },
-        // { text: "Thank you for the gift!", language: "en" },
-        { text: "Harikasın Canlını paylaşmağa devam et ", language: "tr" },
-
-        { text: "Arkadaşlarını  ", language: "tr" },
-        // { text: "They are showing themselves, follow them", language: "en" },
-    ];
-
-    function getRandomMessage(messages) {
-        const randomIndex = Math.floor(Math.random() * messages.length);
-        return messages[randomIndex];
-    }
-    const randomMessage = getRandomMessage(messages);
-
-
-    let end = { text: data.nickname + randomMessage.text, language: randomMessage.language, };
-
-
-
-    gift(userName);
-    if (!usernames.has(userName)) {
-        messagesQueue.push(end);
-        processQueue();
-    }
-
-
-    gift1(userName);
 })
-
-
 
 // // New gift received
 connection.on('gift', (data) => {
+
+    messagesQueue = messagesQueue.filter(item => item.type !== 'random');
 
     let userName = data.uniqueId;
     giftCount = (data.diamondCount * data.repeatCount);
     let profilePictureUrl = data.profilePictureUrl;
     const messages = [
-        { text: " adlı hesaba herkes takip atsın", language: "tr" },
-        // { text: " everyone, follow this account", language: "en" },
+        { text: " adlı hesaba her kes takip atsın", language: "tr" },
         { text: "Teşekkür ederim, hediye için!", language: "tr" },
-        // { text: "Thank you for the gift!", language: "en" },
         { text: "Kendini gösteriyor, onu takip edin", language: "tr" },
-        { text: "Harikasın, hesbaını takip edin", language: "tr" },
+        { text: "Harikasın, toplu takip gönderin", language: "tr" },
         { text: "Kesene bereket", language: "tr" },
         { text: "Bir Tanesin ,Her kes takip etsin", language: "tr" },
-        { text: "Seni çok seviyorum ,Her hesabına takip atsin", language: "tr" }
-        // { text: "They are showing themselves, follow them", language: "en" },
+        { text: "Seni çok seviyorum ,Her kes hesabına takip atsin", language: "tr" },
+        { text: "Geri dönüşleri çok iyi hemen takip et", language: "tr" },
     ];
 
     function getRandomMessage(messages) {
@@ -434,18 +317,16 @@ connection.on('gift', (data) => {
     const randomMessage = getRandomMessage(messages);
 
 
-    let end = { text: data.nickname + randomMessage.text, language: randomMessage.language, };
+    let end = { text: data.nickname + randomMessage.text, language: randomMessage.language, type: 'gift' }; // type ekle
 
-
-
-    gift(userName);
+    lakaka(userName);
     if (!usernames.has(userName)) {
         messagesQueue.push(end);
         processQueue();
     }
 
 
-    gift1(userName);
+    lakaka1(userName);
 })
 
 
