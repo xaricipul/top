@@ -9,7 +9,6 @@ let userdata = [];
 let commentsDiv;
 let giftsDiv;
 
-let lastActivityTime = Date.now();
 
 
 let messagesQueue = [];
@@ -32,6 +31,7 @@ function onEnd() {
     messagesQueue.shift();
     processQueue();
 }
+
 function containsBannedWords(text) {
     const bannedWords = ["pox", "cindir", "amciq", "got", "meme", "məmə", "dillaq", "dıllağ", "göt", "amcıq", "Bok", "am", "kahbe", "Qəhbə", "Qancıx", "Götveren"];
 
@@ -95,7 +95,7 @@ function addRandomMessage() {
         { text: "Beğeni ve hediye gönderenleri takip et", language: "tr" },
         { text: "Canlını paylaş", language: "tr" },
         { text: "Sevginizi gösterin, beğen ve takip et", language: "tr" },
-        { text: "Yorum yaz, karşılığında takip ederim", language: "tr" },
+        { text: "Mesaj yaz, karşılığında takip ederim", language: "tr" },
         { text: "Harikasınız", language: "tr" },
         { text: "Sevgiyi yay, takip et ve destekle", language: "tr" },
         { text: "Birlikte büyüyelim, beğen ve takip et", language: "tr" },
@@ -187,7 +187,7 @@ window.onload = () => {
 
 };
 
-setInterval(addRandomMessage, 10000);
+setInterval(addRandomMessage, 20000);
 
 function comment(username) {
     if (!userdata.includes(username)) {
@@ -277,7 +277,7 @@ connection.on('member', (data) => {
 
     let userName = data.uniqueId;
     let profilePictureUrl = data.profilePictureUrl;
-    comment(userName);
+    // comment(userName);
 
     messagesQueue = messagesQueue.filter(item => item.type !== 'random');
 
@@ -316,7 +316,7 @@ connection.on('social', (data) => {
     let profilePictureUrl = data.profilePictureUrl;
     let userlistExist = false;
 
-    comment(userName);
+    // comment(userName);
 
 })
 
@@ -338,6 +338,8 @@ connection.on('gift', (data) => {
         { text: "Seni çok seviyorum ,Her kes hesabına takip atsin", language: "tr" },
         { text: "Geri dönüşleri çok iyi hemen takip et", language: "tr" },
     ];
+	
+	  messagesQueue = messagesQueue.filter(item => item.type !== 'random')
 
     function getRandomMessage(messages) {
         const randomIndex = Math.floor(Math.random() * messages.length);
@@ -348,7 +350,7 @@ connection.on('gift', (data) => {
 
     let end = { text: data.nickname + randomMessage.text, language: randomMessage.language, type: 'gift' }; // type ekle
 
-    lakaka(userName);
+    // lakaka(userName);
     if (!usernames.has(userName)) {
         messagesQueue.push(end);
         processQueue();
