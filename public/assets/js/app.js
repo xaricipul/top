@@ -22,7 +22,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "oyun_aze";
+        let targetLive = "slotaze";
         connect(targetLive);
     }, 5000);
 })
