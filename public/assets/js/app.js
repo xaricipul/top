@@ -143,11 +143,11 @@ function gift(username, imageUrl) {
 connection.on('social', (data) => {
     let userName = data.uniqueId;
     let profilePictureUrl = data.profilePictureUrl;
-    if (displayType === "pm_main_follow_message_viewer_2")
+    if (data.displayType === "pm_main_follow_message_viewer_2")
     {
         follow(userName, profilePictureUrl)
     }
-    if (displayType === "pm_mt_guidance_share")
+    if (data.displayType === "pm_mt_guidance_share")
     {
         share(userName, profilePictureUrl)
     }
