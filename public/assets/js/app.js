@@ -122,7 +122,7 @@ connection.on('gift', (data) => {
 });
 
 
-function gift(username, message, imageUrl) {
+function gift(username, imageUrl) {
     var container = document.getElementById("container");
     console.log(container)
     container.classList.remove("fadeIn");
