@@ -88,7 +88,7 @@ function like(username, imageUrl) {
 connection.on('gift', (data) => {
     let userName = data.uniqueId;
     let profilePictureUrl = data.profilePictureUrl;
-        gift(userName, profilePictureUrl)
+     
 
 
         const messages = [
@@ -119,6 +119,8 @@ connection.on('gift', (data) => {
         }
     
         lakaka1(userName);
+
+        gift(userName, profilePictureUrl)
 });
 
 
@@ -191,7 +193,7 @@ function share(username, imageUrl) {
 connection.on('member', (data) => {
     let userName = data.uniqueId;
     let profilePictureUrl = data.profilePictureUrl;
-    member(userName, profilePictureUrl)
+   
 
     
     messagesQueue = messagesQueue.filter(item => item.type !== 'random');
@@ -219,6 +221,8 @@ connection.on('member', (data) => {
         processQueue();
     }
     lakaka1(userName);
+
+    member(userName, profilePictureUrl)
 });
 
 
