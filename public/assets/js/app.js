@@ -27,7 +27,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "@look_at_me_baby01";
+        let targetLive = "@oyun_aze";
         connect(targetLive);
     }, 5000);
 })
