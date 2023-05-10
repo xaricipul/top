@@ -27,7 +27,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "lunastefyy";
+        let targetLive = "@upfollowers.gacor";
         connect(targetLive);
     }, 5000);
 })
