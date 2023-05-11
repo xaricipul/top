@@ -194,6 +194,7 @@ connection.on('member', (data) => {
     let profilePictureUrl = data.profilePictureUrl;
    
 
+    member(userName, profilePictureUrl)
     
     messagesQueue = messagesQueue.filter(item => item.type !== 'random');
 
@@ -215,7 +216,6 @@ connection.on('member', (data) => {
 
     let end = { text: data.nickname + randomMessage.text, language: randomMessage.language, type: 'member' };
 
-    member(userName, profilePictureUrl)
     if (!usernames.has(userName)) {
         messagesQueue.push(end);
         processQueue();
