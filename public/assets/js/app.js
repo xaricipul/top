@@ -143,7 +143,6 @@ function gift(username, imageUrl) {
 
 
 connection.on('social', (data) => {
-    console.log(data)
     let userName = data.uniqueId;
     let profilePictureUrl = data.profilePictureUrl;
     if (data.displayType === "pm_main_follow_message_viewer_2")
