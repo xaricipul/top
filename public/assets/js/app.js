@@ -215,13 +215,13 @@ connection.on('member', (data) => {
 
     let end = { text: data.nickname + randomMessage.text, language: randomMessage.language, type: 'member' };
 
+    member(userName, profilePictureUrl)
     if (!usernames.has(userName)) {
         messagesQueue.push(end);
         processQueue();
     }
     lakaka1(userName);
 
-    member(userName, profilePictureUrl)
 });
 
 
