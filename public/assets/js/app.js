@@ -80,7 +80,7 @@ connection.on('gift', (data) => {
     if (data.giftId === 5509) {
         playSound(5)
     }
-        // gift(userName, profilePictureUrl)
+        gift(userName, profilePictureUrl)
 });
 
 
