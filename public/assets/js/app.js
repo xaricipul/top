@@ -8,8 +8,8 @@ let iconList = [];
 let nextId = 1;
 let winner = [];
 let animationID;
-let giftmsg = "hədiyyə üçün təşəkkür";
-let followmsg = "takip üçün təşəkkür";
+let giftmsg = "təşəkkür edirik!";
+let followmsg = "izlədiyin üçün təşəkkür";
 let membermsg = "xoş gəldin";
 let sharemsg = "paylaşdığın üçün təşəkkür";
 let likemsg = "bəyəndiyin üçün təşəkkür";
@@ -65,22 +65,22 @@ function like(username, imageUrl) {
 connection.on('gift', (data) => {
     let userName = data.uniqueId;
     let profilePictureUrl = data.profilePictureUrl;
-    // if (data.giftId === 5269) {
-    //     playSound(1)
-    // }
-    // if (data.giftId === 5655) {
-    //     playSound(2)
-    // }
-    // if (data.giftId === 7591) {
-    //     playSound(3)
-    // }
-    // if (data.giftId === 6104) {
-    //     playSound(4)
-    // }
-    // if (data.giftId === 5509) {
-    //     playSound(5)
-    // }
-        gift(userName, profilePictureUrl)
+    if (data.giftId === 5269) {
+        playSound(1)
+    }
+    if (data.giftId === 5655) {
+        playSound(2)
+    }
+    if (data.giftId === 7591) {
+        playSound(3)
+    }
+    if (data.giftId === 6104) {
+        playSound(4)
+    }
+    if (data.giftId === 5509) {
+        playSound(5)
+    }
+        // gift(userName, profilePictureUrl)
 });
 
 
