@@ -8,11 +8,11 @@ let iconList = [];
 let nextId = 1;
 let winner = [];
 let animationID;
-let giftmsg = "Thanks for the gifts !"; // Hediye için teşekkürler!
-let followmsg = "Thanks for following"; // Takip ettiğin için teşekkürler
-let membermsg = "Welcome"; // Hoş geldiniz
-let sharemsg = "Thanks for sharing"; // Paylaştığın için teşekkürler
-let likemsg = "Thanks for liking"; // Beğendiğin için teşekkürler
+let giftmsg = "Jetonun bol olsun!"; // Hediye için teşekkürler!
+let followmsg = "Tak!p üçün təşəkkür"; // Takip ettiğin için teşekkürler
+let membermsg = "Xoş gəldin"; // Hoş geldiniz
+let sharemsg = "Paylaşım üçün təşəkkür"; // Paylaştığın için teşekkürler
+let likemsg = "Bəyəndiyin üçün təşəkkür"; // Beğendiğin için teşekkürler
 let messagesQueue = [];
 // START
 $(document).ready(() => {
