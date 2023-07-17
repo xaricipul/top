@@ -18,7 +18,7 @@ let messagesQueue = [];
 $(document).ready(() => {
 
     setTimeout(function () {
-        let targetLive = "@freecoinapp";
+        let targetLive = "@freecoinup";
         connect(targetLive);
     }, 5000);
 })
