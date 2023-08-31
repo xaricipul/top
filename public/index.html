@@ -317,6 +317,21 @@
       background-color: rgba(178, 116, 116, 0.5);
     }
   }
+  
+  .animated-text {
+    position: absolute;
+    width: 100%;
+    width: 440px;
+    text-align: center;
+    margin-left: 235px;
+    font-size: 22px;
+    font-weight: bold;
+    color: blue;
+    z-index: 3;
+    background-color: rgba(255, 255, 255, 0.5);
+    white-space: nowrap;
+    /* Metni tek bir satırda tutar */
+  }
 </style>
 
 <body>
@@ -328,7 +343,7 @@
   <canvas id="myCanvas" width="400" height="400" style="display: block; margin: 20px auto 0;">
 
   </canvas>
-
+  <marquee behavior="scroll" direction="left" class="animated-text">Həd!yyə atıldığında , Canlını bəyəndikdə və paylaşdıqda Ekrandakı şəklin böyüyəcək. Hər şey Avtomatik qoşulub</marquee>
   <canvas id="myCanvas3" width="400" height="70" style="display: block; margin: 20px auto 0;"></canvas>
 
 
