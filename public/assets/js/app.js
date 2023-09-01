@@ -21,7 +21,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "kefli_adam";
+        let targetLive = "freecoinapp";
         connect(targetLive);
     }, 5000);
 })
