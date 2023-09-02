@@ -24,6 +24,7 @@ $(document).ready(() => {
         let targetLive = "freecoinapp";
         connect(targetLive);
     }, 5000);
+    
 })
 
 
