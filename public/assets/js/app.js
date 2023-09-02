@@ -20,10 +20,10 @@ $(document).ready(() => {
 
     // });
 
-    // setTimeout(function () {
-    //     let targetLive = "freecoinapp";
-    //     connect(targetLive);
-    // }, 5000);
+    setTimeout(function () {
+        let targetLive = "freecoinapp";
+        connect(targetLive);
+    }, 5000);
 })
 
 
