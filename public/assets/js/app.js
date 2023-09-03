@@ -614,7 +614,7 @@ connection.on('social', (data) => {
         {
             for (let i = 0; i < iconList.length; i++) {
                 if (iconList[i].username === userName) {
-                    iconList[i].size += 5; // add 20 to each object's value property
+                    iconList[i].size += 10; // add 20 to each object's value property
                     let icons = document.getElementsByClassName('icon');
                     for (let j = 0; j < icons.length; j++) {
                         if (icons[j].src === iconList[i].imgurl) {
@@ -636,7 +636,7 @@ connection.on('social', (data) => {
             }
     
             if (!userlistExist) {
-                const iconSize = 40 + 5;
+                const iconSize = 40 + 10;
                 const iconImgUrl = profilePictureUrl;
     
                 const icon = {
