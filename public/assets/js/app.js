@@ -601,53 +601,102 @@ connection.on('member', (data) => {
 })
 
 connection.on('social', (data) => {
+    
     if (finishGame) {
         return;
     }
     let userName = data.uniqueId;
     let profilePictureUrl = data.profilePictureUrl;
     let userlistExist = false;
+    
     if (!finishGame) {
-        for (let i = 0; i < iconList.length; i++) {
-            if (iconList[i].username === userName) {
-                iconList[i].size += 3; // add 20 to each object's value property
-                let icons = document.getElementsByClassName('icon');
-                for (let j = 0; j < icons.length; j++) {
-                    if (icons[j].src === iconList[i].imgurl) {
-                        if (newSize > 400) {
-                            icons[j].style.width = iconList[i].size + 'px';
-                            icons[j].style.height = iconList[i].size + 'px';
-                            icons[j].style.top = ((window.innerHeight - iconList[i].size) / 2) + 'px';
-                            icons[j].style.left = ((window.innerWidth - iconList[i].size) / 2) + 'px';
+        if (data.displayType === "pm_main_follow_message_viewer_2")
+        {
+            for (let i = 0; i < iconList.length; i++) {
+                if (iconList[i].username === userName) {
+                    iconList[i].size += 5; // add 20 to each object's value property
+                    let icons = document.getElementsByClassName('icon');
+                    for (let j = 0; j < icons.length; j++) {
+                        if (icons[j].src === iconList[i].imgurl) {
+                            if (newSize > 400) {
+                                icons[j].style.width = iconList[i].size + 'px';
+                                icons[j].style.height = iconList[i].size + 'px';
+                                icons[j].style.top = ((window.innerHeight - iconList[i].size) / 2) + 'px';
+                                icons[j].style.left = ((window.innerWidth - iconList[i].size) / 2) + 'px';
+                            }
+                            break;
                         }
-                        break;
+                    }
+                    userlistExist = true;
+                    if (iconList[i].size > 400) {
+                        iconList[i].size = 400; // if value goes over 400, set it to 400
+                        break; // stop the loop if any value goes over 400
                     }
                 }
-                userlistExist = true;
-                if (iconList[i].size > 400) {
-                    iconList[i].size = 400; // if value goes over 400, set it to 400
-                    break; // stop the loop if any value goes over 400
+            }
+    
+            if (!userlistExist) {
+                const iconSize = 40 + 5;
+                const iconImgUrl = profilePictureUrl;
+    
+                const icon = {
+                    x: Math.floor(Math.random() * (canvas.width - iconSize)),
+                    y: Math.floor(Math.random() * (canvas.height - iconSize)),
+                    size: iconSize,
+                    imgUrl: iconImgUrl,
+                    img: new Image(),
+                    username: userName,
+                };
+    
+                iconList.push(icon);
+    
+                drawIcons();
+            }
+        }
+        if (data.displayType === "pm_mt_guidance_share")
+        {
+            for (let i = 0; i < iconList.length; i++) {
+                if (iconList[i].username === userName) {
+                    iconList[i].size += 3; // add 20 to each object's value property
+                    let icons = document.getElementsByClassName('icon');
+                    for (let j = 0; j < icons.length; j++) {
+                        if (icons[j].src === iconList[i].imgurl) {
+                            if (newSize > 400) {
+                                icons[j].style.width = iconList[i].size + 'px';
+                                icons[j].style.height = iconList[i].size + 'px';
+                                icons[j].style.top = ((window.innerHeight - iconList[i].size) / 2) + 'px';
+                                icons[j].style.left = ((window.innerWidth - iconList[i].size) / 2) + 'px';
+                            }
+                            break;
+                        }
+                    }
+                    userlistExist = true;
+                    if (iconList[i].size > 400) {
+                        iconList[i].size = 400; // if value goes over 400, set it to 400
+                        break; // stop the loop if any value goes over 400
+                    }
                 }
+            }
+    
+            if (!userlistExist) {
+                const iconSize = 40 + 0.5;
+                const iconImgUrl = profilePictureUrl;
+    
+                const icon = {
+                    x: Math.floor(Math.random() * (canvas.width - iconSize)),
+                    y: Math.floor(Math.random() * (canvas.height - iconSize)),
+                    size: iconSize,
+                    imgUrl: iconImgUrl,
+                    img: new Image(),
+                    username: userName,
+                };
+    
+                iconList.push(icon);
+    
+                drawIcons();
             }
         }
 
-        if (!userlistExist) {
-            const iconSize = 40 + 0.5;
-            const iconImgUrl = profilePictureUrl;
-
-            const icon = {
-                x: Math.floor(Math.random() * (canvas.width - iconSize)),
-                y: Math.floor(Math.random() * (canvas.height - iconSize)),
-                size: iconSize,
-                imgUrl: iconImgUrl,
-                img: new Image(),
-                username: userName,
-            };
-
-            iconList.push(icon);
-
-            drawIcons();
-        }
     }
 
 })
@@ -666,7 +715,7 @@ connection.on('gift', (data) => {
     if (!finishGame) {
         for (let i = 0; i < iconList.length; i++) {
             if (iconList[i].username === userName) {
-                iconList[i].size += giftCount * 15; // add 20 to each object's value property
+                iconList[i].size += giftCount * 10; // add 20 to each object's value property
                 let icons = document.getElementsByClassName('icon');
                 for (let j = 0; j < icons.length; j++) {
                     if (icons[j].src === iconList[i].imgurl) {
@@ -688,7 +737,7 @@ connection.on('gift', (data) => {
         }
 
         if (!userlistExist) {
-            const iconSize = 40 + (giftCount * 15);
+            const iconSize = 40 + (giftCount * 10);
             const iconImgUrl = profilePictureUrl;
 
             const icon = {
