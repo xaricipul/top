@@ -21,7 +21,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "freecoinapp";
+        let targetLive = "mmdov.o21";
         connect(targetLive);
     }, 5000);
     
