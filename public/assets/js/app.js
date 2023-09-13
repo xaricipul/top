@@ -402,7 +402,7 @@ function drawIcons(currentTime) {
                             ctx.fillStyle = color;
                             ctx.font = "bold 30px Arial";
                             ctx.textAlign = "center";
-                            ctx.fillText("Congratulations", canvas.width / 2, 280 + Math.sin(Date.now() / 200) * 10);
+                            ctx.fillText("Təbriklər:)", canvas.width / 2, 280 + Math.sin(Date.now() / 200) * 10);
 
                             ctx.fillStyle = color;
                             ctx.font = "bold 30px Arial";
@@ -423,7 +423,7 @@ function drawIcons(currentTime) {
                     let canvas2 = document.getElementById("myCanvas2");
                     let ctx2 = canvas2.getContext("2d");
 
-                    if (winner.length === 1) {
+                    if (winner.length === 3) {
 
                         ctx2.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -437,7 +437,7 @@ function drawIcons(currentTime) {
                     // Create the winner list
                     ctx2.font = "20px Arial";
                     ctx2.fillStyle = "black";
-                    ctx2.fillText("Winners:", 10, 30);
+                    ctx2.fillText("Qaliblər:", 10, 30);
 
                     for (let i = 0; i < winner.length; i++) {
                         // Load the image
@@ -715,7 +715,7 @@ connection.on('gift', (data) => {
     if (!finishGame) {
         for (let i = 0; i < iconList.length; i++) {
             if (iconList[i].username === userName) {
-                iconList[i].size += giftCount * 10; // add 20 to each object's value property
+                iconList[i].size += giftCount * 7.5; // add 20 to each object's value property
                 let icons = document.getElementsByClassName('icon');
                 for (let j = 0; j < icons.length; j++) {
                     if (icons[j].src === iconList[i].imgurl) {
@@ -737,7 +737,7 @@ connection.on('gift', (data) => {
         }
 
         if (!userlistExist) {
-            const iconSize = 40 + (giftCount * 10);
+            const iconSize = 40 + (giftCount * 7.5);
             const iconImgUrl = profilePictureUrl;
 
             const icon = {
