@@ -27,11 +27,12 @@
   }
 
   #myCanvas {
+    /* animation: blink-animation 10s linear infinite; */
     display: block;
     margin: 50px auto 0;
     border: 1px solid #ddd;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    background-image: url('back11.jpg');
+    background-image: url('5.gif');
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 10px;
@@ -367,32 +368,32 @@
   <canvas id="myCanvas" width="400" height="400" style="display: block; margin: 20px auto 0;">
  
   </canvas>
-  <marquee behavior="scroll" direction="left" scrollamount="10" class="animated-text">Həd!yyə atıldığında (sürətlə böyüyür) ,Səhifəmizi tak!p etdiyində, Canlını bəyəndikdə , paylaşdıqda və yorum yazdıqda  Ekrandakı şəklin böyüyəcək.(az-az böyüyür). Canlıda 1 dəqiqə ərzində heç bir aktivite etməsən şəklin balacalaşacaq! (Bəyənmə 3k limitini keçdikdən sonra bloklanır və böyümür və əksinə balacalanır!) Hər şey Avtomatik qoşulub</marquee>
-  <canvas id="myCanvas3" width="400" height="70" style="display: block; margin: 20px auto 0;"></canvas>
+  <!-- <marquee behavior="scroll" direction="left" scrollamount="10" class="animated-text">Həd!yyə atıldığında (sürətlə böyüyür) ,Səhifəmizi tak!p etdiyində, Canlını bəyəndikdə , paylaşdıqda və yorum yazdıqda  Ekrandakı şəklin böyüyəcək.(az-az böyüyür). Canlıda 1 dəqiqə ərzində heç bir aktivite etməsən şəklin balacalaşacaq! (Bəyənmə 3k limitini keçdikdən sonra bloklanır və böyümür və əksinə balacalanır!) Hər şey Avtomatik qoşulub</marquee> -->
+  <!-- <canvas id="myCanvas3" width="400" height="70" style="display: block; margin: 20px auto 0;"></canvas> -->
 
 
-  <canvas id="myCanvas2" width="400" height="200" style="display: block; margin: 20px auto 0;"></canvas>
+  <!-- <canvas id="myCanvas2" width="400" height="200" style="display: block; margin: 20px auto 0;"></canvas> -->
   <img id="fireworkGif1" src="fire1.gif" style="display: none; position: absolute;">
   <img id="fireworkGif2" src="fire2.gif" style="display: none; position: absolute;">
   <img id="fireworkGif3" src="fire3.gif" style="display: none; position: absolute;">
 
-  <div class="mb-3 mt-2">
+  <!-- <div class="mb-3 mt-2">
     <input id="targetUsername" type="text" placeholder="daxil et @istifadəçi" style="width:140px;" />
     <button id="targetConnect">Qoş</button>
-  </div>
+  </div> -->
 
-  <td>Qoşulma statusu</td>
+  <!-- <td>Qoşulma statusu</td>
   <td>&nbsp;:&nbsp;</td>
   <span id="stateText">Qoşulmayıb</span>
-  <div id="icon-container"></div>
-  <script>
+  <div id="icon-container"></div>-->
+  <script> 
 
 
     const canvas = document.getElementById("myCanvas");
     const ctx = canvas.getContext("2d");
     const globalVelocity = { x: 5, y: 5 };
-    const canvas3 = document.getElementById("myCanvas3");
-    const ctx3 = canvas3.getContext("2d");
+    // const canvas3 = document.getElementById("myCanvas3");
+    // const ctx3 = canvas3.getContext("2d");
     particlesJS("particle-container", {
     particles: {
       number: {
@@ -448,89 +449,89 @@
   });
 
 
-    const img = new Image();
-    let opacity1 = 1;
-    let opacityChange1 = -0.005;
+    // const img = new Image();
+    // let opacity1 = 1;
+    // let opacityChange1 = -0.005;
 
-    const img2 = new Image();
-    let opacity2 = 1;
-    let opacityChange2 = -0.006;
+    // const img2 = new Image();
+    // let opacity2 = 1;
+    // let opacityChange2 = -0.006;
 
-    const img3 = new Image();
-    let opacity3 = 1;
-    let opacityChange3 = -0.007;
+    // const img3 = new Image();
+    // let opacity3 = 1;
+    // let opacityChange3 = -0.007;
 
-    const img4 = new Image();
-    let opacity4 = 1;
-    let opacityChange4 = -0.008;
+    // const img4 = new Image();
+    // let opacity4 = 1;
+    // let opacityChange4 = -0.008;
 
-    function animate() {
-      ctx3.clearRect(0, 0, canvas.width, canvas.height); // clear the canvas
+    // function animate() {
+    //   ctx3.clearRect(0, 0, canvas.width, canvas.height); // clear the canvas
 
-      ctx3.globalAlpha = opacity1;
-      ctx3.font = "20px Arial";
-      ctx3.fillStyle = "#333";
-      ctx3.fillText("1", 0, 22);
-      ctx3.drawImage(img, 10, 0, 30, 30);
-      ctx3.font = "16px Arial";
-      ctx3.fillStyle = "#333";
-      ctx3.fillText("zoom (10x)", 50, 20);
+    //   ctx3.globalAlpha = opacity1;
+    //   ctx3.font = "20px Arial";
+    //   ctx3.fillStyle = "#333";
+    //   ctx3.fillText("1", 0, 22);
+    //   ctx3.drawImage(img, 10, 0, 30, 30);
+    //   ctx3.font = "16px Arial";
+    //   ctx3.fillStyle = "#333";
+    //   ctx3.fillText("zoom (10x)", 50, 20);
 
-      ctx3.globalAlpha = opacity2;
-      ctx3.fillText("5", 0, 58);
-      ctx3.drawImage(img2, 15, 38, 25, 25);
-      ctx3.font = "16px Arial";
-      ctx3.fillStyle = "#333";
-      ctx3.fillText("zoom (1x)", 50, 60);
+    //   ctx3.globalAlpha = opacity2;
+    //   ctx3.fillText("5", 0, 58);
+    //   ctx3.drawImage(img2, 15, 38, 25, 25);
+    //   ctx3.font = "16px Arial";
+    //   ctx3.fillStyle = "#333";
+    //   ctx3.fillText("zoom (1x)", 50, 60);
 
-      ctx3.globalAlpha = opacity3;
-      ctx3.fillText("1", 180, 22);
-      ctx3.drawImage(img3, 200, 1, 30, 30);
-      ctx3.font = "16px Arial";
-      ctx3.fillStyle = "#333";
-      ctx3.fillText("zoom (50x)", 235, 20);
+    //   ctx3.globalAlpha = opacity3;
+    //   ctx3.fillText("1", 180, 22);
+    //   ctx3.drawImage(img3, 200, 1, 30, 30);
+    //   ctx3.font = "16px Arial";
+    //   ctx3.fillStyle = "#333";
+    //   ctx3.fillText("zoom (50x)", 235, 20);
 
-      ctx3.globalAlpha = opacity4;
-      ctx3.fillText("20", 175, 58);
-      ctx3.drawImage(img4, 204, 38, 25, 25);
-      ctx3.font = "16px Arial";
-      ctx3.fillStyle = "#333";
-      ctx3.fillText("zoom (5x)", 235, 60);
+    //   ctx3.globalAlpha = opacity4;
+    //   ctx3.fillText("20", 175, 58);
+    //   ctx3.drawImage(img4, 204, 38, 25, 25);
+    //   ctx3.font = "16px Arial";
+    //   ctx3.fillStyle = "#333";
+    //   ctx3.fillText("zoom (5x)", 235, 60);
 
-      opacity1 += opacityChange1;
-      opacity2 += opacityChange2;
-      opacity3 += opacityChange3;
-      opacity4 += opacityChange4;
+    //   opacity1 += opacityChange1;
+    //   opacity2 += opacityChange2;
+    //   opacity3 += opacityChange3;
+    //   opacity4 += opacityChange4;
 
-      if (opacity1 <= 0 || opacity1 >= 1) { opacityChange1 *= -1; }
-      if (opacity2 <= 0 || opacity2 >= 1) { opacityChange2 *= -1; }
-      if (opacity3 <= 0 || opacity3 >= 1) { opacityChange3 *= -1; }
-      if (opacity4 <= 0 || opacity4 >= 1) { opacityChange4 *= -1; }
+    //   if (opacity1 <= 0 || opacity1 >= 1) { opacityChange1 *= -1; }
+    //   if (opacity2 <= 0 || opacity2 >= 1) { opacityChange2 *= -1; }
+    //   if (opacity3 <= 0 || opacity3 >= 1) { opacityChange3 *= -1; }
+    //   if (opacity4 <= 0 || opacity4 >= 1) { opacityChange4 *= -1; }
 
-      requestAnimationFrame(animate);
-    }
+    //   requestAnimationFrame(animate);
+    // }
 
-    img.onload = img2.onload = img3.onload = img4.onload = animate;
+    // img.onload = img2.onload = img3.onload = img4.onload = animate;
 
-    img.src = "2g.png";
-    img2.src = "like.png";
-    img3.src = "heart.png";
-    img4.src = "share.png";
-    // let currentIndex = 11; // Başlangıçta back11.gif kullanılıyor.
+    // img.src = "2g.png";
+    // img2.src = "like.png";
+    // img3.src = "heart.png";
+    // img4.src = "share.png";
+    let currentIndex = 5; // Başlangıçta back11.gif kullanılıyor.
 
 
-    // setInterval(function () {
-    //   let randomNumber = Math.floor(Math.random() * 100) + 1;
+    setInterval(function () {
+      let randomNumber = Math.floor(Math.random() * 26) + 1;
 
-    //   while (randomNumber === currentIndex) {
-    //     randomNumber = Math.floor(Math.random() * 100) + 1;
-    //   }
+      while (randomNumber === currentIndex) {
+        randomNumber = Math.floor(Math.random() * 26) + 1;
+      }
 
-    //   currentIndex = randomNumber;
+      currentIndex = randomNumber;
 
-    //   let gifUrl =  randomNumber + '.gif';
-    //   document.getElementById('myCanvas').style.backgroundImage = "url('" + gifUrl + "')";
-    // }, 60000);  // 60000 milisaniye, yani 1 dakika.
+      let gifUrl =  randomNumber + '.gif';
+      document.getElementById('myCanvas').style.backgroundImage = "url('" + gifUrl + "')";
+    }, 60000);  // 60000 milisaniye, yani 1 dakika.
 
   </script>
 </body>
