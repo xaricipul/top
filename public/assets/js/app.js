@@ -2186,34 +2186,34 @@ function drawIcons(currentTime) {
                         cancelAnimationFrame(animationID);
                     }
 
-                    let canvas2 = document.getElementById("myCanvas2");
-                    let ctx2 = canvas2.getContext("2d");
+                    // let canvas2 = document.getElementById("myCanvas2");
+                    // let ctx2 = canvas2.getContext("2d");
 
-                    if (winner.length === 3) {
+                    // if (winner.length === 3) {
 
-                        ctx2.clearRect(0, 0, canvas.width, canvas.height);
+                    //     ctx2.clearRect(0, 0, canvas.width, canvas.height);
 
-                        winner.splice(0, 3);
-                    }
+                    //     winner.splice(0, 3);
+                    // }
 
 
                     addWinner(largestIcon.username, largestIcon.imgUrl);
 
 
-                    // Create the winner list
-                    ctx2.font = "20px Arial";
-                    ctx2.fillStyle = "black";
-                    ctx2.fillText("Qaliblər:", 10, 30);
+                    // // Create the winner list
+                    // ctx2.font = "20px Arial";
+                    // ctx2.fillStyle = "black";
+                    // ctx2.fillText("Qaliblər:", 10, 30);
 
                     for (let i = 0; i < winner.length; i++) {
                         // Load the image
                         let img = new Image();
                         img.src = winner[i].imgurl;
 
-                        img.onload = function () {
-                            ctx2.drawImage(img, 10, 50 + i * 50, 40, 40); // Draw the image with a size of 40 x 40 pixels
-                            ctx2.fillText(i + 1 + ' - ' + winner[i].username, 60, 70 + i * 60); // Draw the username
-                        };
+                        // img.onload = function () {
+                        //     ctx2.drawImage(img, 10, 50 + i * 50, 40, 40); // Draw the image with a size of 40 x 40 pixels
+                        //     ctx2.fillText(i + 1 + ' - ' + winner[i].username, 60, 70 + i * 60); // Draw the username
+                        // };
                     }
 
                     // Clear the canvas and delete all icons after 10 seconds
