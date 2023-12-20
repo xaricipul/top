@@ -24,7 +24,7 @@ $(document).ready(() => {
         let targetLive = "mirtlive";
         connect(targetLive);
     }, 5000);
-    
+
 })
 
 
@@ -122,7 +122,12 @@ connection.on('chat', (data) => {
         }
     }
 
-    let member = data.nickname;
+    let member = data.nickname.replace(/[_\$-.]/g, '');
+    member = member.replace(/ə/g, 'e');
+    member = member.replace(/x/g, 'k');
+    if (member.startsWith('user')) {
+        member = 'user';
+    }
     let lowerCaseComment = data.comment.toLowerCase();
 
     // Şimdiki zamanı alıyoruz
@@ -201,7 +206,51 @@ connection.on('chat', (data) => {
         } lakaka1(member);
 
     }
+    if (lowerCaseComment.includes("sinba") || lowerCaseComment.includes("simba")) {
 
+        let response;
+
+        response = { text: member + " dustaq yoldaşım simba seni salamlayıram qardaşım", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+
+    }
+
+    
+
+    if (lowerCaseComment.includes("bextiyar") || lowerCaseComment.includes("bəxtiyar")) {
+
+        let response;
+
+        response = { text: member + " bahtıyar senin aşkındı?", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+
+    }
+    if (lowerCaseComment.includes("mezahir") || lowerCaseComment.includes("məzahir")) {
+
+        let response;
+
+        response = { text: member + " mezahirde kim? ben nerbalayım nerbala ", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+
+    }
     if (lowerCaseComment.includes("canavar")) {
 
         let response;
@@ -354,6 +403,22 @@ connection.on('chat', (data) => {
 
     }
 
+    if (lowerCaseComment.includes("2024")) {
+
+        let response;
+
+        response = { text: member + " 2024-de dünya dağılacak boşuna çalışma", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+
+    }
+
+
     if (lowerCaseComment.includes("gözel") || lowerCaseComment.includes("gözəl")) {
 
         let response;
@@ -406,6 +471,36 @@ connection.on('chat', (data) => {
         let response;
 
         response = { text: member + " ölme daha karpız keseceğiz", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+
+    }
+
+    if (lowerCaseComment.includes("gəldim") || lowerCaseComment.includes("gəldime") || lowerCaseComment.includes("gəldimee") || lowerCaseComment.includes("geldim") || lowerCaseComment.includes("geldimee")) {
+
+        let response;
+
+        response = { text: member + " hoş geldin bir daha gitme", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+
+    }
+
+    if (lowerCaseComment.includes("adem") || lowerCaseComment.includes("adəm") ) {
+
+        let response;
+
+        response = { text: member + " adem ürekdi benim balaca kakaşımdı", language: "tr", type: 'like' };
 
 
         // Eğer uygun bir yanıt varsa, kuyruğa ekle
@@ -772,7 +867,19 @@ connection.on('chat', (data) => {
         } lakaka1(member);
     }
 
+    if (lowerCaseComment.includes("delixana") || lowerCaseComment.includes("dəlixana")) {
+        let response;
 
+
+        response = { text: member + " delihana değil burda üreyimizi verecek insanlar var", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+    }
     if (lowerCaseComment.includes("deli") || lowerCaseComment.includes("dəli")) {
         let response;
 
@@ -829,6 +936,45 @@ connection.on('chat', (data) => {
             processQueue();
         } lakaka1(member);
     }
+    if (lowerCaseComment.includes("dustaq") || lowerCaseComment.includes("dustax") || lowerCaseComment.includes("dustag") ) {
+        let response;
+
+
+        response = { text: member + " Allah bütün tustakların kapısını açsın", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+    }
+    if (lowerCaseComment.includes("canım") || lowerCaseComment.includes("canim") || lowerCaseComment.includes("canımsın") || lowerCaseComment.includes("canimsin")) {
+        let response;
+
+
+        response = { text: member + " sende benim canımsın", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+    }
+    if (lowerCaseComment.includes("bala") || lowerCaseComment.includes("balaa") ) {
+        let response;
+
+
+        response = { text: member + " 33 yaşım var benim benden bala olurmu hiç? ", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+    }
 
 
     if (lowerCaseComment.includes("para") || lowerCaseComment.includes("pul") || lowerCaseComment.includes("qepik") || lowerCaseComment.includes("qəpik") || lowerCaseComment.includes("qepik")) {
@@ -857,7 +1003,7 @@ connection.on('chat', (data) => {
             processQueue();
         } lakaka1(member);
     }
-
+    
     if (lowerCaseComment.includes("caniva derd") || lowerCaseComment.includes("canıva dərd")) {
         let response;
 
@@ -917,6 +1063,19 @@ connection.on('chat', (data) => {
         } lakaka1(member);
     }
 
+    if (lowerCaseComment.includes("qəşəy") || lowerCaseComment.includes("qesey") || lowerCaseComment.includes("gəşəy") ) {
+        let response;
+
+
+        response = { text: member + " kəşənk günün bol olsun", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+    }
 
     if (lowerCaseComment.includes("vay")) {
         let response;
@@ -1017,6 +1176,20 @@ connection.on('chat', (data) => {
 
 
     if (lowerCaseComment.includes("zeher") || lowerCaseComment.includes("zəhər")) {
+        let response;
+
+
+        response = { text: member + " camahat bana üreyini veriyor sen bana zeher diyorsun ayıp", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+    }
+
+    if (lowerCaseComment.includes("zehrimar") || lowerCaseComment.includes("zəhrimar")) {
         let response;
 
 
@@ -1228,7 +1401,7 @@ connection.on('chat', (data) => {
         } lakaka1(member);
     }
 
-    if (lowerCaseComment.includes("xosqedem") || lowerCaseComment.includes("xoşqədəm") || lowerCaseComment.includes("xoşqedem")) {
+    if (lowerCaseComment.includes("xosqedem") || lowerCaseComment.includes("xoşqədəm")  || lowerCaseComment.includes("xowqedem") || lowerCaseComment.includes("xoşqedem")) {
         let response;
 
 
@@ -1242,19 +1415,6 @@ connection.on('chat', (data) => {
         } lakaka1(member);
     }
 
-    if (lowerCaseComment.includes("xosqedem") || lowerCaseComment.includes("xoşqədəm") || lowerCaseComment.includes("xoşqedem")) {
-        let response;
-
-
-        response = { text: member + "hoşkadem olmasa dayılar rusyetde keyf yapar", language: "tr", type: 'like' };
-
-
-        // Eğer uygun bir yanıt varsa, kuyruğa ekle
-        if (response && !usernames.has(member)) {
-            messagesQueue.push(response);
-            processQueue();
-        } lakaka1(member);
-    }
 
     if (lowerCaseComment.includes("nurane")) {
         let response;
@@ -2277,8 +2437,13 @@ connection.on('like', (data) => {
 
     const randomMessage = getRandomMessage();
 
-
-    let end = { text: data.nickname + randomMessage.text, language: randomMessage.language, type: 'like' };
+    let cleanNickname = data.nickname.replace(/[_\$-.]/g, '');
+    cleanNickname = cleanNickname.replace(/ə/g, 'e');
+    cleanNickname = cleanNickname.replace(/x/g, 'k');
+    if (cleanNickname.startsWith('user')) {
+        cleanNickname = 'user';
+    }
+    let end = { text: cleanNickname + randomMessage.text, language: randomMessage.language, type: 'like' };
 
     if (!usernames.has(userName)) {
         messagesQueue.push(end);
@@ -2289,182 +2454,204 @@ connection.on('like', (data) => {
 });
 
 let availableMessages = [
-    { text: " senin dün gece ağladım", language: "tr" },
-    { text: " ellerin dert görmesin", language: "tr" },
-        { text: " bu nedee metronun içinde bu nedi çekirsiz?", language: "tr" },
-    { text: " iyiki varsın", language: "tr" },
-    { text: " cimi cimi cimi haca haca haca", language: "tr" },
-    { text: " ben bomba kimi tiktokerim", language: "tr" },
-    { text: " öyle bir vaxt gelecek xoş hayat görsenecek", language: "tr" },
-    { text: " emi kızı kurban olsun emi oğlu yatan yere", language: "tr" },
-    { text: " kimselere sataşma", language: "tr" },
-    { text: "senin eşkin getirdi beni dile", language: "tr" },
-    { text: "görmürem seni hayli zamandır", language: "tr" },
-    { text: "darıhmışam o kadar darıhmışam", language: "tr" },
-        { text: "men azadlığa çıxdım amma sen dörd divardasın", language: "tr" },
-            { text: " bu nedee metronun içinde bu nedi çekirsiz?", language: "tr" },
-    { text: " sensiz gelen yaz değil kalbim seni gözleyir", language: "tr" },
-    { text: " millet kazandığımız paranın hesabını yapıyor.", language: "tr" },
-    { text: " cici kızlar merhaba nerbala çıktı ortaya", language: "tr" },
-    { text: "şimdi ben buraya neden çıktım niyçin çıkdım?", language: "tr" },
-    { text: " bele pisde çıxmasın canlara değen oğlanım", language: "tr" },
-    { text: " seni kalbime yazdım", language: "tr" },
-    { text: " seni okşar şirin birini tapmışam", language: "tr" },
-    { text: " yat bu yuhudan oyanma bir addımda yakınlaş", language: "tr" },
-        { text: " Allah haqqı hee", language: "tr" },
-    { text: " danışırdım özümle geceler", language: "tr" },
-    { text: " sevgini bana çok gördün sen", language: "tr" },
-    { text: " derdim çok ümüdüm yok içmeye başlamışam", language: "tr" },
-    { text: " cansız resmime bakmayın dostlarım ben çok çetinlikler gördüm", language: "tr" },
-    { text: " ay nenen kurban ay baban kurban", language: "tr" },
-            { text: "sen giyersin giymezsin ben çorap severim", language: "tr" },
-    { text: " igiddi çok merddi dağlar oğlu dağlar", language: "tr" },
-    { text: " renci karaşa salmışam", language: "tr" },
-    { text: " teze iksyeddi almışam", language: "tr" },
-          { text: "ay xanaraq neylemişem neyliyim? xengel alim bağım başım neyleyim?", language: "tr" },
-    { text: " bizim ikimizde deliyiz", language: "tr" },
-    { text: " hayır ola hansı sepepten dağıdıb benim ailemi", language: "tr" },
-    { text: " yadıma düşür kövrelirem o günler", language: "tr" },
-    { text: " tanıyır hamı meni sürürem geceni selikeli", language: "tr" },
-        { text: "corap bir kültürdür", language: "tr" },
-    { text: " benim peşimi kızlar bırakmıyorda", language: "tr" },
-    { text: " siyaset pulnan idare olunur", language: "tr" },
-    { text: " sen üreksen", language: "tr" },
-    { text: " nerelerdeydin sen", language: "tr" },
-    { text: " beni seviyormusun?", language: "tr" },
-    { text: " bügun kendini nasıl hiss ediyorsun?", language: "tr" },
-    { text: " sen ne güzel insansın", language: "tr" },
-    { text: " aşk başımıza bela", language: "tr" },
-    
-        { text: "men azadlığa çıxdım amma sen dörd divardasın", language: "tr" },
-    { text: " bağlanmayın a kişi", language: "tr" },
-    { text: " uça uça geleceyem gel desen", language: "tr" },
-    { text: " o seni kandırıyor", language: "tr" },
-            { text: " gizlederem seni gözümün karasında", language: "tr" },
-    { text: " günah priusdadır", language: "tr" },
-    { text: " ŞAkmandır şakman", language: "tr" },
-        { text: " simba ürekdi", language: "tr" },
-            { text: " alışır gözler heraretden bakışım onu deli edir", language: "tr" },
-    { text: " sevmedime geldim baktım vay Allah gördüm büyük adam dedim vayyy", language: "tr" },
-    { text: " burda bir tane güzellik var", language: "tr" },
-    { text: " buzovum çok keşeydi", language: "tr" },
-    { text: " derdi kemi atmışam bakını şekiye katmışam", language: "tr" },
-    { text: " telefonuvun kodu ne?", language: "tr" },
-    { text: " ben sana göre yaşıyorum", language: "tr" },
-                    { text: " dustaq yoldaşım simba seni salamlayıram qardaşım", language: "tr" },
-    { text: "elli bin neye vermişeme buna", language: "tr" },
-    { text: " Akulalar oyaktılar yatmıyıb", language: "tr" },
-        { text: " ekranı dıklayın", language: "tr" },
-    { text: " kurban olum gözlere kaşlara", language: "tr" },
-                { text: "sen giyersin giymezsin ben çorap severim", language: "tr" },
-    { text: " seni sevmeyen ölsün", language: "tr" },
-    { text: " karaçıların elinden canımız boğaza yığılıb", language: "tr" },
-        { text: " yatıram gece uykumda görürem seni yanımda", language: "tr" },
-    { text: " vuruldum sana", language: "tr" },
-    { text: " sen bezeksen bende nakış", language: "tr" },
-        { text: "bidene ele bidene bele eleye bilersen bele?", language: "tr" },
-        { text: "bir deyqe deyanında bıra bırı bır bıra bıra bır", language: "tr" },
-        { text: " takor RS teqdim edir", language: "tr" },
-    { text: " kırk kepiyin olmaz?", language: "tr" },
-    { text: " qoy bütün alem bizden danışsın", language: "tr" },
-          { text: "ay xanaraq neylemişem neyliyim? xengel alim bağım başım neyleyim?", language: "tr" },
-    { text: " kime isteyirsiz salam deyin", language: "tr" },
-        { text: " dünen yene yapayalnız dolaşdım yollarda", language: "tr" },
-    { text: "  başıma bir taş düşeydi o kızı alanda  ay kaynana", language: "tr" },
-    { text: " sen daha iyilerine layıksın", language: "tr" },
-            { text: "uzaktan seviyorum seni", language: "tr" },
-    { text: " hayatımın anlamısın", language: "tr" },
-        { text: "Şahta baba şahtacan nerdesin bu vakta can", language: "tr" },
-            { text: "menim enerjim getdi artıq", language: "tr" },
-    { text: " eşk olsun sana", language: "tr" },
-        { text: " mene bak yaşa mutlu ol kim bilir sabah gelecekmi?", language: "tr" },
-            { text: " geceleri geç saatlarda uyuma kendine iyi bak", language: "tr" },
-    { text: " budu benimdi budu", language: "tr" },
-      { text: " hasretin çektiyim yarım ele kadasın men alım", language: "tr" },
-    { text: " fikrim senin yanında", language: "tr" },
-    { text: " sensin çare derdime", language: "tr" },
-            { text: " gizlederem seni gözümün karasında", language: "tr" },
-    { text: " yahşılara salam olsun", language: "tr" },
-                { text: "sen giyersin giymezsin ben çorap severim", language: "tr" },
-    { text: " mukurufunu koy yere", language: "tr" },
-    { text: " şaqmandı qaqam şaqman", language: "tr" },
-    { text: " senin adın ne ?", language: "tr" },
-    { text: " buzovum çok keşeydi", language: "tr" },
-    { text: "dilberim dilber ", language: "tr" },
-            { text: " Allah haqqı hee", language: "tr" },
-    { text: "ben sana biganelerden olmadim ki", language: "tr" },
-    { text: "hasretim ben sana deli gibi hasretim", language: "tr" },
-    { text: "başka rengte bakıyor gözlerin", language: "tr" },
-        { text: "demişdi getmerem ne oldu ? getdi ama", language: "tr" },
-                { text: " yeni yılda neler yapacaksın? ", language: "tr" },
-    { text: "dünya çok etibarsız", language: "tr" },
-        { text: "sen canımdan ayrı cansan", language: "tr" },
-    { text: "ceklidi qaqam cekli", language: "tr" },
-                { text: " alışır gözler heraretden bakışım onu deli edir", language: "tr" },
-    { text: "vot eta sovsem druqoy razqovor", language: "tr" },
-    { text: "derdine derman olaram", language: "tr" },
-    { text: "lezetli dvijenyalar", language: "tr" },
-          { text: " yaşla dolan gözlerine gözlerim kurban", language: "tr" },
-    { text: "yığılır bradyaqalar", language: "tr" },
-    { text: "seveceyem sev desen", language: "tr" },
-            { text: "bu görüntüden bu duruşdan dınqıl armani nasıl korkmasın?", language: "tr" },
-    { text: "şappur şuppur beni öp", language: "tr" },
-    { text: "bu sözleri tekrar edirik", language: "tr" },
-    { text: " dünya senin dünya benim dünya heç kimin", language: "tr" },
-        { text: " biz diqqet elemerik diqqet çekerik", language: "tr" },
-    { text: " nömre ezilib yoksa buufer?", language: "tr" },
-    { text: " bakışın karşısısında çetin ki bir kes dayana", language: "tr" },
-        { text: " onsuz her saniye ölürem", language: "tr" },
-    { text: " cebinde ne kadar paran var?", language: "tr" },
-    { text: " aşkından geberdiyim nasılsın?", language: "tr" },
-        { text: " gizlederem seni gözümün karasında", language: "tr" },
-            { text: " ıslanmışın yağışdan ne korkusu?", language: "tr" },
-            { text: " yeni yıl sana düşerli olsun ", language: "tr" },
-    { text: " nerede yaşıyorsun?", language: "tr" },
-    { text: " sen gidenden sonra gün görmemişem", language: "tr" },
-    { text: " kaç yaşın var?", language: "tr" },
-    { text: " seni kımışdıranı bulacam", language: "tr" },
-        { text: " emon limon emonda fantastik hediyyeler var", language: "tr" },
-    { text: " ne güzelsin", language: "tr" },
-        { text: "neyleyim axı men sensizliye öyreşmemişem", language: "tr" },
-            { text: "Şahta baba şahtacan nerdesin bu vakta can", language: "tr" },
-    { text: " lütfen arkadaşlarını davet et", language: "tr" },
-    { text: " Seni seviyorum", language: "tr" },
-        { text: "bu görüntüden bu duruşdan dınqıl armani nasıl korkmasın?", language: "tr" },
-    { text: " şeytan olum sen bana daş at ginen", language: "tr" },
-    { text: " hayf ona ayırdığım geceler", language: "tr" },
-    { text: "kapını möhkem vurma teze koydurduk", language: "tr" },
-            { text: " bu nedee metronun içinde bu nedi çekirsiz?", language: "tr" },
-                { text: " dustaq yoldaşım simba seni salamlayıram qardaşım", language: "tr" },
-   { text: " nemli bakan bakışına bu canım kurban", language: "tr" },
-    { text: "ama seni seviyorum findik burunlum dedi. oysaki benim burnum keleş gibi", language: "tr" },
-    { text: "humarit brattt", language: "tr" },
-        { text: "inanma eşqi yalandır", language: "tr" },
-    { text: "Benim ondan gözüm su içmiyor", language: "tr" },
-    { text: "Kasıbların kadasını alım", language: "tr" },
-    { text: "anam emele gelmez", language: "tr" },
-        { text: "hasret ne demekdir bilirem", language: "tr" },
-    { text: "otuz üç yaşım var", language: "tr" },
-    { text: "bardan kendime kız tapdım", language: "tr" },
-    { text: "Halım yamandı", language: "tr" },
-    { text: "yapma biz arkadaşıq", language: "tr" },
-        { text: "ay xanaraq neylemişem neyliyim? xengel alim bağım başım neyleyim?", language: "tr" },
-        { text: "ay menim alın yazım, gel senin çekim nazın", language: "tr" },
-    { text: "Hoşkedem kaybolmuş", language: "tr" },
-    { text: "Benim kafam infakt geçirdi", language: "tr" },
-            { text: " Allah haqqı hee", language: "tr" },
-    { text: "herkes kaçışıyor", language: "tr" },
-    { text: "mauqlidi kakam mauqli", language: "tr" },
-                    { text: " dustaq yoldaşım simba seni salamlayıram qardaşım", language: "tr" },
-    { text: "seni getirecem rusiyada saxlayacam.öyüm var eşiyim var", language: "tr" },
-    { text: "Yakıyorsun buraları", language: "tr" },
-    { text: "Günah kimdedir?", language: "tr" },
-    { text: "kimdi küsdü cavanlığım", language: "tr" },
-        { text: "her kim aşık ola bu dünyada vay onun evi talandır", language: "tr" },
-    { text: "Cavanın gülmeyi bana hoş gelir", language: "tr" },
-    { text: "konuşmakdan yoruldum", language: "tr" },
+    { text: "  senin dün gece ağladım" , language: " tr"  },
+    { text: "  ayfondu?" , language: " tr"  },
+    { text: "  ellerin dert görmesin" , language: " tr"  },
+    { text: "  bu nedee metronun içinde bu nedi çekirsiz?" , language: " tr"  },
+    { text: "  iyiki varsın" , language: " tr"  },
+    { text: "  cimi cimi cimi haca haca haca" , language: " tr"  },
+    { text: "  ben bomba kimi tiktokerim" , language: " tr"  },
+    { text: "  öyle bir vakit gelecek xoş hayat görsenecek" , language: " tr"  },
+    { text: "  emi kızı kurban olsun emi oğlu yatan yere" , language: " tr"  },
+    { text: "  kimselere sataşma" , language: " tr"  },
+    { text: " senin eşkin getirdi beni dile" , language: " tr"  },
+    { text: " görmürem seni hayli zamandır" , language: " tr"  },
+    { text: " darıhmışam o kadar darıhmışam" , language: " tr"  },
+    { text: " men azadlığa çıxdım amma sen dörd divardasın" , language: " tr"  },
+    { text: "  bu nedee metronun içinde bu nedi çekirsiz?" , language: " tr"  },
+    { text: "  sensiz gelen yaz değil kalbim seni gözleyir" , language: " tr"  },
+    { text: "  millet kazandığımız paranın hesabını yapıyor." , language: " tr"  },
+    { text: "  cici kızlar merhaba nerbala çıktı ortaya" , language: " tr"  },
+    { text: " şimdi ben buraya neden çıktım niyçin çıkdım?" , language: " tr"  },
+    { text: "  bele pisde çıxmasın canlara değen oğlanım" , language: " tr"  },
+    { text: "  seni kalbime yazdım" , language: " tr"  },
+    { text: "  seni okşar şirin birini tapmışam" , language: " tr"  },
+    { text: "  yat bu yuhudan oyanma bir addımda yakınlaş" , language: " tr"  },
+    { text: "  Allah haqqı hee" , language: " tr"  },
+    { text: "  danışırdım özümle geceler" , language: " tr"  },
+    { text: "  sevgini bana çok gördün sen" , language: " tr"  },
+    { text: "  derdim çok ümüdüm yok içmeye başlamışam" , language: " tr"  },
+    { text: "  cansız resmime bakmayın dostlarım ben çok çetinlikler gördüm" , language: " tr"  },
+    { text: "  ay nenen kurban ay baban kurban" , language: " tr"  },
+    { text: "  sen giyersin giymezsin ben çorap severim" , language: " tr"  },
+    { text: "   çok merddi dağlar oğlu dağlar" , language: " tr"  },
+    { text: "  renci karaşa salmışam" , language: " tr"  },
+    { text: "  teze iksyeddi almışam" , language: " tr"  },
+    { text: "  ay hanarak neylemişem neyliyim? hengel alım bağıım başım neyleyim?" , language: " tr"  },
+    { text: "  bizim ikimizde deliyiz" , language: " tr"  },
+    { text: "  hayır ola hansı sepepten dağıdıb benim ailemi" , language: " tr"  },
+    { text: "  yadıma düşür kövrelirem o günler" , language: " tr"  },
+    { text: "  tanıyır hamı meni sürürem geceni selikeli" , language: " tr"  },
+    { text: " çorap bir kültürdür" , language: " tr"  },
+    { text: "  benim peşimi kızlar bırakmıyorda" , language: " tr"  },
+    { text: "  siyaset pulnan idare olunur" , language: " tr"  },
+    { text: "  sen üreksen" , language: " tr"  },
+    { text: "  nerelerdeydin sen" , language: " tr"  },
+    { text: "  beni seviyormusun?" , language: " tr"  },
+    { text: "  bügun kendini nasıl hiss ediyorsun?" , language: " tr"  },
+    { text: "  sen ne güzel insansın" , language: " tr"  },
+    { text: "  aşk başımıza bela" , language: " tr"  },
 
-    { text: "Hoşkedem kaybolmuş", language: "tr" },
+    { text: " men azadlığa çıxdım amma sen dörd divardasın" , language: " tr"  },
+    { text: "  bağlanmayın a kişi" , language: " tr"  },
+    { text: "  uça uça geleceyem gel desen" , language: " tr"  },
+    { text: "  o seni kandırıyor" , language: " tr"  },
+    { text: "  gizlederem seni gözümün karasında" , language: " tr"  },
+    { text: "  günah priusdadır" , language: " tr"  },
+    { text: "  ŞAkmandır şakman" , language: " tr"  },
+    { text: "  simba ürekdi" , language: " tr"  },
+    { text: "  alışır gözler heraretden bakışım onu deli edir" , language: " tr"  },
+    { text: "  sevmedime geldim baktım vay Allah gördüm büyük adam dedim vayyy" , language: " tr"  },
+    { text: "  burda bir tane güzellik var" , language: " tr"  },
+    { text: "  buzovum çok keşeydi" , language: " tr"  },
+    { text: "  derdi kemi atmışam bakını şekiye katmışam" , language: " tr"  },
+    { text: "  telefonuvun kodu ne?" , language: " tr"  },
+    { text: "  ben sana göre yaşıyorum" , language: " tr"  },
+    { text: "  onda bidene saçımı düzeldim" , language: " tr"  },
+    { text: "  dustaq yoldaşım simba seni salamlayıram qardaşım" , language: " tr"  },
+    { text: " elli bin neye vermişeme buna" , language: " tr"  },
+    { text: "  Akulalar oyaktılar yatmıyıb" , language: " tr"  },
+    { text: "  ekranı dıklayın" , language: " tr"  },
+    { text: "  kurban olum gözlere kaşlara" , language: " tr"  },
+    { text: " sen giyersin giymezsin ben çorap severim" , language: " tr"  },
+    { text: "  seni sevmeyen ölsün" , language: " tr"  },
+    { text: "  karaçıların elinden canımız boğaza yığılıb" , language: " tr"  },
+    { text: "  yatıram gece uykumda görürem seni yanımda" , language: " tr"  },
+    { text: "  vuruldum sana" , language: " tr"  },
+    { text: "  sen bezeksen bende nakış" , language: " tr"  },
+    { text: " bidene ele bidene bele eleye bilersen bele?" , language: " tr"  },
+    { text: " bir dakika deyanın da bıra bırı bır bıra bıra bır" , language: " tr"  },
+    { text: "  takor RS teqdim edir" , language: " tr"  },
+    { text: "  bu mehmireden de güzeldi" , language: " tr"  },
+    { text: "  bügün kafamı duvara vurdum  aklıma geleni serehliyorum" , language: " tr"  },
+    { text: "  sigaram bitdi ne yapayım? " , language: " tr"  },
+    { text: "  kırk kepiyin olmaz?" , language: " tr"  },
+    { text: "  dandili dandili dastana danalar girmiş bostana" , language: " tr"  },
+    { text: "  qoy bütün alem bizden danışsın" , language: " tr"  },
+    { text: " ay xanaraq neylemişem neyliyim? xengel alim bağım başım neyleyim?" , language: " tr"  },
+    { text: "  kime isteyirsiz salam deyin" , language: " tr"  },
+    { text: "  dünen yene yapayalnız dolaşdım yollarda" , language: " tr"  },
+    { text: "   başıma bir taş düşeydi o kızı alanda  ay kaynana" , language: " tr"  },
+    { text: "  sen daha iyilerine layıksın" , language: " tr"  },
+    { text: " uzaktan seviyorum seni" , language: " tr"  },
+    { text: "  hayatımın anlamısın" , language: " tr"  },
+    { text: " Şahta baba şahtacan nerdesin bu vakta can" , language: " tr"  },
+    { text: " menim enerjim getdi artıq" , language: " tr"  },
+    { text: "  eşk olsun sana" , language: " tr"  },
+    { text: "  mene bak yaşa mutlu ol kim bilir sabah gelecekmi?" , language: " tr"  },
+    { text: "  geceleri geç saatlarda uyuma kendine iyi bak" , language: " tr"  },
+    { text: "  budu benimdi budu" , language: " tr"  },
+    { text: "  hasretin çektiyim yarım ele kadasın men alım" , language: " tr"  },
+    { text: "  fikrim senin yanında" , language: " tr"  },
+    { text: "  sensin çare derdime" , language: " tr"  },
+    { text: "  gizlederem seni gözümün karasında" , language: " tr"  },
+    { text: "  yahşılara salam olsun" , language: " tr"  },
+    { text: " sen giyersin giymezsin ben çorap severim" , language: " tr"  },
+    { text: "  mukurufunu koy yere" , language: " tr"  },
+    { text: "  şaqmandı qaqam şaqman" , language: " tr"  },
+    { text: "  senin adın ne ?" , language: " tr"  },
+    { text: "  buzovum çok keşeydi" , language: " tr"  },
+    { text: " dilberim dilber " , language: " tr"  },
+    { text: "  Allah haqqı hee" , language: " tr"  },
+    { text: " ben sana biganelerden olmadim ki" , language: " tr"  },
+    { text: " hasretim ben sana deli gibi hasretim" , language: " tr"  },
+    { text: " başka rengte bakıyor gözlerin" , language: " tr"  },
+    { text: " demişdi getmerem ne oldu ? getdi ama" , language: " tr"  },
+    { text: "  yeni yılda neler yapacaksın? " , language: " tr"  },
+    { text: " dünya çok etibarsız" , language: " tr"  },
+    { text: " sen canımdan ayrı cansan" , language: " tr"  },
+    { text: " ceklidi qaqam cekli" , language: " tr"  },
+    { text: "  alışır gözler heraretden bakışım onu deli edir" , language: " tr"  },
+    { text: " derdine derman olaram" , language: " tr"  },
+    { text: " lezetli dvijenyalar" , language: " tr"  },
+    { text: "  yaşla dolan gözlerine gözlerim kurban" , language: " tr"  },
+    { text: " yığılır bradyaqalar" , language: " tr"  },
+    { text: " seveceyem sev desen" , language: " tr"  },
+    { text: " bu görüntüden bu duruşdan dınqıl armani nasıl korkmasın?" , language: " tr"  },
+    { text: " şappur şuppur beni öp" , language: " tr"  },
+    { text: " bu sözleri tekrar edirik" , language: " tr"  },
+    { text: "  dünya senin dünya benim dünya heç kimin" , language: " tr"  },
+    { text: "  biz dikkat elemerik dikkat çekerik" , language: " tr"  },
+    { text: "  nömre ezilib yoksa buufer?" , language: " tr"  },
+    { text: "  her kes uçuşuyor" , language: " tr"  },
+    { text: "  bakışın karşısısında çetin ki bir kes dayana" , language: " tr"  },
+    { text: "  onsuz her saniye ölürem" , language: " tr"  },
+    { text: "  cebinde ne kadar paran var?" , language: " tr"  },
+    { text: "  aşkından geberdiyim nasılsın?" , language: " tr"  },
+    { text: "  gizlederem seni gözümün karasında" , language: " tr"  },
+    { text: "  ıslanmışın yağışdan ne korkusu?" , language: " tr"  },
+    { text: "  yeni yıl sana düşerli olsun " , language: " tr"  },
+    { text: "  nerede yaşıyorsun?" , language: " tr"  },
+    { text: "  sen gidenden sonra gün görmemişem" , language: " tr"  },
+    { text: "  kaç yaşın var?" , language: " tr"  },
+    { text: "  seni kımışdıranı bulacam" , language: " tr"  },
+    { text: "  emon limon emonda fantastik hediyyeler var" , language: " tr"  },
+    { text: "  bir defa hoddandımsa dayanamıyorum" , language: " tr"  },
+    { text: "  ne güzelsin" , language: " tr"  },
+    { text: " neyleyim axı men sensizliye öyreşmemişem" , language: " tr"  },
+    { text: " Şahta baba şahtacan nerdesin bu vakta can" , language: " tr"  },
+    { text: "  lütfen arkadaşlarını davet et" , language: " tr"  },
+    { text: "  Seni seviyorum" , language: " tr"  },
+    { text: " bu görüntüden bu duruşdan dınqıl armani nasıl korkmasın?" , language: " tr"  },
+    { text: "  şeytan olum sen bana taş  at ginen" , language: " tr"  },
+    { text: "  hayf ona ayırdığım geceler" , language: " tr"  },
+    { text: " kapını möhkem vurma teze koydurduk" , language: " tr"  },
+    { text: "  bu nedee metronun içinde bu nedi çekirsiz?" , language: " tr"  },
+    { text: "  dustaq yoldaşım simba seni salamlayıram qardaşım" , language: " tr"  },
+    { text: "  nemli bakan bakışına bu canım kurban" , language: " tr"  },
+    { text: " ama seni seviyorum findik burunlum dedi. oysaki benim burnum keleş gibi" , language: " tr"  },
+    { text: " humarit brat" , language: " tr"  },
+    { text: " inanma eşqi yalandır" , language: " tr"  },
+    { text: " sen de görüm haralısan karabala" , language: " tr"  },
+    { text: " tavşanımın hamile olduğundan şüpheleniyorum" , language: " tr"  },
+    { text: " sen varavıskoy kakamızsan bizim" , language: " tr"  },
+    { text: " Benim ondan gözüm su içmiyor" , language: " tr"  },
+    { text: " Kasıbların kadasını alım" , language: " tr"  },
+    { text: " anam emele gelmez" , language: " tr"  },
+    { text: " hasret ne demekdir bilirem" , language: " tr"  },
+    { text: " otuz üç yaşım var" , language: " tr"  },
+    { text: " bardan kendime kız tapdım" , language: " tr"  },
+    { text: " Halım yamandı" , language: " tr"  },
+    { text: " yeni yılda sana ne hediyye alacaklar?" , language: " tr"  },
+    { text: " ne emi var nedeki dayı" , language: " tr"  },
+    { text: " o cürüne berk sürme dayı" , language: " tr"  },
+    { text: " şahtababanın çestine deymeyin" , language: " tr"  },
+    { text: "  başım karışıkdı beni lider tv de göstereçekler" , language: " tr"  },
+    { text: " k im top tüfengnen üstümeze gelecek öz silahıyla geberecek" , language: " tr"  },
+        { text: " keçel keçel bamiye getdim merizxariye" , language: " tr"  },
+    { text: "  gece karadı cüce karadı yetim gören bura haradı" , language: " tr"  },
+    { text: "  yapma biz arkadaşıq" , language: " tr"  },
+    { text: " deyirler ki hürrem kaçıb saraydan" , language: " tr"  },
+    { text: " sen o taydan denen bende bu taydan" , language: " tr"  },
+    { text: " biz kimselere pahıllık etmeriz kimlerse bize pahıllık eder" , language: " tr"  },
+    { text: " ay menim alın yazım, gel senin çekim nazın" , language: " tr"  },
+    { text: " Hoşkedem kaybolmuş" , language: " tr"  },
+    { text: " Benim kafam infakt geçirdi" , language: " tr"  },
+    { text: "  Allah haqqı hee" , language: " tr"  },
+    { text: " herkes kaçışıyor" , language: " tr"  },
+    { text: " mauqlidi kakam mauqli" , language: " tr"  },
+    { text: " erkekler ne ister?" , language: " tr"  },
+    { text: " kızlar ne ister?" , language: " tr"  },
+    { text: "  dustaq yoldaşım simba seni salamlayıram qardaşım" , language: " tr"  },
+    { text: " seni getirecem rusiyada saxlayacam.öyüm var eşiyim var" , language: " tr"  },
+    { text: " Yakıyorsun buraları" , language: " tr"  },
+    { text: " Günah kimdedir?" , language: " tr"  },
+    { text: " kimdi küsdü cavanlığım" , language: " tr"  },
+    { text: " her kim aşık ola bu dünyada vay onun evi talandır" , language: " tr"  },
+    { text: " Cavanın gülmeyi bana hoş gelir" , language: " tr"  },
+    { text: " konuşmakdan yoruldum" , language: " tr"  },
+
+    { text: " Hoşkedem kaybolmuş" , language: " tr"  },
 ];
 let usedMessages = [];
 
@@ -2553,17 +2740,16 @@ connection.on('member', (data) => {
 })
 
 connection.on('social', (data) => {
-    
+
     if (finishGame) {
         return;
     }
     let userName = data.uniqueId;
     let profilePictureUrl = data.profilePictureUrl;
     let userlistExist = false;
-    
+
     if (!finishGame) {
-        if (data.displayType === "pm_main_follow_message_viewer_2")
-        {
+        if (data.displayType === "pm_main_follow_message_viewer_2") {
             for (let i = 0; i < iconList.length; i++) {
                 if (iconList[i].username === userName) {
                     iconList[i].size += 10; // add 20 to each object's value property
@@ -2586,11 +2772,11 @@ connection.on('social', (data) => {
                     }
                 }
             }
-    
+
             if (!userlistExist) {
                 const iconSize = 40 + 10;
                 const iconImgUrl = profilePictureUrl;
-    
+
                 const icon = {
                     x: Math.floor(Math.random() * (canvas.width - iconSize)),
                     y: Math.floor(Math.random() * (canvas.height - iconSize)),
@@ -2599,14 +2785,13 @@ connection.on('social', (data) => {
                     img: new Image(),
                     username: userName,
                 };
-    
+
                 iconList.push(icon);
-    
+
                 drawIcons();
             }
         }
-        if (data.displayType === "pm_mt_guidance_share")
-        {
+        if (data.displayType === "pm_mt_guidance_share") {
             for (let i = 0; i < iconList.length; i++) {
                 if (iconList[i].username === userName) {
                     iconList[i].size += 3; // add 20 to each object's value property
@@ -2629,11 +2814,11 @@ connection.on('social', (data) => {
                     }
                 }
             }
-    
+
             if (!userlistExist) {
                 const iconSize = 40 + 0.5;
                 const iconImgUrl = profilePictureUrl;
-    
+
                 const icon = {
                     x: Math.floor(Math.random() * (canvas.width - iconSize)),
                     y: Math.floor(Math.random() * (canvas.height - iconSize)),
@@ -2642,9 +2827,9 @@ connection.on('social', (data) => {
                     img: new Image(),
                     username: userName,
                 };
-    
+
                 iconList.push(icon);
-    
+
                 drawIcons();
             }
         }
