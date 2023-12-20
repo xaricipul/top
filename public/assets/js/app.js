@@ -901,19 +901,6 @@ connection.on('chat', (data) => {
         } lakaka1(member);
     }
 
-    if (lowerCaseComment.includes("canli") || lowerCaseComment.includes("canlı")) {
-        let response;
-
-
-        response = { text: member + " tiktokda bir canlı varsa oda benim canlımdır", language: "tr", type: 'like' };
-
-
-        // Eğer uygun bir yanıt varsa, kuyruğa ekle
-        if (response && !usernames.has(member)) {
-            messagesQueue.push(response);
-            processQueue();
-        } lakaka1(member);
-    }
 
 
     if (lowerCaseComment.includes("noldu") || lowerCaseComment.includes("nolduu") || lowerCaseComment.includes("ne oldu") || lowerCaseComment.includes("nə oldu")) {
@@ -1766,21 +1753,6 @@ connection.on('chat', (data) => {
 
 
 
-    if (lowerCaseComment.includes("qarşılıq") || lowerCaseComment.includes("takip") || lowerCaseComment.includes("karşılık") || lowerCaseComment.includes("programı")) {
-
-        let response;
-
-        response = { text: member + " adlı hesaba her kes takip göndersin", language: "tr", type: 'like' };
-
-
-        // Eğer uygun bir yanıt varsa, kuyruğa ekle
-        if (response && !usernames.has(member)) {
-            messagesQueue.push(response);
-            processQueue();
-        } lakaka1(member);
-
-    }
-
 
     if (lowerCaseComment.includes("yaxşiyam") || lowerCaseComment.includes("yaxşıyam") || lowerCaseComment.includes("elayam") || lowerCaseComment.includes("əlayam")) {
 
@@ -2317,8 +2289,6 @@ connection.on('like', (data) => {
 });
 
 let availableMessages = [
-    { text: " yayımı beğendiğin için teşekkür ederim", language: "tr" },
-    { text: " yayımı beğeniyor", language: "tr" },
     { text: " senin dün gece ağladım", language: "tr" },
     { text: " ellerin dert görmesin", language: "tr" },
         { text: " bu nedee metronun içinde bu nedi çekirsiz?", language: "tr" },
@@ -2327,7 +2297,6 @@ let availableMessages = [
     { text: " ben bomba kimi tiktokerim", language: "tr" },
     { text: " öyle bir vaxt gelecek xoş hayat görsenecek", language: "tr" },
     { text: " emi kızı kurban olsun emi oğlu yatan yere", language: "tr" },
-    { text: " lütfen yayımı paylaş", language: "tr" },
     { text: " kimselere sataşma", language: "tr" },
     { text: "senin eşkin getirdi beni dile", language: "tr" },
     { text: "görmürem seni hayli zamandır", language: "tr" },
@@ -2399,7 +2368,6 @@ let availableMessages = [
     { text: " kırk kepiyin olmaz?", language: "tr" },
     { text: " qoy bütün alem bizden danışsın", language: "tr" },
           { text: "ay xanaraq neylemişem neyliyim? xengel alim bağım başım neyleyim?", language: "tr" },
-    { text: " hesabına her kes takip atsın", language: "tr" },
     { text: " kime isteyirsiz salam deyin", language: "tr" },
         { text: " dünen yene yapayalnız dolaşdım yollarda", language: "tr" },
     { text: "  başıma bir taş düşeydi o kızı alanda  ay kaynana", language: "tr" },
@@ -2463,8 +2431,6 @@ let availableMessages = [
     { text: " lütfen arkadaşlarını davet et", language: "tr" },
     { text: " Seni seviyorum", language: "tr" },
         { text: "bu görüntüden bu duruşdan dınqıl armani nasıl korkmasın?", language: "tr" },
-    { text: " İyiki yayıma geldin", language: "tr" },
-    { text: " beğendiğin üçün teşekkürler", language: "tr" },
     { text: " şeytan olum sen bana daş at ginen", language: "tr" },
     { text: " hayf ona ayırdığım geceler", language: "tr" },
     { text: "kapını möhkem vurma teze koydurduk", language: "tr" },
@@ -2487,14 +2453,11 @@ let availableMessages = [
     { text: "Hoşkedem kaybolmuş", language: "tr" },
     { text: "Benim kafam infakt geçirdi", language: "tr" },
             { text: " Allah haqqı hee", language: "tr" },
-    { text: "Yayımı paylaşanlara takip gönderin", language: "tr" },
-    { text: "Arkadaşlarını davet eden her kese takip gönderin", language: "tr" },
     { text: "herkes kaçışıyor", language: "tr" },
     { text: "mauqlidi kakam mauqli", language: "tr" },
                     { text: " dustaq yoldaşım simba seni salamlayıram qardaşım", language: "tr" },
     { text: "seni getirecem rusiyada saxlayacam.öyüm var eşiyim var", language: "tr" },
     { text: "Yakıyorsun buraları", language: "tr" },
-    { text: "Bir birinize takip gönderin", language: "tr" },
     { text: "Günah kimdedir?", language: "tr" },
     { text: "kimdi küsdü cavanlığım", language: "tr" },
         { text: "her kim aşık ola bu dünyada vay onun evi talandır", language: "tr" },
