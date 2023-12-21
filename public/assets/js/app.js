@@ -164,6 +164,35 @@ connection.on('chat', (data) => {
         } lakaka1(member);
 
     }
+    if (lowerCaseComment.includes("elsad") || lowerCaseComment.includes("elşad") ) {
+
+        let response;
+
+        response = { text: member + "     hayıf benim aziyyetime elşad hayıf", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+
+    }
+
+    if (lowerCaseComment.includes("kasib") || lowerCaseComment.includes("kasıb") ) {
+
+        let response;
+
+        response = { text: member + " kasıbın neyi olmasada bomba hayalleri var", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+
+    }
     if (lowerCaseComment.includes("youtube")) {
 
         let response;
@@ -183,6 +212,20 @@ connection.on('chat', (data) => {
         let response;
 
         response = { text: member + " canlını mırt olduğunu düşünmüyorsan gide bilirsin yolun açık", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+
+    }
+    if (lowerCaseComment.includes("tanis") || lowerCaseComment.includes("tanış") || lowerCaseComment.includes("taniş")) {
+
+        let response;
+
+        response = { text: member + " hayır seninle tanış olamam başım bağlı", language: "tr", type: 'like' };
 
 
         // Eğer uygun bir yanıt varsa, kuyruğa ekle
@@ -391,6 +434,21 @@ connection.on('chat', (data) => {
         let response;
 
         response = { text: member + " ben Oğuzluyum . Amma Azerbaycan bölünmez", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+
+    }
+
+    if (lowerCaseComment.includes("azelow") || lowerCaseComment.includes("azelov") ) {
+
+        let response;
+
+        response = { text: member + " azelov ölmeyib a kişi", language: "tr", type: 'like' };
 
 
         // Eğer uygun bir yanıt varsa, kuyruğa ekle
@@ -637,6 +695,21 @@ connection.on('chat', (data) => {
         } lakaka1(member);
 
     }
+    if (lowerCaseComment.includes("resad") || lowerCaseComment.includes("reşad") || lowerCaseComment.includes("reşat")) {
+
+        let response;
+
+        response = { text: member + "   arzularımı üreyimde koyma reşad", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+
+    }
+
     if (lowerCaseComment.includes("kafan güzel")) {
 
         let response;
@@ -656,6 +729,48 @@ connection.on('chat', (data) => {
         let response;
 
         response = { text: member + " hayır ben uyumam  gece hayatına dalarım", language: "tr", type: 'like' };
+
+
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+
+    }
+    if (lowerCaseComment.includes("yat") ) {
+
+        let response;
+
+        response = { text: member + " bu tiktok benim psikolojimi bozdu yatamıyorum", language: "tr", type: 'like' };
+
+
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+
+    }
+
+    if (lowerCaseComment.includes("pis") ) {
+
+        let response;
+
+        response = { text: member + " sen pis olunca bende pis oluyorum", language: "tr", type: 'like' };
+
+
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+
+    }
+
+    
+    if (lowerCaseComment.includes("ehtiyyat") || lowerCaseComment.includes("ehtiyat") ) {
+
+        let response;
+
+        response = { text: member + " ehtiyat yiğidin yaraşığıdır", language: "tr", type: 'like' };
 
 
         if (response && !usernames.has(member)) {
@@ -1201,6 +1316,35 @@ connection.on('chat', (data) => {
             processQueue();
         } lakaka1(member);
     }
+
+    if (lowerCaseComment.includes("ceyran")) {
+        let response;
+
+
+        response = { text: member + " ceyran amandı ceyran halım yamandı ceyran", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+    }
+
+    if (lowerCaseComment.includes("oba") || lowerCaseComment.includes("obaa") || lowerCaseComment.includes("obaa") ) {
+        let response;
+
+
+        response = { text: member + " kabil diyorku oba oba oba", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+    }
+
 
     if (lowerCaseComment.includes("zehrimar") || lowerCaseComment.includes("zəhrimar")) {
         let response;
@@ -1826,6 +1970,19 @@ connection.on('chat', (data) => {
             processQueue();
         } lakaka1(member);
     }
+    if (lowerCaseComment.includes("şəhid") || lowerCaseComment.includes("şehid") || lowerCaseComment.includes("şehit")) {
+        let response;
+
+
+        response = { text: member + " Allah bütün şehitlerimize rahmet eylesin", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+    }
     if (lowerCaseComment.includes("manyak")) {
         let response;
 
@@ -2017,6 +2174,37 @@ connection.on('chat', (data) => {
         } lakaka1(member);
 
     }
+
+    if (lowerCaseComment.includes("divij") || lowerCaseComment.includes("divijeniya") ) {
+
+        let response;
+
+        response = { text: member + " evet bazen dvijeniya yapmağa çalışıyorum", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+
+    }
+
+    if (lowerCaseComment.includes("padxod") || lowerCaseComment.includes("padxot") || lowerCaseComment.includes("patxot"))  {
+
+        let response;
+
+        response = { text: member + " evet ben Çok dvinjenyalıyım pathot yapıyorum ", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+
+    }
+
 
     if (lowerCaseComment.includes("haralisan") || lowerCaseComment.includes("haralısan") || lowerCaseComment.includes("nerelisin")) {
 
@@ -2478,6 +2666,8 @@ let availableMessages = [
     { text: "  emi kızı kurban olsun emi oğlu yatan yere" , language: " tr"  },
     { text: "  kimselere sataşma" , language: " tr"  },
     { text: " senin eşkin getirdi beni dile" , language: " tr"  },
+    { text: "     kasıbın neyi olmasada bomba hayalleri var" , language: " tr"  },
+    { text: "     boşansam keydiyyatda olduğum evden bana pay düşermi? kaynanamın adına ama şuan" , language: " tr"  },
     { text: " görmürem seni hayli zamandır" , language: " tr"  },
     { text: " darıhmışam o kadar darıhmışam" , language: " tr"  },
     { text: " men azadlığa çıxdım amma sen dörd divardasın" , language: " tr"  },
@@ -2538,6 +2728,9 @@ let availableMessages = [
     { text: "  kurban olum gözlere kaşlara" , language: " tr"  },
     { text: " sen giyersin giymezsin ben çorap severim" , language: " tr"  },
     { text: "  seni sevmeyen ölsün" , language: " tr"  },
+    { text: "  hasretini yollarını seribem" , language: " tr"  },
+    { text: "  Karabağ Azerbaycandır!" , language: " tr"  },
+    { text: "  oydaa gözlerim açılmır. ama açılmalıdır bu yakında" , language: " tr"  },
     { text: "  karaçıların elinden canımız boğaza yığılıb" , language: " tr"  },
     { text: "  yatıram gece uykumda görürem seni yanımda" , language: " tr"  },
     { text: "  vuruldum sana" , language: " tr"  },
@@ -2549,6 +2742,8 @@ let availableMessages = [
     { text: "  bügün kafamı duvara vurdum  aklıma geleni serehliyorum" , language: " tr"  },
     { text: "  sigaram bitdi ne yapayım? " , language: " tr"  },
     { text: "  kırk kepiyin olmaz?" , language: " tr"  },
+    { text: "  azelov ölmeyib a kişi" , language: " tr"  },
+    { text: "  nerde hakk edalet göster bana" , language: " tr"  },
     { text: "  dandili dandili dastana danalar girmiş bostana" , language: " tr"  },
     { text: "  qoy bütün alem bizden danışsın" , language: " tr"  },
     { text: " ay xanaraq neylemişem neyliyim? xengel alim bağım başım neyleyim?" , language: " tr"  },
@@ -2557,6 +2752,8 @@ let availableMessages = [
     { text: "   başıma bir taş düşeydi o kızı alanda  ay kaynana" , language: " tr"  },
     { text: "  sen daha iyilerine layıksın" , language: " tr"  },
     { text: " uzaktan seviyorum seni" , language: " tr"  },
+    { text: " niye ümid veriyorsun bana" , language: " tr"  },
+    { text: " senin kruqun kimdi?" , language: " tr"  },
     { text: "  hayatımın anlamısın" , language: " tr"  },
     { text: " Şahta baba şahtacan nerdesin bu vakta can" , language: " tr"  },
     { text: " menim enerjim getdi artıq" , language: " tr"  },
@@ -2630,25 +2827,41 @@ let availableMessages = [
     { text: " sen varavıskoy kakamızsan bizim" , language: " tr"  },
     { text: " Benim ondan gözüm su içmiyor" , language: " tr"  },
     { text: " Kasıbların kadasını alım" , language: " tr"  },
-    { text: " anam emele gelmez" , language: " tr"  },
+    { text: " yok yok anam emele gelmez" , language: " tr"  },
     { text: " hasret ne demekdir bilirem" , language: " tr"  },
+    { text: " metalona demir alıyorum demir" , language: " tr"  },
+    { text: " koyunların kırılsın" , language: " tr"  },
+    { text: " yahşı gedebey kartofu var kartof" , language: " tr"  },
     { text: " otuz üç yaşım var" , language: " tr"  },
+    { text: " bidene çay verersen?" , language: " tr"  },
     { text: " bardan kendime kız tapdım" , language: " tr"  },
+    { text: " canlını yağmur bastı her kes uçuyor" , language: " tr"  },
+    { text: " hayıf benim aziyyetime elşad hayıf" , language: " tr"  },
+    { text: " mırr hav hav" , language: " tr"  },
+    { text: " şap şap şap" , language: " tr"  },
     { text: " Halım yamandı" , language: " tr"  },
+    { text: "diri diri bastır beni reşadd" , language: " tr"  },
+    { text: "arzularımı üreyimde koyma reşad" , language: " tr"  },
+    { text: " biz hara gelmişik a çanuvu yeyim" , language: " tr"  },
     { text: " yeni yılda sana ne hediyye alacaklar?" , language: " tr"  },
     { text: " ne emi var nedeki dayı" , language: " tr"  },
     { text: " o cürüne berk sürme dayı" , language: " tr"  },
-    { text: " şahtababanın çestine deymeyin" , language: " tr"  },
+    { text: " şahtababanın çestine değmeyin" , language: " tr"  },
     { text: "  başım karışıkdı beni lider tv de göstereçekler" , language: " tr"  },
     { text: " k im top tüfengnen üstümeze gelecek öz silahıyla geberecek" , language: " tr"  },
         { text: " keçel keçel bamiye getdim merizxariye" , language: " tr"  },
     { text: "  gece karadı cüce karadı yetim gören bura haradı" , language: " tr"  },
     { text: "  yapma biz arkadaşıq" , language: " tr"  },
+    { text: "  bu yeni yılada yalnız giriyoruz" , language: " tr"  },
+    { text: " kapital bank olmasa gül gibi hayatım vardı" , language: " tr"  },
     { text: " deyirler ki hürrem kaçıb saraydan" , language: " tr"  },
     { text: " sen o taydan denen bende bu taydan" , language: " tr"  },
     { text: " biz kimselere pahıllık etmeriz kimlerse bize pahıllık eder" , language: " tr"  },
     { text: " ay menim alın yazım, gel senin çekim nazın" , language: " tr"  },
     { text: " Hoşkedem kaybolmuş" , language: " tr"  },
+    { text: " ne kadar kredi borcun var?" , language: " tr"  },
+    { text: " eleme onu eleme" , language: " tr"  },
+    { text: " ben her kese pathot ediyorum çünki sizi seviyorum" , language: " tr"  },
     { text: " Benim kafam infakt geçirdi" , language: " tr"  },
     { text: "  Allah haqqı hee" , language: " tr"  },
     { text: " herkes kaçışıyor" , language: " tr"  },
