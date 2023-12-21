@@ -237,15 +237,13 @@ connection.on('chat', (data) => {
         } lakaka1(member);
 
     }
-
         if (lowerCaseComment.includes("lavina")) {
 
         let response;
 
-        response = { text: member + " Lavina bana maraksız dedi. Onu hiç sevmiyorum", language: "tr", type: 'like' };
+        response = { text: member + " Lavina ürekdi. ölmemişin güzleri o kadar güzel ki baktıkca enerjim kalmıyor", language: "tr", type: 'like' };
 
 
-        // Eğer uygun bir yanıt varsa, kuyruğa ekle
         if (response && !usernames.has(member)) {
             messagesQueue.push(response);
             processQueue();
