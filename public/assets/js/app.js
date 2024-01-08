@@ -21,7 +21,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "mirtlive";
+        let targetLive = "wallviral";
         connect(targetLive);
     }, 5000);
 
