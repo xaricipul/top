@@ -429,6 +429,70 @@ connection.on('chat', (data) => {
 
     }
 
+
+        if (lowerCaseComment.includes("lift")) {
+
+        let response;
+
+        response = { text: member + "lift yıkan evi matı yıkmıyor", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+
+        
+    }
+
+        
+    if (lowerCaseComment.includes("nia")) {
+
+        let response;
+
+        response = { text: member + "lifte binmeye korkuyorum", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+
+    }
+
+
+    if (lowerCaseComment.includes("sabir")) {
+
+        let response;
+
+        response = { text: member + "kamerasız lift arıyor", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+
+    }
+
+    if (lowerCaseComment.includes("furkan")) {
+
+        let response;
+
+        response = { text: member + "furkanı küstürdüler koyunlarının yanına gitti", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+
+    }
+
     if (lowerCaseComment.includes("haralisan") || lowerCaseComment.includes("haralısan") || lowerCaseComment.includes("nerelisin")) {
 
         let response;
