@@ -21,7 +21,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "h3midovaa";
+        let targetLive = "mirtlive1";
         connect(targetLive);
     }, 5000);
 
