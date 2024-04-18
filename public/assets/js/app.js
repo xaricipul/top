@@ -21,7 +21,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "gamefhon";
+        let targetLive = "_aleksandr_pikaliuk_";
         connect(targetLive);
     }, 5000);
 
