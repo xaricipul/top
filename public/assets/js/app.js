@@ -2294,7 +2294,7 @@ connection.on('chat', (data) => {
 
     }
 
-    if (lowerCaseComment.includes("ala") ) {
+    if (lowerCaseComment.includes("alaa") ) {
 
         let response;
 
