@@ -398,7 +398,20 @@ connection.on('chat', (data) => {
 
     }
 
+    if (lowerCaseComment.includes("salam") || lowerCaseComment.includes("selam") || lowerCaseComment.includes("slm")) {
 
+        let response;
+
+        response = { text: member + "salam kadan alım hoş geldin", language: "tr", type: 'like' };
+
+
+        // Eğer uygun bir yanıt varsa, kuyruğa ekle
+        if (response && !usernames.has(member)) {
+            messagesQueue.push(response);
+            processQueue();
+        } lakaka1(member);
+
+    }
     if (lowerCaseComment.includes("sumqayit") || lowerCaseComment.includes("sumqayıt")) {
 
         let response;
@@ -1259,7 +1272,7 @@ connection.on('chat', (data) => {
         let response;
 
 
-        response = { text: member + " kəşənk günün bol olsun", language: "tr", type: 'like' };
+        response = { text: member + " keşenk günün bol olsun", language: "tr", type: 'like' };
 
 
         // Eğer uygun bir yanıt varsa, kuyruğa ekle
