@@ -3322,36 +3322,41 @@ connection.on('gift', (data) => {
     }
 
 
-    // const messages = [
-    //      { text: " adlı hesaba her kes takip atsın", language: "tr" },
-    //     { text: "Teşekkür ederim, hediye için!", language: "tr" },
-    //     { text: "Kendini gösteriyor,Her kes takip göndersin", language: "tr" },
-    //     { text: "Harikasın.Takip edin", language: "tr" },
-    //     { text: "Kesene bereket", language: "tr" },
-    //     // { text: "Daha hızlı büyüyorsun", language: "tr" },
-    //     { text: "Seni çok seviyorum,Lütfen her kes takip etsin ", language: "tr" },
-    //     { text: "Geri dönüşleri çok iyi", language: "tr" },
-    //     // { text: "Resmin daha hızlı büyüyor böyle davam et", language: "tr" },
+    const messages = [
+         { text: " adlı hesaba her kes destek olsun", language: "tr" },
+        { text: "Teşekkür ederim, hediye için!", language: "tr" },
+        { text: "Kendini gösteriyor, Buraları yakıyor", language: "tr" },
+        { text: "Harikasın.Takip edin", language: "tr" },
+        { text: "Kesene bereket", language: "tr" },
+        { text: "Daha hızlı büyüyorsun", language: "tr" },
+             { text: "Sen neler yapıyorsun", language: "tr" },
+                    { text: "Bize destek olana her kes destek olsun", language: "tr" },
+         { text: "Cebin dolu olsun", language: "tr" },
+              { text: "para başından yağsın", language: "tr" },
+                { text: "Allah razı olsun", language: "tr" },
+        { text: "Seni çok seviyorum,Teşekkür ederim ", language: "tr" },
+        { text: "Geri dönüşleri çok iyi", language: "tr" },
+     { text: "Resmin daha hızlı büyüyor böyle davam et", language: "tr" },
 
-    // ];
+    ];
 
-    // messagesQueue = messagesQueue.filter(item => item.type !== 'random')
+    messagesQueue = messagesQueue.filter(item => item.type !== 'random')
 
-    // function getRandomMessage(messages) {
-    //     const randomIndex = Math.floor(Math.random() * messages.length);
-    //     return messages[randomIndex];
-    // }
-    // const randomMessage = getRandomMessage(messages);
+    function getRandomMessage(messages) {
+        const randomIndex = Math.floor(Math.random() * messages.length);
+        return messages[randomIndex];
+    }
+    const randomMessage = getRandomMessage(messages);
 
 
-    // let end = { text: data.nickname + randomMessage.text, language: randomMessage.language, type: 'gift' }; // type ekle
+    let end = { text: data.nickname + randomMessage.text, language: randomMessage.language, type: 'gift' }; // type ekle
 
-    // if (!usernames.has(userName)) {
-    //     messagesQueue.push(end);
-    //     processQueue();
-    // }
+    if (!usernames.has(userName)) {
+        messagesQueue.push(end);
+        processQueue();
+    }
 
-    // lakaka1(userName);
+    lakaka1(userName);
 
 })
 
