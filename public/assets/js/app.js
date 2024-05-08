@@ -598,7 +598,6 @@ let availableMessages = [
   { text: "Hesabımı takip et hesabın ekranda görünsün", language: "tr" },
   { text: "Beğeni bırak, takipçi kazan", language: "tr" },
   { text: "Harika işler çıkarmaya devam edin, teşekkürler", language: "tr" },
-  { text: "Hediyye gönderenin hesabı daha büyük görüntüleniyor", language: "tr" },
   { text: "Hesabı görüntülenene toplu takip gönderin", language: "tr" },
   { text: "yayımı beğenenin resmi yavaş-yavaş büyüyor", language: "tr" },
   { text: "Hesabımı takip et hesabın ekranda görünsün", language: "tr" },
@@ -862,7 +861,7 @@ connection.on('gift', (data) => {
 
     const messages = [
          { text: " adlı hesaba her kes destek olsun", language: "tr" },
-        { text: "Teşekkür ederim, hediye için!", language: "tr" },
+        { text: "Teşekkür ederim, desteğin için!", language: "tr" },
         { text: "Kendini gösteriyor, Buraları yakıyor", language: "tr" },
         { text: "Harikasın.Takip edin", language: "tr" },
         { text: "Kesene bereket", language: "tr" },
@@ -877,7 +876,6 @@ connection.on('gift', (data) => {
      { text: "Resmin daha hızlı büyüyor böyle davam et", language: "tr" },
 
      { text: " adlı hesaba her kes takip atsın", language: "tr" },
-     { text: "Teşekkür ederim, hediye için!", language: "tr" },
      { text: "Kendini gösteriyor, onu takip edin", language: "tr" },
      { text: "Harikasın, toplu takip gönderin", language: "tr" },
      { text: "Kesene bereket", language: "tr" },
