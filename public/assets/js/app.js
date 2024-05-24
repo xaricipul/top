@@ -237,7 +237,13 @@ function drawIcons(currentTime) {
                         y: randomRange(minSpeed, maxSpeed) * (Math.random() > 0.5 ? 1 : -1),
                     };
                 }
-
+                const haloColor = `hsla(${Math.random() * 360}, 100%, 50%, 0.5)`; // Rastgele renk seçimi
+                const haloRadius = icon.size * 0.75; // Hale çapı, ikonun 3/4'ü kadar
+                ctx.beginPath();
+                ctx.arc(icon.x + icon.size / 2, icon.y + icon.size / 2, haloRadius, 0, 2 * Math.PI);
+                ctx.strokeStyle = haloColor;
+                ctx.lineWidth = 5;
+                ctx.stroke();
 
 
                 // Update the icon's position
