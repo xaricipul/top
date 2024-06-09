@@ -21,7 +21,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "fasdungel";
+        let targetLive = "kaseke.37";
         connect(targetLive);
     }, 5000);
 
