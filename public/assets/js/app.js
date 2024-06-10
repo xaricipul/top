@@ -9,7 +9,7 @@ let nextId = 1;
 let winner = [];
 let animationID;
 
-let messagesQueue = [];
+let messagesQueue = s
 // START
 $(document).ready(() => {
 
@@ -21,7 +21,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "phiveus8538";
+        let targetLive = "se4cu";
         connect(targetLive);
     }, 5000);
 
