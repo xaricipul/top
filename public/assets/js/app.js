@@ -9,7 +9,7 @@ let nextId = 1;
 let winner = [];
 let animationID;
 
-let messagesQueue = s
+let messagesQueue = [];
 // START
 $(document).ready(() => {
 
