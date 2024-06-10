@@ -21,7 +21,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "kaseke.37";
+        let targetLive = "azbesdir";
         connect(targetLive);
     }, 5000);
 
