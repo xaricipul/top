@@ -21,7 +21,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "mirtlive";
+        let targetLive = "zeynalzadee__029";
         connect(targetLive);
     }, 5000);
 
