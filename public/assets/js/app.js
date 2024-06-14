@@ -21,7 +21,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "zeynalzadee__029";
+        let targetLive = "azbesdir";
         connect(targetLive);
     }, 5000);
 
