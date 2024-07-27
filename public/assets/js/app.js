@@ -21,7 +21,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "fasdungel";
+        let targetLive = "mirtlive";
         connect(targetLive);
     }, 5000);
 
