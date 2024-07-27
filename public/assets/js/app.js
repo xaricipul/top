@@ -21,7 +21,7 @@ $(document).ready(() => {
     // });
 
     setTimeout(function () {
-        let targetLive = "wallviral";
+        let targetLive = "clickaz";
         connect(targetLive);
     }, 5000);
 
