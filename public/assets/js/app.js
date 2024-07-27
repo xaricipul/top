@@ -410,7 +410,7 @@ function drawIcons(currentTime) {
                             ctx.fillStyle = color;
                             ctx.font = "bold 30px Arial";
                             ctx.textAlign = "center";
-                            ctx.fillText("Təbriklər:)", canvas.width / 2, 280 + Math.sin(Date.now() / 200) * 10);
+                            ctx.fillText("Congratulations:)", canvas.width / 2, 280 + Math.sin(Date.now() / 200) * 10);
 
                             ctx.fillStyle = color;
                             ctx.font = "bold 30px Arial";
