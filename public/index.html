@@ -301,59 +301,74 @@ $(document).ready(() => {
     // Global olarak resimleri yükleyelim
     const images = {};
 
-    countries.forEach((country) => {
-      const img = new Image();
-      img.src = country.imgUrl;
-      images[country.name] = img;
-    });
 
-    function drawCountries() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      countries.sort((a, b) => a.size - b.size); // Küçükten büyüğe sırala
 
-      countries.forEach((country) => {
-        const img = images[country.name];  // Önceden yüklenmiş resmi kullanıyoruz
 
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(country.x + country.size / 2, country.y + country.size / 2, country.size / 2, 0, 2 * Math.PI);
-        ctx.clip();  // Daire şeklinde clip bölgesi oluştur
+countries.forEach((country) => {
+  const img = new Image();
+  img.src = country.imgUrl;
+  
+  img.onload = function() {
+    images[country.name] = img; // Resim başarıyla yüklendiğinde kaydediyoruz
+  };
+  
+  img.onerror = function() {
+    console.error(`Resim yüklenemedi: ${country.imgUrl} (Ülke: ${country.name})`);
+  };
+});
 
-        ctx.drawImage(img, country.x, country.y, country.size, country.size);
-        ctx.restore();
+function drawCountries() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  countries.sort((a, b) => a.size - b.size); // Küçükten büyüğe sırala
 
-        // Yeşil border ekleme
-        ctx.strokeStyle = "green";
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.arc(country.x + country.size / 2, country.y + country.size / 2, country.size / 2, 0, 2 * Math.PI);
-        ctx.stroke();
+  countries.forEach((country) => {
+    const img = images[country.name];  // Önceden yüklenmiş resmi kullanıyoruz
 
-        country.x += country.moveSpeed.x;
-        country.y += country.moveSpeed.y;
+    // Resmin tamamen yüklenmiş olup olmadığını kontrol edin
+    if (img && img.complete && img.naturalWidth !== 0) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(country.x + country.size / 2, country.y + country.size / 2, country.size / 2, 0, 2 * Math.PI);
+      ctx.clip();  // Daire şeklinde clip bölgesi oluştur
 
-        // Duvara çarpma kontrolü ve yön değiştirme
-        if (country.x + country.size > canvas.width) {
-          country.x = canvas.width - country.size;
-          country.moveSpeed.x *= -1;
-        }
-        if (country.x < 0) {
-          country.x = 0;
-          country.moveSpeed.x *= -1;
-        }
-        if (country.y + country.size > canvas.height) {
-          country.y = canvas.height - country.size;
-          country.moveSpeed.y *= -1;
-        }
-        if (country.y < 0) {
-          country.y = 0;
-          country.moveSpeed.y *= -1;
-        }
-      });
+      ctx.drawImage(img, country.x, country.y, country.size, country.size);
+      ctx.restore();
 
-      checkWinningCountry();
-      updateProgressCanvas(); // Progress canvas'ı güncelle
+      // Yeşil border ekleme
+      ctx.strokeStyle = "green";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(country.x + country.size / 2, country.y + country.size / 2, country.size / 2, 0, 2 * Math.PI);
+      ctx.stroke();
+    } else {
+      console.warn(`Resim henüz yüklenmemiş veya hatalı: ${country.name}`);
     }
+
+    country.x += country.moveSpeed.x;
+    country.y += country.moveSpeed.y;
+
+    // Duvara çarpma kontrolü ve yön değiştirme
+    if (country.x + country.size > canvas.width) {
+      country.x = canvas.width - country.size;
+      country.moveSpeed.x *= -1;
+    }
+    if (country.x < 0) {
+      country.x = 0;
+      country.moveSpeed.x *= -1;
+    }
+    if (country.y + country.size > canvas.height) {
+      country.y = canvas.height - country.size;
+      country.moveSpeed.y *= -1;
+    }
+    if (country.y < 0) {
+      country.y = 0;
+      country.moveSpeed.y *= -1;
+    }
+  });
+
+  checkWinningCountry();
+  updateProgressCanvas(); // Progress canvas'ı güncelle
+}
 
     // Sayfa yüklendiğinde yeniden çizimi başlat
     $(document).ready(() => {
