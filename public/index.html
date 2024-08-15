@@ -145,24 +145,26 @@
     overflow: hidden;
     white-space: nowrap;
   }
+
   .ticker-content {
-  display: inline-block;
-  white-space: nowrap;
-  transform: translateX(400px); /* 400px içinden başlat */
-  will-change: transform;
-}
-
-@keyframes ticker {
-  from {
-    transform: translateX(400px); /* 400px içinden başlat */
+    display: inline-block;
+    white-space: nowrap;
+    transform: translateX(400px);
+    /* 400px içinden başlat */
+    will-change: transform;
   }
 
-  to {
-    transform: translateX(-100%); /* İçeriğin sonuna kadar kaydır */
+  @keyframes ticker {
+    from {
+      transform: translateX(400px);
+      /* 400px içinden başlat */
+    }
+
+    to {
+      transform: translateX(-100%);
+      /* İçeriğin sonuna kadar kaydır */
+    }
   }
-}
-
-
 </style>
 
 <body>
@@ -175,82 +177,82 @@
   </div>
 
   <script>
-  let countdownTime = 500; // 30 saniyelik geri sayım
+    let countdownTime = 500; // 30 saniyelik geri sayım
 
-  function startCountdown() {
-    const countdownInterval = setInterval(() => {
-      countdownTime--;
+    function startCountdown() {
+      const countdownInterval = setInterval(() => {
+        countdownTime--;
 
-      // Dakika ve saniye olarak formatla
-      const minutes = Math.floor(countdownTime / 60);
-      const seconds = countdownTime % 60;
+        // Dakika ve saniye olarak formatla
+        const minutes = Math.floor(countdownTime / 60);
+        const seconds = countdownTime % 60;
 
-      // Countdown timer'ı progressCanvas üzerine çiz
-      progressCtx.clearRect(0, 0, progressCanvas.width, progressCanvas.height); // Önce progressCanvas'ı temizle
+        // Countdown timer'ı progressCanvas üzerine çiz
+        progressCtx.clearRect(0, 0, progressCanvas.width, progressCanvas.height); // Önce progressCanvas'ı temizle
 
-      updateProgressCanvas(); // İlerleme çubuğunu güncelle
+        updateProgressCanvas(); // İlerleme çubuğunu güncelle
 
-      // Countdown timer'ı çiz
-      progressCtx.fillStyle = "black";
-      progressCtx.font = "bold 20px Arial";
-      progressCtx.textAlign = "right";
-      progressCtx.fillText(`${minutes}:${seconds < 10 ? '0' + seconds : seconds}`, progressCanvas.width - 20, 30);
+        // Countdown timer'ı çiz
+        progressCtx.fillStyle = "black";
+        progressCtx.font = "bold 20px Arial";
+        progressCtx.textAlign = "right";
+        progressCtx.fillText(`${minutes}:${seconds < 10 ? '0' + seconds : seconds}`, progressCanvas.width - 20, 30);
 
-      // Süre dolduğunda işlemler
-      if (countdownTime <= 0) {
-        clearInterval(countdownInterval); // Timer'ı durdur
-        finishGame = true; // Oyunu bitir
-        determineWinner(); // Kazanan ülkeyi belirle
-      }
-    }, 1000);
-  }
-
-  function determineWinner() {
-    let largestCountry = countries.reduce((max, country) => max.size > country.size ? max : country);
-
-    // Kazanan ülkeyi belirle ve oyun işlemlerini gerçekleştir
-    if (largestCountry) {
-      finishGame = true;
-      showFireworkGif(largestCountry); // Kazanan ülkeyi ve kutlamaları göster
-      resizeCanvas(); // Canvas boyutunu değiştir
+        // Süre dolduğunda işlemler
+        if (countdownTime <= 0) {
+          clearInterval(countdownInterval); // Timer'ı durdur
+          finishGame = true; // Oyunu bitir
+          determineWinner(); // Kazanan ülkeyi belirle
+        }
+      }, 1000);
     }
-  }
 
-  function resizeCanvas() {
-    canvas.width = 400;
-    canvas.height = 400;
-  }
+    function determineWinner() {
+      let largestCountry = countries.reduce((max, country) => max.size > country.size ? max : country);
 
-  $(document).ready(() => {
-    startCountdown(); // Sayfa yüklendiğinde geri sayımı başlat
-  });
+      // Kazanan ülkeyi belirle ve oyun işlemlerini gerçekleştir
+      if (largestCountry) {
+        finishGame = true;
+        showFireworkGif(largestCountry); // Kazanan ülkeyi ve kutlamaları göster
+        resizeCanvas(); // Canvas boyutunu değiştir
+      }
+    }
 
-function updateNewsTicker() {
-  const tickerContent = document.getElementById('tickerContent');
-  tickerContent.innerHTML = '';
+    function resizeCanvas() {
+      canvas.width = 400;
+      canvas.height = 400;
+    }
 
-  countries.forEach((country, index) => {
-    const countryItem = document.createElement('span');
-    countryItem.innerHTML = `<img src="${country.imgUrl}" alt="${country.name}" style="width: 20px; vertical-align: middle; margin-right: 10px;"> <strong style="font-size: 20px; margin-right: 20px;">${index + 1}. ${country.name}</strong>`;
-    tickerContent.appendChild(countryItem);
-  });
+    $(document).ready(() => {
+      startCountdown(); // Sayfa yüklendiğinde geri sayımı başlat
+    });
 
-  const width = tickerContent.scrollWidth;
-  const animationDuration = width / 120; // Hızı ayarlamak için süreyi hesaplarsınız
-  tickerContent.style.animation = `ticker ${animationDuration}s linear infinite`;
+    function updateNewsTicker() {
+      const tickerContent = document.getElementById('tickerContent');
+      tickerContent.innerHTML = '';
 
-  // Döngü sonunda hemen tekrar başlatmak için
-  tickerContent.addEventListener('animationiteration', () => {
-    tickerContent.style.animation = 'none';
-    setTimeout(() => {
+      countries.forEach((country, index) => {
+        const countryItem = document.createElement('span');
+        countryItem.innerHTML = `<img src="${country.imgUrl}" alt="${country.name}" style="width: 20px; vertical-align: middle; margin-right: 10px;"> <strong style="font-size: 20px; margin-right: 20px;">${index + 1}. ${country.name}</strong>`;
+        tickerContent.appendChild(countryItem);
+      });
+
+      const width = tickerContent.scrollWidth;
+      const animationDuration = width / 120; // Hızı ayarlamak için süreyi hesaplarsınız
       tickerContent.style.animation = `ticker ${animationDuration}s linear infinite`;
-    }, 0); // Animasyonu hemen tekrar başlat
-  });
-}
 
-$(document).ready(() => {
-  updateNewsTicker();
-});
+      // Döngü sonunda hemen tekrar başlatmak için
+      tickerContent.addEventListener('animationiteration', () => {
+        tickerContent.style.animation = 'none';
+        setTimeout(() => {
+          tickerContent.style.animation = `ticker ${animationDuration}s linear infinite`;
+        }, 0); // Animasyonu hemen tekrar başlat
+      });
+    }
+
+    $(document).ready(() => {
+      updateNewsTicker();
+    });
 
     let usernames = new Map();
     let connection = new TikTokIOConnection(undefined);
@@ -444,45 +446,45 @@ $(document).ready(() => {
 
 
     function shakeCanvas() {
-  canvas.classList.add('shake');
+      canvas.classList.add('shake');
 
-  // 500ms sonra shake sınıfını kaldırarak sallanmayı durdur
-  setTimeout(() => {
-    canvas.classList.remove('shake');
-  }, 500); // Shake süresiyle aynı olmalı
+      // 500ms sonra shake sınıfını kaldırarak sallanmayı durdur
+      setTimeout(() => {
+        canvas.classList.remove('shake');
+      }, 500); // Shake süresiyle aynı olmalı
 
-  // Fireworks effect
-  const fireworks = new Fireworks({
-    hue: { min: 0, max: 360 },
-    delay: { min: 30, max: 50 },
-    rocketsPoint: 50,
-    speed: 2,
-    acceleration: 1.05,
-    friction: 0.97,
-    gravity: 1.5,
-    particles: 50,
-    trace: 3,
-    explosion: 5,
-    boundaries: {
-      x: canvas.offsetLeft,
-      y: canvas.offsetTop,
-      width: canvas.offsetWidth,
-      height: canvas.offsetHeight,
-    },
-    sound: {
-      enable: true,
-      list: ['explosion0.mp3', 'explosion1.mp3', 'explosion2.mp3'],
-      min: 4,
-      max: 8,
-    },
-  });
+      // Fireworks effect
+      const fireworks = new Fireworks({
+        hue: { min: 0, max: 360 },
+        delay: { min: 30, max: 50 },
+        rocketsPoint: 50,
+        speed: 2,
+        acceleration: 1.05,
+        friction: 0.97,
+        gravity: 1.5,
+        particles: 50,
+        trace: 3,
+        explosion: 5,
+        boundaries: {
+          x: canvas.offsetLeft,
+          y: canvas.offsetTop,
+          width: canvas.offsetWidth,
+          height: canvas.offsetHeight,
+        },
+        sound: {
+          enable: true,
+          list: ['explosion0.mp3', 'explosion1.mp3', 'explosion2.mp3'],
+          min: 4,
+          max: 8,
+        },
+      });
 
-  fireworks.start();
+      fireworks.start();
 
-  setTimeout(() => {
-    fireworks.stop();
-  }, 500); // Shake süresiyle aynı olmalı
-}
+      setTimeout(() => {
+        fireworks.stop();
+      }, 500); // Shake süresiyle aynı olmalı
+    }
 
     connection.on('gift', (data) => {
       if (finishGame) return;
@@ -493,31 +495,33 @@ $(document).ready(() => {
 
       let selectedCountry = countries.find(country => country.users.some(user => user.name === userName));
       if (!isPendingStreak(data) && data.diamondCount > 0) {
-      if (selectedCountry) {
-        selectedCountry.size += giftCount * 2;
 
-        // Ülkenin resminin içinde bir efekt oluştur
-        showCountryEffect(selectedCountry);
+        for (let i = 0; i < data.repeatCount; i++) {
 
-        // Gift count 30 veya daha fazlaysa shake efekti ve mp3 çalma
-        if (giftCount >= 30) {
-          playSound('run.mp3'); // 30 ve üstü için çalacak mp3
-          shakeCanvas();
-        } else {
-          playSound('gun.mp3'); // 30'dan az için çalacak mp3
-          shakeCanvas();
+          if (selectedCountry) {
+            selectedCountry.size += giftCount * 2;
+
+            // Ülkenin resminin içinde bir efekt oluştur
+            showCountryEffect(selectedCountry);
+
+            // Gift count 30 veya daha fazlaysa shake efekti ve mp3 çalma
+            if (giftCount >= 30) {
+              playSound('run.mp3'); // 30 ve üstü için çalacak mp3
+              shakeCanvas();
+            } else {
+              playSound('gun.mp3'); // 30'dan az için çalacak mp3
+            }
+
+          }
         }
-
-      }
-
         drawCountries();
       } else {
       }
     });
 
     function isPendingStreak(data) {
-    return data.giftType === 1 && !data.repeatEnd;
-}
+      return data.giftType === 1 && !data.repeatEnd;
+    }
 
     let currentAudio = null; // Şu anda çalan müziği takip etmek için global değişken
 
@@ -659,19 +663,19 @@ $(document).ready(() => {
     }
 
     function resetGame() {
-  countries.forEach(country => {
-    country.size = initialCountrySize;
-    country.users = [];  // Kullanıcı listesini sıfırla
-  });
+      countries.forEach(country => {
+        country.size = initialCountrySize;
+        country.users = [];  // Kullanıcı listesini sıfırla
+      });
 
-  finishGame = false;
-  countdownTime = 500; // Geri sayım süresini tekrar başlat
-  ctx.clearRect(0, 0, canvas.width, canvas.height); // Canvas'ı temizle
-  progressCtx.clearRect(0, 0, progressCanvas.width, progressCanvas.height); // Progress canvas'ı temizle
-  animationID = setInterval(drawCountries, 1000 / 60); // Hareketi yeniden başlat
-  startCountdown(); // Geri sayımı yeniden başlat
-  usernames.clear(); // Kullanıcı haritasını sıfırla
-}
+      finishGame = false;
+      countdownTime = 500; // Geri sayım süresini tekrar başlat
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // Canvas'ı temizle
+      progressCtx.clearRect(0, 0, progressCanvas.width, progressCanvas.height); // Progress canvas'ı temizle
+      animationID = setInterval(drawCountries, 1000 / 60); // Hareketi yeniden başlat
+      startCountdown(); // Geri sayımı yeniden başlat
+      usernames.clear(); // Kullanıcı haritasını sıfırla
+    }
 
     function updateProgressCanvas() {
       progressCtx.clearRect(0, 0, progressCanvas.width, progressCanvas.height);
