@@ -169,7 +169,7 @@
   /* New styles for the latest username display */
   #latestUsernameList {
     position: absolute;
-    bottom: 700px;
+    bottom: 650px;
     left: 50%;
     transform: translateX(-50%);
     width: 400px;
@@ -823,7 +823,7 @@ connection.on('gift', (data) => {
 
       // Progress bar
       progressCtx.fillStyle = "rgba(0, 0, 0, 0.1)";
-      progressCtx.fillRect(10, 8, 380, 12); // Progress bar arka planı
+      progressCtx.fillRect(10, 80, 380, 12); // Progress bar arka planı
 
       progressCtx.fillStyle = "#4CAF50";
       progressCtx.fillRect(10, 80, progress * 3.8, 12); // İlerleme çubuğu genişliği
@@ -838,7 +838,7 @@ connection.on('gift', (data) => {
       progressCtx.font = "bold 20px Arial";
       progressCtx.fillStyle = "#333";
       progressCtx.textAlign = "center";
-      progressCtx.fillText(`${Math.floor(progress)}%`, (progressCanvas.width / 2) + 30, progressCanvas.height - 95);
+      progressCtx.fillText(`${Math.floor(progress)}%`, (progressCanvas.width / 2) + 30, progressCanvas.height - 92);
 
     }
 
