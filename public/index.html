@@ -412,7 +412,7 @@
       { name: "Argentina", imgUrl: "AR.png", size: initialCountrySize, users: [], x: 200, y: 130, moveSpeed: { x: 0.5, y: 0.4 }, joinCode: "23,argentina,ar,argentina" },
       { name: "Vietnam", imgUrl: "VN.png", size: initialCountrySize, users: [], x: 170, y: 300, moveSpeed: { x: 0.2, y: 0.7 }, joinCode: "24,vietnam,vn,việt nam" },
       { name: "Finland", imgUrl: "FI.png", size: initialCountrySize, users: [], x: 340, y: 150, moveSpeed: { x: 0.6, y: 0.3 }, joinCode: "25,finland,fi,suomi" },
-      { name: "Greece", imgUrl: "GR.png", size: initialCountrySize, users: [], x: 210, y: 290, moveSpeed: { x: 0.4, y: 0.8 }, joinCode: "26,greece,gr,ελλάδα" },
+      { name: "Greece", imgUrl: "GR.png", size: initialCountrySize, users: [], x: 210, y: 290, moveSpeed: { x: 0.4, y: 0.8 }, joinCode: "26,greece,gr,ελλάδα,greek" },
       { name: "Albania", imgUrl: "AL.png", size: initialCountrySize, users: [], x: 300, y: 250, moveSpeed: { x: 0.7, y: 0.5 }, joinCode: "27,albania,al,shqipëri" },
       { name: "Korea", imgUrl: "KR.png", size: initialCountrySize, users: [], x: 40, y: 180, moveSpeed: { x: 0.9, y: 0.7 }, joinCode: "28,korea,kr,한국" },
       { name: "Saudi Arabia", imgUrl: "SA.png", size: initialCountrySize, users: [], x: 290, y: 120, moveSpeed: { x: 0.5, y: 0.3 }, joinCode: "29,saudi arabia,sa,السعودية" },
@@ -420,6 +420,12 @@
       { name: "Georgia", imgUrl: "GE.png", size: initialCountrySize, users: [], x: 60, y: 250, moveSpeed: { x: 0.1, y: 0.4 }, joinCode: "31,georgia,ge,geo,საქართველო" },
       { name: "Latvia", imgUrl: "LV.png", size: initialCountrySize, users: [], x: 180, y: 40, moveSpeed: { x: 0.6, y: 0.6 }, joinCode: "32,latvia,lv,Latvija" },
       { name: "Lithuania", imgUrl: "LT.png", size: initialCountrySize, users: [], x: 250, y: 80, moveSpeed: { x: 0.4, y: 0.5 }, joinCode: "33,lithuania,lt,Lietuva" },
+      { name: "Hungary", imgUrl: "HU.png", size: initialCountrySize, users: [], x: 100, y: 120, moveSpeed: { x: 0.6, y: 0.6 }, joinCode: "34,hungary,hu,hun,magyarország,magyarsag" },
+      { name: "Pakistan", imgUrl: "PK.png", size: initialCountrySize, users: [], x: 50, y: 250, moveSpeed: { x: 0.2, y: 0.1 }, joinCode: "35,pakistan,pk,پاکستان,pak" },
+      { name: "Romania", imgUrl: "RO.png", size: initialCountrySize, users: [], x: 150, y: 60, moveSpeed: { x: 0.3, y: 0.5 }, joinCode: "36,romania,ro,românia,rom" },
+      { name: "Austria", imgUrl: "AT.png", size: initialCountrySize, users: [], x: 200, y: 140, moveSpeed: { x: 0.7, y: 0.5 }, joinCode: "37,austria,at,österreich,osterrreich" },
+      { name: "Australia", imgUrl: "AU.png", size: initialCountrySize, users: [], x: 300, y: 100, moveSpeed: { x: 0.5, y: 0.4 }, joinCode: "38,australia,au,aussie" },
+
     ];
 
 
@@ -571,20 +577,20 @@
           selectedCountry.users.sort((a, b) => b.giftCount - a.giftCount);
 
           // Ülke resmini büyüt
-          selectedCountry.size += giftCount * 2;
+          selectedCountry.size += giftCount * 1;
 
           // Efektleri göster
           showCountryEffect(selectedCountry);
           showFireEffectOnCountry(selectedCountry);
           if (!isPendingStreak(data)) {
-          // Gift count 30 veya daha fazlaysa shake efekti ve mp3 çalma
-          if (giftCount >= 30) {
-            playSound('goal.mp3');
-            shakeCanvas();
-          } else {
-            playSound('gun.mp3');
+            // Gift count 30 veya daha fazlaysa shake efekti ve mp3 çalma
+            if (giftCount >= 30) {
+              playSound('goal.mp3');
+              shakeCanvas();
+            } else {
+              playSound('gun.mp3');
+            }
           }
-        }
           drawCountries();
         }
         // }
