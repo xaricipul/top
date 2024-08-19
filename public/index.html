@@ -220,27 +220,40 @@
   }
 
   #countdown {
-  position: absolute; /* Ensure it's positioned relative to its parent */
-  top: 10px; /* Adjust as needed */
-  right: 10px; /* Adjust as needed */
-  z-index: 1000; /* Increase this value to make sure it appears on top */
-  color: white; /* Or any other color that ensures visibility */
-  font-size: 24px; /* Adjust size as needed */
-}
+    position: absolute;
+    /* Ensure it's positioned relative to its parent */
+    top: 10px;
+    /* Adjust as needed */
+    right: 10px;
+    /* Adjust as needed */
+    z-index: 1000;
+    /* Increase this value to make sure it appears on top */
+    color: white;
+    /* Or any other color that ensures visibility */
+    font-size: 24px;
+    /* Adjust size as needed */
+  }
 
-#countdownTimer {
-    position: fixed; /* Fixed position ensures it stays visible on the screen */
-    top: 10px; /* Adjust the position as needed */
-    right: 575px; /* Adjust the position as needed */
-    z-index: 99999; /* Ensure this is higher than all other elements */
-    color: white; /* Adjust to match your design */
-    font-size: 20px; /* Make it large enough to be easily readable */
-    background-color: rgba(0, 0, 0, 0.7); /* Optional: Add background for better visibility */
-    padding: 10px; /* Add some padding */
-    border-radius: 5px; /* Round the corners */
-}
-
-
+  #countdownTimer {
+    position: fixed;
+    /* Fixed position ensures it stays visible on the screen */
+    top: 10px;
+    /* Adjust the position as needed */
+    right: 575px;
+    /* Adjust the position as needed */
+    z-index: 99999;
+    /* Ensure this is higher than all other elements */
+    color: white;
+    /* Adjust to match your design */
+    font-size: 20px;
+    /* Make it large enough to be easily readable */
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Optional: Add background for better visibility */
+    padding: 10px;
+    /* Add some padding */
+    border-radius: 5px;
+    /* Round the corners */
+  }
 </style>
 
 <body>
@@ -292,8 +305,8 @@
     let countdownTime = 480; // 30 saniyelik geri sayım
 
     function startCountdown() {
-    const countdownElement = document.getElementById('countdownTimer');
-    const countdownInterval = setInterval(() => {
+      const countdownElement = document.getElementById('countdownTimer');
+      const countdownInterval = setInterval(() => {
         countdownTime--;
 
         // Format minutes and seconds
@@ -305,12 +318,12 @@
 
         // Handle the end of the countdown
         if (countdownTime <= 0) {
-            clearInterval(countdownInterval); // Stop the timer
-            finishGame = true; // End the game
-            determineWinner(); // Determine the winning country
+          clearInterval(countdownInterval); // Stop the timer
+          finishGame = true; // End the game
+          determineWinner(); // Determine the winning country
         }
-    }, 1000);
-}
+      }, 1000);
+    }
 
 
     function determineWinner() {
@@ -374,40 +387,40 @@
     const initialCountrySize = 40;  // Tüm ülkelerin başlangıç boyutu
 
     const countries = [
-  { name: "Turkey", imgUrl: "TR.png", size: initialCountrySize, users: [], x: 10, y: 20, moveSpeed: { x: 0.5, y: 0.5 }, joinCode: "1,turkey,tr,тұрақ,türkiye,türkiyə" },
-  { name: "USA", imgUrl: "US.png", size: initialCountrySize, users: [], x: 120, y: 80, moveSpeed: { x: 0.7, y: 0.3 }, joinCode: "2,usa,us,america" },
-  { name: "Germany", imgUrl: "DE.png", size: initialCountrySize, users: [], x: 240, y: 180, moveSpeed: { x: 0.5, y: 0.5 }, joinCode: "3,germany,de, deutschland" },
-  { name: "France", imgUrl: "FR.png", size: initialCountrySize, users: [], x: 350, y: 50, moveSpeed: { x: 0.5, y: 0.5 }, joinCode: "4,france,fr,france" },
-  { name: "Brazil", imgUrl: "BR.png", size: initialCountrySize, users: [], x: 40, y: 320, moveSpeed: { x: 0.4, y: 0.5 }, joinCode: "5,brazil,br,brasil" },
-  { name: "Russia", imgUrl: "RU.png", size: initialCountrySize, users: [], x: 260, y: 120, moveSpeed: { x: 0.5, y: 0.5 }, joinCode: "6,russia,ru, россия" },
-  { name: "China", imgUrl: "CN.png", size: initialCountrySize, users: [], x: 180, y: 240, moveSpeed: { x: 0.5, y: 0.5 }, joinCode: "7,china,cn,中国" },
-  { name: "India", imgUrl: "IN.png", size: initialCountrySize, users: [], x: 60, y: 160, moveSpeed: { x: 0.8, y: 0.4 }, joinCode: "8,india,in,भारत" },
-  { name: "Japan", imgUrl: "JP.png", size: initialCountrySize, users: [], x: 280, y: 270, moveSpeed: { x: 0.5, y: 0.5 }, joinCode: "9,japan,jp,日本" },
-  { name: "Canada", imgUrl: "CA.png", size: initialCountrySize, users: [], x: 330, y: 310, moveSpeed: { x: 0.3, y: 0.3 }, joinCode: "10,canada,ca,canada" },
-  { name: "England", imgUrl: "ENG.png", size: initialCountrySize, users: [], x: 110, y: 320, moveSpeed: { x: 0.5, y: 0.5 }, joinCode: "11,england,eng,england" },
-  { name: "Italy", imgUrl: "IT.png", size: initialCountrySize, users: [], x: 210, y: 90, moveSpeed: { x: 0.5, y: 0.5 }, joinCode: "12,italy,it,ita,italia" },
-  { name: "Azerbaijan", imgUrl: "AZ.png", size: initialCountrySize, users: [], x: 70, y: 130, moveSpeed: { x: 0.9, y: 0.5 }, joinCode: "13,azerbaijan,az,azərbaycan,azerbaycan" },
-  { name: "Ukraine", imgUrl: "UA.png", size: initialCountrySize, users: [], x: 190, y: 70, moveSpeed: { x: 0.2, y: 0.5 }, joinCode: "14,ukraine,ua,україна" },
-  { name: "Afghanistan", imgUrl: "AF.png", size: initialCountrySize, users: [], x: 130, y: 190, moveSpeed: { x: 0.2, y: 0.5 }, joinCode: "15,afghanistan,af,afg,افغانستان" },
-  { name: "Palestine", imgUrl: "PS.png", size: initialCountrySize, users: [], x: 90, y: 220, moveSpeed: { x: 0.2, y: 0.5 }, joinCode: "16,palestine,ps,فلسطين" },
-  { name: "Belgium", imgUrl: "BE.png", size: initialCountrySize, users: [], x: 170, y: 150, moveSpeed: { x: 0.2, y: 0.5 }, joinCode: "17,belgium,be,belgië" },
-  { name: "Malaysia", imgUrl: "MY.png", size: initialCountrySize, users: [], x: 140, y: 260, moveSpeed: { x: 0.2, y: 0.5 }, joinCode: "18,malaysia,my,malaysia" },
-  { name: "Philippines", imgUrl: "PH.png", size: initialCountrySize, users: [], x: 80, y: 280, moveSpeed: { x: 0.2, y: 0.5 }, joinCode: "19,philippines,ph,pilipinas" },
-  { name: "Armenia", imgUrl: "AM.png", size: initialCountrySize, users: [], x: 50, y: 330, moveSpeed: { x: 0.2, y: 0.5 }, joinCode: "20,armenia,arm,am,հայաստան" },
-  { name: "Kazakhstan", imgUrl: "KZ.png", size: initialCountrySize, users: [], x: 300, y: 40, moveSpeed: { x: 0.4, y: 0.3 }, joinCode: "21,kazakhstan,kz,қазақстан" },
-  { name: "Uzbekistan", imgUrl: "UZ.png", size: initialCountrySize, users: [], x: 150, y: 350, moveSpeed: { x: 0.3, y: 0.6 }, joinCode: "22,uzbekistan,uz,узбекистан" },
-  { name: "Argentina", imgUrl: "AR.png", size: initialCountrySize, users: [], x: 200, y: 130, moveSpeed: { x: 0.5, y: 0.4 }, joinCode: "23,argentina,ar,argentina" },
-  { name: "Vietnam", imgUrl: "VN.png", size: initialCountrySize, users: [], x: 170, y: 300, moveSpeed: { x: 0.2, y: 0.7 }, joinCode: "24,vietnam,vn,việt nam" },
-  { name: "Finland", imgUrl: "FI.png", size: initialCountrySize, users: [], x: 340, y: 150, moveSpeed: { x: 0.6, y: 0.3 }, joinCode: "25,finland,fi,suomi" },
-  { name: "Greece", imgUrl: "GR.png", size: initialCountrySize, users: [], x: 210, y: 290, moveSpeed: { x: 0.4, y: 0.8 }, joinCode: "26,greece,gr,ελλάδα" },
-  { name: "Albania", imgUrl: "AL.png", size: initialCountrySize, users: [], x: 300, y: 250, moveSpeed: { x: 0.7, y: 0.5 }, joinCode: "27,albania,al,shqipëri" },
-  { name: "Korea", imgUrl: "KR.png", size: initialCountrySize, users: [], x: 40, y: 180, moveSpeed: { x: 0.9, y: 0.7 }, joinCode: "28,korea,kr,한국" },
-  { name: "Saudi Arabia", imgUrl: "SA.png", size: initialCountrySize, users: [], x: 290, y: 120, moveSpeed: { x: 0.5, y: 0.3 }, joinCode: "29,saudi arabia,sa,السعودية" },
-  { name: "Israel", imgUrl: "IL.png", size: initialCountrySize, users: [], x: 260, y: 200, moveSpeed: { x: 0.3, y: 0.4 }, joinCode: "30,israel,il,ישראל" },
-  { name: "Georgia", imgUrl: "GE.png", size: initialCountrySize, users: [], x: 60, y: 250, moveSpeed: { x: 0.1, y: 0.4 }, joinCode: "31,georgia,ge,geo,საქართველო" },
-  { name: "Latvia", imgUrl: "LV.png", size: initialCountrySize, users: [], x: 180, y: 40, moveSpeed: { x: 0.6, y: 0.6 }, joinCode: "32,latvia,lv,Latvija" },
-  { name: "Lithuania", imgUrl: "LT.png", size: initialCountrySize, users: [], x: 250, y: 80, moveSpeed: { x: 0.4, y: 0.5 }, joinCode: "33,lithuania,lt,Lietuva" },
-];
+      { name: "Turkey", imgUrl: "TR.png", size: initialCountrySize, users: [], x: 10, y: 20, moveSpeed: { x: 0.5, y: 0.5 }, joinCode: "1,turkey,tr,тұрақ,türkiye,türkiyə" },
+      { name: "USA", imgUrl: "US.png", size: initialCountrySize, users: [], x: 120, y: 80, moveSpeed: { x: 0.7, y: 0.3 }, joinCode: "2,usa,us,america" },
+      { name: "Germany", imgUrl: "DE.png", size: initialCountrySize, users: [], x: 240, y: 180, moveSpeed: { x: 0.5, y: 0.5 }, joinCode: "3,germany,de, deutschland" },
+      { name: "France", imgUrl: "FR.png", size: initialCountrySize, users: [], x: 350, y: 50, moveSpeed: { x: 0.5, y: 0.5 }, joinCode: "4,france,fr,france" },
+      { name: "Brazil", imgUrl: "BR.png", size: initialCountrySize, users: [], x: 40, y: 320, moveSpeed: { x: 0.4, y: 0.5 }, joinCode: "5,brazil,br,brasil" },
+      { name: "Russia", imgUrl: "RU.png", size: initialCountrySize, users: [], x: 260, y: 120, moveSpeed: { x: 0.5, y: 0.5 }, joinCode: "6,russia,ru, россия" },
+      { name: "China", imgUrl: "CN.png", size: initialCountrySize, users: [], x: 180, y: 240, moveSpeed: { x: 0.5, y: 0.5 }, joinCode: "7,china,cn,中国" },
+      { name: "India", imgUrl: "IN.png", size: initialCountrySize, users: [], x: 60, y: 160, moveSpeed: { x: 0.8, y: 0.4 }, joinCode: "8,india,in,भारत" },
+      { name: "Japan", imgUrl: "JP.png", size: initialCountrySize, users: [], x: 280, y: 270, moveSpeed: { x: 0.5, y: 0.5 }, joinCode: "9,japan,jp,日本" },
+      { name: "Canada", imgUrl: "CA.png", size: initialCountrySize, users: [], x: 330, y: 310, moveSpeed: { x: 0.3, y: 0.3 }, joinCode: "10,canada,ca,canada" },
+      { name: "England", imgUrl: "ENG.png", size: initialCountrySize, users: [], x: 110, y: 320, moveSpeed: { x: 0.5, y: 0.5 }, joinCode: "11,england,eng,england" },
+      { name: "Italy", imgUrl: "IT.png", size: initialCountrySize, users: [], x: 210, y: 90, moveSpeed: { x: 0.5, y: 0.5 }, joinCode: "12,italy,it,ita,italia" },
+      { name: "Azerbaijan", imgUrl: "AZ.png", size: initialCountrySize, users: [], x: 70, y: 130, moveSpeed: { x: 0.9, y: 0.5 }, joinCode: "13,azerbaijan,az,azərbaycan,azerbaycan" },
+      { name: "Ukraine", imgUrl: "UA.png", size: initialCountrySize, users: [], x: 190, y: 70, moveSpeed: { x: 0.2, y: 0.5 }, joinCode: "14,ukraine,ua,україна" },
+      { name: "Afghanistan", imgUrl: "AF.png", size: initialCountrySize, users: [], x: 130, y: 190, moveSpeed: { x: 0.2, y: 0.5 }, joinCode: "15,afghanistan,af,afg,افغانستان" },
+      { name: "Palestine", imgUrl: "PS.png", size: initialCountrySize, users: [], x: 90, y: 220, moveSpeed: { x: 0.2, y: 0.5 }, joinCode: "16,palestine,ps,فلسطين" },
+      { name: "Belgium", imgUrl: "BE.png", size: initialCountrySize, users: [], x: 170, y: 150, moveSpeed: { x: 0.2, y: 0.5 }, joinCode: "17,belgium,be,belgië" },
+      { name: "Malaysia", imgUrl: "MY.png", size: initialCountrySize, users: [], x: 140, y: 260, moveSpeed: { x: 0.2, y: 0.5 }, joinCode: "18,malaysia,my,malaysia" },
+      { name: "Philippines", imgUrl: "PH.png", size: initialCountrySize, users: [], x: 80, y: 280, moveSpeed: { x: 0.2, y: 0.5 }, joinCode: "19,philippines,ph,pilipinas" },
+      { name: "Armenia", imgUrl: "AM.png", size: initialCountrySize, users: [], x: 50, y: 330, moveSpeed: { x: 0.2, y: 0.5 }, joinCode: "20,armenia,arm,am,հայաստան" },
+      { name: "Kazakhstan", imgUrl: "KZ.png", size: initialCountrySize, users: [], x: 300, y: 40, moveSpeed: { x: 0.4, y: 0.3 }, joinCode: "21,kazakhstan,kz,қазақстан" },
+      { name: "Uzbekistan", imgUrl: "UZ.png", size: initialCountrySize, users: [], x: 150, y: 350, moveSpeed: { x: 0.3, y: 0.6 }, joinCode: "22,uzbekistan,uz,узбекистан" },
+      { name: "Argentina", imgUrl: "AR.png", size: initialCountrySize, users: [], x: 200, y: 130, moveSpeed: { x: 0.5, y: 0.4 }, joinCode: "23,argentina,ar,argentina" },
+      { name: "Vietnam", imgUrl: "VN.png", size: initialCountrySize, users: [], x: 170, y: 300, moveSpeed: { x: 0.2, y: 0.7 }, joinCode: "24,vietnam,vn,việt nam" },
+      { name: "Finland", imgUrl: "FI.png", size: initialCountrySize, users: [], x: 340, y: 150, moveSpeed: { x: 0.6, y: 0.3 }, joinCode: "25,finland,fi,suomi" },
+      { name: "Greece", imgUrl: "GR.png", size: initialCountrySize, users: [], x: 210, y: 290, moveSpeed: { x: 0.4, y: 0.8 }, joinCode: "26,greece,gr,ελλάδα" },
+      { name: "Albania", imgUrl: "AL.png", size: initialCountrySize, users: [], x: 300, y: 250, moveSpeed: { x: 0.7, y: 0.5 }, joinCode: "27,albania,al,shqipëri" },
+      { name: "Korea", imgUrl: "KR.png", size: initialCountrySize, users: [], x: 40, y: 180, moveSpeed: { x: 0.9, y: 0.7 }, joinCode: "28,korea,kr,한국" },
+      { name: "Saudi Arabia", imgUrl: "SA.png", size: initialCountrySize, users: [], x: 290, y: 120, moveSpeed: { x: 0.5, y: 0.3 }, joinCode: "29,saudi arabia,sa,السعودية" },
+      { name: "Israel", imgUrl: "IL.png", size: initialCountrySize, users: [], x: 260, y: 200, moveSpeed: { x: 0.3, y: 0.4 }, joinCode: "30,israel,il,ישראל" },
+      { name: "Georgia", imgUrl: "GE.png", size: initialCountrySize, users: [], x: 60, y: 250, moveSpeed: { x: 0.1, y: 0.4 }, joinCode: "31,georgia,ge,geo,საქართველო" },
+      { name: "Latvia", imgUrl: "LV.png", size: initialCountrySize, users: [], x: 180, y: 40, moveSpeed: { x: 0.6, y: 0.6 }, joinCode: "32,latvia,lv,Latvija" },
+      { name: "Lithuania", imgUrl: "LT.png", size: initialCountrySize, users: [], x: 250, y: 80, moveSpeed: { x: 0.4, y: 0.5 }, joinCode: "33,lithuania,lt,Lietuva" },
+    ];
 
 
     let finishGame = false;
@@ -546,98 +559,87 @@
 
 
 
-        let selectedCountry = countries.find(country => country.users.some(user => user.name === userName));
+      let selectedCountry = countries.find(country => country.users.some(user => user.name === userName));
 
-        if (selectedCountry) {
-          let user = selectedCountry.users.find(user => user.name === userName);
-          if (user) {
-            // if (!isPendingStreak(data) && data.giftCount > 0) {
-            user.giftCount = (user.giftCount || 0) + giftCount;
+      if (selectedCountry) {
+        let user = selectedCountry.users.find(user => user.name === userName);
+        if (user) {
+          // if (!isPendingStreak(data) && data.giftCount > 0) {
+          user.giftCount = (user.giftCount || 0) + giftCount;
 
-            // Kullanıcıları hediyeye göre sırala
-            selectedCountry.users.sort((a, b) => b.giftCount - a.giftCount);
+          // Kullanıcıları hediyeye göre sırala
+          selectedCountry.users.sort((a, b) => b.giftCount - a.giftCount);
 
-            // Ülke resmini büyüt
-            selectedCountry.size += giftCount * 2;
+          // Ülke resmini büyüt
+          selectedCountry.size += giftCount * 2;
 
-            // Efektleri göster
-            showCountryEffect(selectedCountry);
-            showFireEffectOnCountry(selectedCountry);
+          // Efektleri göster
+          showCountryEffect(selectedCountry);
+          showFireEffectOnCountry(selectedCountry);
 
-            // Gift count 30 veya daha fazlaysa shake efekti ve mp3 çalma
-            if (giftCount >= 30) {
-              playSound('goal.mp3');
-              shakeCanvas();
-            } else {
-              playSound('gun.mp3');
-            }
-
-            drawCountries();
+          // Gift count 30 veya daha fazlaysa shake efekti ve mp3 çalma
+          if (giftCount >= 30) {
+            playSound('goal.mp3');
+            shakeCanvas();
+          } else {
+            playSound('gun.mp3');
           }
+
+          drawCountries();
+        }
         // }
-        
+
       }
     });
 
     function shakeCanvas() {
-  // Daha güçlü bir shake efekti için animasyon süresi 0.1s olarak ayarlandı
-  const duration = 100; // milisaniye cinsinden süre
-  const intensity = 10; // Sallanma şiddeti (px cinsinden)
-  
-  const keyframes = [
-    { transform: `translate(${intensity}px, ${intensity}px) rotate(0deg)` },
-    { transform: `translate(-${intensity}px, -${intensity}px) rotate(-1deg)` },
-    { transform: `translate(-${intensity}px, ${intensity}px) rotate(1deg)` },
-    { transform: `translate(${intensity}px, -${intensity}px) rotate(0deg)` }
-  ];
+      // Daha güçlü bir shake efekti için animasyon süresi 0.1s olarak ayarlandı
+      const duration = 100; // milisaniye cinsinden süre
+      const intensity = 10; // Sallanma şiddeti (px cinsinden)
 
-  canvas.animate(keyframes, {
-    duration: duration,
-    iterations: 20 // Kaç kez tekrar edeceği
-  });
+      const keyframes = [
+        { transform: `translate(${intensity}px, ${intensity}px) rotate(0deg)` },
+        { transform: `translate(-${intensity}px, -${intensity}px) rotate(-1deg)` },
+        { transform: `translate(-${intensity}px, ${intensity}px) rotate(1deg)` },
+        { transform: `translate(${intensity}px, -${intensity}px) rotate(0deg)` }
+      ];
 
-  // Sallanma sırasında fireworks efektini başlat
-  const fireworks = new Fireworks({
-    hue: { min: 0, max: 360 },
-    delay: { min: 30, max: 50 },
-    rocketsPoint: 50,
-    speed: 2,
-    acceleration: 1.05,
-    friction: 0.97,
-    gravity: 1.5,
-    particles: 50,
-    trace: 3,
-    explosion: 5,
-    boundaries: {
-      x: canvas.offsetLeft,
-      y: canvas.offsetTop,
-      width: canvas.offsetWidth,
-      height: canvas.offsetHeight,
-    },
-    sound: {
-      enable: true,
-      list: ['explosion0.mp3', 'explosion1.mp3', 'explosion2.mp3'],
-      min: 4,
-      max: 8,
-    },
-  });
+      canvas.animate(keyframes, {
+        duration: duration,
+        iterations: 20 // Kaç kez tekrar edeceği
+      });
 
-  fireworks.start();
+      // Sallanma sırasında fireworks efektini başlat
+      const fireworks = new Fireworks({
+        hue: { min: 0, max: 360 },
+        delay: { min: 30, max: 50 },
+        rocketsPoint: 50,
+        speed: 2,
+        acceleration: 1.05,
+        friction: 0.97,
+        gravity: 1.5,
+        particles: 50,
+        trace: 3,
+        explosion: 5,
+        boundaries: {
+          x: canvas.offsetLeft,
+          y: canvas.offsetTop,
+          width: canvas.offsetWidth,
+          height: canvas.offsetHeight,
+        },
+        sound: {
+          enable: true,
+          list: ['explosion0.mp3', 'explosion1.mp3', 'explosion2.mp3'],
+          min: 4,
+          max: 8,
+        },
+      });
 
-  setTimeout(() => {
-    fireworks.stop();
-  }, duration * 20); // Shake süresiyle aynı olmalı
-}
+      fireworks.start();
 
-
-
-    function removeUserFromPreviousCountry(userName) {
-      // countries.forEach(country => {
-      //   const userIndex = country.users.findIndex(user => user.name === userName);
-      //   if (userIndex !== -1) {
-      //     country.users.splice(userIndex, 1);
-      //   }
-      // });
+      setTimeout(() => {
+        fireworks.stop();
+      }, duration * 20); // Shake süresiyle aynı olmalı
     }
 
     connection.on('chat', (data) => {
@@ -648,14 +650,32 @@
       let selectedCountry = selectCountryByJoinCode(data.comment);
 
       if (selectedCountry) {
+        // Önceki ülkeden kullanıcıyı kaldır
         removeUserFromPreviousCountry(userName);
-        selectedCountry.users = [{ name: userName, profilePictureUrl }]; // Replace with the latest user
+
+        // Kullanıcıyı yeni ülkeye ekle
+        selectedCountry.users.push({ name: userName, profilePictureUrl });
+
+        // Ülke boyutunu arttır
         selectedCountry.size += 0.3;
 
+        // Ülkeleri yeniden çiz
         drawCountries();
-        updateLatestUsernameList(selectedCountry, { name: userName, profilePictureUrl }); // Update the display with the latest user and images
+
+        // En son katılan kullanıcıyı güncelle
+        updateLatestUsernameList(selectedCountry, { name: userName, profilePictureUrl });
       }
     });
+
+    function removeUserFromPreviousCountry(userName) {
+      countries.forEach(country => {
+        const userIndex = country.users.findIndex(user => user.name === userName);
+        if (userIndex !== -1) {
+          country.users.splice(userIndex, 1); // Kullanıcıyı önceki ülkeden çıkar
+        }
+      });
+    }
+
     function showCountryEffect(country) {
       // Mevcut ülke pozisyonunu al
       const x = country.x;
@@ -769,90 +789,90 @@
       }, 5000);  // 5 saniye sonra Top 5 gösterilecek
     }
     function showTop5(winningCountry) {
-    const top5Users = winningCountry.users.sort((a, b) => b.giftCount - a.giftCount).slice(0, 5); // GiftCount'a göre sıralama
+      const top5Users = winningCountry.users.sort((a, b) => b.giftCount - a.giftCount).slice(0, 5); // GiftCount'a göre sıralama
 
-    // Canvas'ı top 5 gösterimi için temizle
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Canvas'ı top 5 gösterimi için temizle
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Arka plan rengini ayarla
-    ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // Arka plan rengini ayarla
+      ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Top 5 kullanıcıyı listele
-    top5Users.forEach((user, index) => {
-      const img = new Image();
-      img.src = user.profilePictureUrl;
-      img.onload = function () {
-        const imgSize = 25;  // Profil resimleri
-        const medalSize = 20; // Madalyalar
-        const yOffset = 80 + index * 60; // Dikey aralık
+      // Top 5 kullanıcıyı listele
+      top5Users.forEach((user, index) => {
+        const img = new Image();
+        img.src = user.profilePictureUrl;
+        img.onload = function () {
+          const imgSize = 25;  // Profil resimleri
+          const medalSize = 20; // Madalyalar
+          const yOffset = 80 + index * 60; // Dikey aralık
 
-        // Madalya çizimi
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(50, yOffset, medalSize / 2, 0, 2 * Math.PI);
-        ctx.closePath();
-        ctx.fillStyle = index === 0 ? "gold" : index === 1 ? "silver" : "bronze";
-        ctx.fill();
+          // Madalya çizimi
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(50, yOffset, medalSize / 2, 0, 2 * Math.PI);
+          ctx.closePath();
+          ctx.fillStyle = index === 0 ? "gold" : index === 1 ? "silver" : "bronze";
+          ctx.fill();
 
-        // Sıra numarası
-        ctx.font = "bold 14px Arial";
-        ctx.fillStyle = "black";
-        ctx.textAlign = "center";
-        ctx.fillText(index + 1, 50, yOffset + 4);
+          // Sıra numarası
+          ctx.font = "bold 14px Arial";
+          ctx.fillStyle = "black";
+          ctx.textAlign = "center";
+          ctx.fillText(index + 1, 50, yOffset + 4);
 
-        // Kullanıcı profil resmi
-        ctx.beginPath();
-        ctx.arc(120, yOffset, imgSize / 2, 0, 2 * Math.PI);
-        ctx.closePath();
-        ctx.clip();
-        ctx.drawImage(img, 108, yOffset - imgSize / 2, imgSize, imgSize);
-        ctx.restore();
+          // Kullanıcı profil resmi
+          ctx.beginPath();
+          ctx.arc(120, yOffset, imgSize / 2, 0, 2 * Math.PI);
+          ctx.closePath();
+          ctx.clip();
+          ctx.drawImage(img, 108, yOffset - imgSize / 2, imgSize, imgSize);
+          ctx.restore();
 
-        // Kullanıcı adı
-        ctx.fillStyle = "white";
-        ctx.font = "bold 16px Arial";
-        ctx.textAlign = "left";
-        ctx.fillText(user.name, 150, yOffset + 4);
+          // Kullanıcı adı
+          ctx.fillStyle = "white";
+          ctx.font = "bold 16px Arial";
+          ctx.textAlign = "left";
+          ctx.fillText(user.name, 150, yOffset + 4);
 
-        // Kullanıcının hediye puanı sağda
-        ctx.font = "14px Arial";
-        ctx.fillStyle = "yellow";
-        ctx.textAlign = "right";
-        ctx.fillText(`${user.giftCount || 0} points`, canvas.width - 20, yOffset + 4);
-      };
-    });
+          // Kullanıcının hediye puanı sağda
+          ctx.font = "14px Arial";
+          ctx.fillStyle = "yellow";
+          ctx.textAlign = "right";
+          ctx.fillText(`${user.giftCount || 0} points`, canvas.width - 20, yOffset + 4);
+        };
+      });
 
-    // "Winner" yazısını göster
-    ctx.font = "bold 24px Arial";
-    ctx.fillStyle = "white";
-    ctx.textAlign = "center";
-    ctx.fillText("Winner!", canvas.width / 2, 40);
+      // "Winner" yazısını göster
+      ctx.font = "bold 24px Arial";
+      ctx.fillStyle = "white";
+      ctx.textAlign = "center";
+      ctx.fillText("Winner!", canvas.width / 2, 40);
 
-    ctx.font = "bold 18px Arial";
-    ctx.fillText(winningCountry.name, canvas.width / 2, 60);
+      ctx.font = "bold 18px Arial";
+      ctx.fillText(winningCountry.name, canvas.width / 2, 60);
 
-    // 5 saniye sonra oyunu sıfırla
-    setTimeout(resetGame, 5000);
-  }
+      // 5 saniye sonra oyunu sıfırla
+      setTimeout(resetGame, 5000);
+    }
 
 
     function resetGame() {
-    countries.forEach(country => {
-      country.size = initialCountrySize; // Ülke boyutunu sıfırla
-      country.users.forEach(user => {
-        user.giftCount = 0; // Kullanıcıların gift count değerini sıfırla
+      countries.forEach(country => {
+        country.size = initialCountrySize; // Ülke boyutunu sıfırla
+        country.users.forEach(user => {
+          user.giftCount = 0; // Kullanıcıların gift count değerini sıfırla
+        });
       });
-    });
 
-    finishGame = false;
-    countdownTime = 480; // Geri sayım süresini tekrar başlat
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Canvas'ı temizle
-    progressCtx.clearRect(0, 0, progressCanvas.width, progressCanvas.height); // Progress canvas'ı temizle
-    animationID = setInterval(drawCountries, 1000 / 60); // Hareketi yeniden başlat
-    startCountdown(); // Geri sayımı yeniden başlat
-    // Usernames silinmiyor, sadece giftCount sıfırlanıyor.
-  }
+      finishGame = false;
+      countdownTime = 480; // Geri sayım süresini tekrar başlat
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // Canvas'ı temizle
+      progressCtx.clearRect(0, 0, progressCanvas.width, progressCanvas.height); // Progress canvas'ı temizle
+      animationID = setInterval(drawCountries, 1000 / 60); // Hareketi yeniden başlat
+      startCountdown(); // Geri sayımı yeniden başlat
+      // Usernames silinmiyor, sadece giftCount sıfırlanıyor.
+    }
 
 
     function updateProgressCanvas() {
