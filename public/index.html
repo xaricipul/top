@@ -632,12 +632,12 @@
 
 
     function removeUserFromPreviousCountry(userName) {
-      countries.forEach(country => {
-        const userIndex = country.users.findIndex(user => user.name === userName);
-        if (userIndex !== -1) {
-          country.users.splice(userIndex, 1);
-        }
-      });
+      // countries.forEach(country => {
+      //   const userIndex = country.users.findIndex(user => user.name === userName);
+      //   if (userIndex !== -1) {
+      //     country.users.splice(userIndex, 1);
+      //   }
+      // });
     }
 
     connection.on('chat', (data) => {
@@ -769,90 +769,90 @@
       }, 5000);  // 5 saniye sonra Top 5 gösterilecek
     }
     function showTop5(winningCountry) {
-      const top5Users = winningCountry.users.slice(0, 5);
+    const top5Users = winningCountry.users.sort((a, b) => b.giftCount - a.giftCount).slice(0, 5); // GiftCount'a göre sıralama
 
-      // Clear the canvas for the top 5 display
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Canvas'ı top 5 gösterimi için temizle
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Set the background color for the top 5 section
-      ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Arka plan rengini ayarla
+    ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Iterate through top 5 users
-      top5Users.forEach((user, index) => {
-        const img = new Image();
-        img.src = user.profilePictureUrl;
-        img.onload = function () {
-          const imgSize = 25;  // Profile images
-          const medalSize = 20; // Medals
-          const yOffset = 80 + index * 60; // Vertical spacing
+    // Top 5 kullanıcıyı listele
+    top5Users.forEach((user, index) => {
+      const img = new Image();
+      img.src = user.profilePictureUrl;
+      img.onload = function () {
+        const imgSize = 25;  // Profil resimleri
+        const medalSize = 20; // Madalyalar
+        const yOffset = 80 + index * 60; // Dikey aralık
 
-          // Draw the medal circle
-          ctx.save();
-          ctx.beginPath();
-          ctx.arc(50, yOffset, medalSize / 2, 0, 2 * Math.PI);
-          ctx.closePath();
-          ctx.fillStyle = index === 0 ? "gold" : index === 1 ? "silver" : "bronze";
-          ctx.fill();
+        // Madalya çizimi
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(50, yOffset, medalSize / 2, 0, 2 * Math.PI);
+        ctx.closePath();
+        ctx.fillStyle = index === 0 ? "gold" : index === 1 ? "silver" : "bronze";
+        ctx.fill();
 
-          // Draw the rank number
-          ctx.font = "bold 14px Arial";
-          ctx.fillStyle = "black";
-          ctx.textAlign = "center";
-          ctx.fillText(index + 1, 50, yOffset + 4);
+        // Sıra numarası
+        ctx.font = "bold 14px Arial";
+        ctx.fillStyle = "black";
+        ctx.textAlign = "center";
+        ctx.fillText(index + 1, 50, yOffset + 4);
 
-          // Draw the user's profile picture
-          ctx.beginPath();
-          ctx.arc(120, yOffset, imgSize / 2, 0, 2 * Math.PI);
-          ctx.closePath();
-          ctx.clip();
-          ctx.drawImage(img, 108, yOffset - imgSize / 2, imgSize, imgSize);
-          ctx.restore();
+        // Kullanıcı profil resmi
+        ctx.beginPath();
+        ctx.arc(120, yOffset, imgSize / 2, 0, 2 * Math.PI);
+        ctx.closePath();
+        ctx.clip();
+        ctx.drawImage(img, 108, yOffset - imgSize / 2, imgSize, imgSize);
+        ctx.restore();
 
-          // Draw the username
-          ctx.fillStyle = "white";
-          ctx.font = "bold 16px Arial";
-          ctx.textAlign = "left";
-          ctx.fillText(user.name, 150, yOffset + 4); // Username
+        // Kullanıcı adı
+        ctx.fillStyle = "white";
+        ctx.font = "bold 16px Arial";
+        ctx.textAlign = "left";
+        ctx.fillText(user.name, 150, yOffset + 4);
 
-          // Draw the user's gift count at the far right
-          ctx.font = "14px Arial";
-          ctx.fillStyle = "yellow";
-          ctx.textAlign = "right";
-          ctx.fillText(`${user.giftCount || 0} points`, canvas.width - 20, yOffset + 4);  // Points at the right end
-        };
-      });
+        // Kullanıcının hediye puanı sağda
+        ctx.font = "14px Arial";
+        ctx.fillStyle = "yellow";
+        ctx.textAlign = "right";
+        ctx.fillText(`${user.giftCount || 0} points`, canvas.width - 20, yOffset + 4);
+      };
+    });
 
-      // Display Congratulations Text
-      ctx.font = "bold 24px Arial";
-      ctx.fillStyle = "white";
-      ctx.textAlign = "center";
-      ctx.fillText("Winner!", canvas.width / 2, 40);
+    // "Winner" yazısını göster
+    ctx.font = "bold 24px Arial";
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.fillText("Winner!", canvas.width / 2, 40);
 
-      ctx.font = "bold 18px Arial";
-      ctx.fillText(winningCountry.name, canvas.width / 2, 60);
+    ctx.font = "bold 18px Arial";
+    ctx.fillText(winningCountry.name, canvas.width / 2, 60);
 
-      // Reset the game after displaying the top 5 for 5 seconds
-      setTimeout(resetGame, 5000);
-    }
+    // 5 saniye sonra oyunu sıfırla
+    setTimeout(resetGame, 5000);
+  }
 
 
     function resetGame() {
-      countries.forEach(country => {
-        country.size = initialCountrySize; // Ülke boyutunu sıfırla
-        country.users.forEach(user => {
-          user.giftCount = 0; // Kullanıcıların gift count değerini sıfırla
-        });
+    countries.forEach(country => {
+      country.size = initialCountrySize; // Ülke boyutunu sıfırla
+      country.users.forEach(user => {
+        user.giftCount = 0; // Kullanıcıların gift count değerini sıfırla
       });
+    });
 
-      finishGame = false;
-      countdownTime = 480; // Geri sayım süresini tekrar başlat
-      ctx.clearRect(0, 0, canvas.width, canvas.height); // Canvas'ı temizle
-      progressCtx.clearRect(0, 0, progressCanvas.width, progressCanvas.height); // Progress canvas'ı temizle
-      animationID = setInterval(drawCountries, 1000 / 60); // Hareketi yeniden başlat
-      startCountdown(); // Geri sayımı yeniden başlat
-      usernames.clear(); // Kullanıcı haritasını sıfırla
-    }
+    finishGame = false;
+    countdownTime = 480; // Geri sayım süresini tekrar başlat
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Canvas'ı temizle
+    progressCtx.clearRect(0, 0, progressCanvas.width, progressCanvas.height); // Progress canvas'ı temizle
+    animationID = setInterval(drawCountries, 1000 / 60); // Hareketi yeniden başlat
+    startCountdown(); // Geri sayımı yeniden başlat
+    // Usernames silinmiyor, sadece giftCount sıfırlanıyor.
+  }
 
 
     function updateProgressCanvas() {
