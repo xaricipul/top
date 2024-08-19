@@ -576,7 +576,7 @@
           // Efektleri göster
           showCountryEffect(selectedCountry);
           showFireEffectOnCountry(selectedCountry);
-
+          if (!isPendingStreak(data)) {
           // Gift count 30 veya daha fazlaysa shake efekti ve mp3 çalma
           if (giftCount >= 30) {
             playSound('goal.mp3');
@@ -584,7 +584,7 @@
           } else {
             playSound('gun.mp3');
           }
-
+        }
           drawCountries();
         }
         // }
