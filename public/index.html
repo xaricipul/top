@@ -271,7 +271,6 @@
     <canvas id="myCanvas" width="400" height="400"></canvas>
   </div>
   <canvas id="progressCanvas">
-    <div id="countdownTimer">30</div>
 
   </canvas>
   <div id="newsTicker">
@@ -306,7 +305,7 @@
 
     function startCountdown() {
       const countdownElement = document.getElementById('countdownTimer');
-      const countdownInterval = setInterval(() => {
+      countdownInterval = setInterval(() => {
         countdownTime--;
 
         // Format minutes and seconds
@@ -319,22 +318,11 @@
         // Handle the end of the countdown
         if (countdownTime <= 0) {
           clearInterval(countdownInterval); // Stop the timer
+          countdownElement.textContent = "0:00"; // Timer'ı 0 olarak göster
           finishGame = true; // End the game
           determineWinner(); // Determine the winning country
         }
       }, 1000);
-    }
-
-
-    function determineWinner() {
-      let largestCountry = countries.reduce((max, country) => max.size > country.size ? max : country);
-
-      // Kazanan ülkeyi belirle ve oyun işlemlerini gerçekleştir
-      if (largestCountry) {
-        finishGame = true;
-        showFireworkGif(largestCountry); // Kazanan ülkeyi ve kutlamaları göster
-        resizeCanvas(); // Canvas boyutunu değiştir
-      }
     }
 
     function resizeCanvas() {
@@ -556,34 +544,55 @@
       updateProgressCanvas(); // Progress canvas'ı güncelle
     }
 
+
+    const idleTimeLimit = 8 * 60 * 1000; // 8 dakika (milisaniye cinsinden)
+let userActivity = new Map(); // Kullanıcıların son aktivite zamanını takip etmek için
+
+// Kullanıcı aktivitesini güncelleyen fonksiyon
+function updateUserActivity(userName) {
+  userActivity.set(userName, Date.now());
+}
+
+// Belirli aralıklarla pasif kullanıcıları kontrol eden fonksiyon
+function checkIdleUsers() {
+  const currentTime = Date.now();
+
+  countries.forEach(country => {
+    country.users = country.users.filter(user => {
+      const lastActivityTime = userActivity.get(user.name);
+      if (lastActivityTime && currentTime - lastActivityTime > idleTimeLimit) {
+        // Kullanıcı 8 dakika boyunca pasifse, onu listeden kaldır
+        userActivity.delete(user.name);
+        return false; // Kullanıcıyı listeden çıkar
+      }
+      return true; // Kullanıcıyı listede tut
+    });
+  });
+}
+
+setInterval(checkIdleUsers, 60 * 1000);
+
     connection.on('gift', (data) => {
       if (finishGame) return;
 
       let userName = data.uniqueId;
       let giftCount = data.diamondCount * data.repeatCount;
-
-
-
+      updateUserActivity(userName); // Kullanıcı aktivitesini güncelle
 
       let selectedCountry = countries.find(country => country.users.some(user => user.name === userName));
 
       if (selectedCountry) {
         let user = selectedCountry.users.find(user => user.name === userName);
         if (user) {
-          // if (!isPendingStreak(data) && data.giftCount > 0) {
-          user.giftCount = (user.giftCount || 0) + giftCount;
+          user.giftCount = Math.round(((user.giftCount || 0) + giftCount * 1.5)*3);
 
-          // Kullanıcıları hediyeye göre sırala
           selectedCountry.users.sort((a, b) => b.giftCount - a.giftCount);
 
-          // Ülke resmini büyüt
           selectedCountry.size += giftCount * 1.5;
 
-          // Efektleri göster
           showCountryEffect(selectedCountry);
           showFireEffectOnCountry(selectedCountry);
           if (!isPendingStreak(data)) {
-            // Gift count 30 veya daha fazlaysa shake efekti ve mp3 çalma
             if (giftCount >= 30) {
               playSound('goal.mp3');
               shakeCanvas();
@@ -593,8 +602,6 @@
           }
           drawCountries();
         }
-        // }
-
       }
     });
 
@@ -654,21 +661,21 @@
       let userName = data.uniqueId;
       let profilePictureUrl = data.profilePictureUrl;
       let selectedCountry = selectCountryByJoinCode(data.comment);
+      updateUserActivity(userName); // Kullanıcı aktivitesini güncelle
 
       if (selectedCountry) {
-        // Önceki ülkeden kullanıcıyı kaldır
         removeUserFromPreviousCountry(userName);
 
-        // Kullanıcıyı yeni ülkeye ekle
         selectedCountry.users.push({ name: userName, profilePictureUrl });
 
-        // Ülke boyutunu arttır
         selectedCountry.size += 0.3;
 
-        // Ülkeleri yeniden çiz
-        drawCountries();
+        let user = selectedCountry.users.find(user => user.name === userName);
+        if (user) {
+          user.giftCount = Math.round(((user.giftCount || 0) + 0.3 )* 3);
+        }
 
-        // En son katılan kullanıcıyı güncelle
+        drawCountries();
         updateLatestUsernameList(selectedCountry, { name: userName, profilePictureUrl });
       }
     });
@@ -750,7 +757,6 @@
         showFireworkGif(largestCountry);
       }
     }
-
     function showFireworkGif(winningCountry) {
       // Hareketi durdur
       clearInterval(animationID);
@@ -761,6 +767,7 @@
       // "clap.mp3" dosyasını çal
       playSound('clap.mp3');
     }
+
 
     function drawText(winningCountry) {
       function drawAnimatedText() {
@@ -795,76 +802,75 @@
       }, 5000);  // 5 saniye sonra Top 5 gösterilecek
     }
     function showTop5(winningCountry) {
-  const top5Users = winningCountry.users
-    .filter(user => user.giftCount > 0) // 0 puanı olan kullanıcıları filtrele
-    .sort((a, b) => b.giftCount - a.giftCount) // GiftCount'a göre sırala
-    .slice(0, 5); // İlk 5 kullanıcıyı seç
+      const top5Users = winningCountry.users
+        .filter(user => user.giftCount > 0) // 0 puanı olan kullanıcıları filtrele
+        .sort((a, b) => b.giftCount - a.giftCount) // GiftCount'a göre sırala
+        .slice(0, 5); // İlk 5 kullanıcıyı seç
 
-  // Canvas'ı top 5 gösterimi için temizle
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Canvas'ı top 5 gösterimi için temizle
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Arka plan rengini ayarla
-  ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // Arka plan rengini ayarla
+      ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // Top 5 kullanıcıyı listele
-  top5Users.forEach((user, index) => {
-    const img = new Image();
-    img.src = user.profilePictureUrl;
-    img.onload = function () {
-      const imgSize = 25;  // Profil resimleri
-      const medalSize = 20; // Madalyalar
-      const yOffset = 80 + index * 60; // Dikey aralık
+      // Top 5 kullanıcıyı listele
+      top5Users.forEach((user, index) => {
+        const img = new Image();
+        img.src = user.profilePictureUrl;
+        img.onload = function () {
+          const imgSize = 25;  // Profil resimleri
+          const medalSize = 20; // Madalyalar
+          const yOffset = 80 + index * 60; // Dikey aralık
 
-      // Madalya çizimi
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(50, yOffset, medalSize / 2, 0, 2 * Math.PI);
-      ctx.closePath();
-      ctx.fillStyle = index === 0 ? "gold" : index === 1 ? "silver" : "bronze";
-      ctx.fill();
+          // Madalya çizimi
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(50, yOffset, medalSize / 2, 0, 2 * Math.PI);
+          ctx.closePath();
+          ctx.fillStyle = index === 0 ? "gold" : index === 1 ? "silver" : "bronze";
+          ctx.fill();
 
-      // Sıra numarası
-      ctx.font = "bold 14px Arial";
-      ctx.fillStyle = "black";
-      ctx.textAlign = "center";
-      ctx.fillText(index + 1, 50, yOffset + 4);
+          // Sıra numarası
+          ctx.font = "bold 14px Arial";
+          ctx.fillStyle = "black";
+          ctx.textAlign = "center";
+          ctx.fillText(index + 1, 50, yOffset + 4);
 
-      // Kullanıcı profil resmi
-      ctx.beginPath();
-      ctx.arc(120, yOffset, imgSize / 2, 0, 2 * Math.PI);
-      ctx.closePath();
-      ctx.clip();
-      ctx.drawImage(img, 108, yOffset - imgSize / 2, imgSize, imgSize);
-      ctx.restore();
+          // Kullanıcı profil resmi
+          ctx.beginPath();
+          ctx.arc(120, yOffset, imgSize / 2, 0, 2 * Math.PI);
+          ctx.closePath();
+          ctx.clip();
+          ctx.drawImage(img, 108, yOffset - imgSize / 2, imgSize, imgSize);
+          ctx.restore();
 
-      // Kullanıcı adı
+          // Kullanıcı adı
+          ctx.fillStyle = "white";
+          ctx.font = "bold 16px Arial";
+          ctx.textAlign = "left";
+          ctx.fillText(user.name, 150, yOffset + 4);
+
+          // Kullanıcının hediye puanı sağda
+          ctx.font = "14px Arial";
+          ctx.fillStyle = "yellow";
+          ctx.textAlign = "right";
+          ctx.fillText(`${user.giftCount || 0} points`, canvas.width - 20, yOffset + 4);
+        };
+      });
+
+      // "Winner" yazısını göster
+      ctx.font = "bold 24px Arial";
       ctx.fillStyle = "white";
-      ctx.font = "bold 16px Arial";
-      ctx.textAlign = "left";
-      ctx.fillText(user.name, 150, yOffset + 4);
+      ctx.textAlign = "center";
+      ctx.fillText("Winner!", canvas.width / 2, 40);
 
-      // Kullanıcının hediye puanı sağda
-      ctx.font = "14px Arial";
-      ctx.fillStyle = "yellow";
-      ctx.textAlign = "right";
-      ctx.fillText(`${user.giftCount || 0} points`, canvas.width - 20, yOffset + 4);
-    };
-  });
+      ctx.font = "bold 18px Arial";
+      ctx.fillText(winningCountry.name, canvas.width / 2, 60);
 
-  // "Winner" yazısını göster
-  ctx.font = "bold 24px Arial";
-  ctx.fillStyle = "white";
-  ctx.textAlign = "center";
-  ctx.fillText("Winner!", canvas.width / 2, 40);
-
-  ctx.font = "bold 18px Arial";
-  ctx.fillText(winningCountry.name, canvas.width / 2, 60);
-
-  // 5 saniye sonra oyunu sıfırla
-  setTimeout(resetGame, 5000);
-}
-
+      // 5 saniye sonra oyunu sıfırla
+      setTimeout(resetGame, 5000);
+    }
 
     function resetGame() {
       countries.forEach(country => {
@@ -880,9 +886,19 @@
       progressCtx.clearRect(0, 0, progressCanvas.width, progressCanvas.height); // Progress canvas'ı temizle
       animationID = setInterval(drawCountries, 1000 / 60); // Hareketi yeniden başlat
       startCountdown(); // Geri sayımı yeniden başlat
-      // Usernames silinmiyor, sadece giftCount sıfırlanıyor.
     }
 
+    function determineWinner() {
+      let largestCountry = countries.reduce((max, country) => max.size > country.size ? max : country);
+
+      // Kazanan ülkeyi belirle ve oyun işlemlerini gerçekleştir
+      if (largestCountry) {
+        finishGame = true;
+        showFireworkGif(largestCountry); // Kazanan ülkeyi ve kutlamaları göster
+        resizeCanvas(); // Canvas boyutunu değiştir
+        clearInterval(countdownInterval); // Geri sayımı durdur
+      }
+    }
 
     function updateProgressCanvas() {
       progressCtx.clearRect(0, 0, progressCanvas.width, progressCanvas.height);
