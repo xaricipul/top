@@ -325,6 +325,46 @@
       }, 1000);
     }
 
+    function clearCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      progressCtx.clearRect(0, 0, progressCanvas.width, progressCanvas.height);
+    }
+    function resetVariables() {
+      countries.forEach(country => {
+        country.size = initialCountrySize;
+        country.users = [];
+        country.x = Math.random() * (canvas.width - country.size);
+        country.y = Math.random() * (canvas.height - country.size);
+      });
+      finishGame = false;
+      countdownTime = 480;
+      clearInterval(animationID);
+      clearCanvas();
+    }
+
+    const preloadImages = () => {
+      countries.forEach((country) => {
+        const img = new Image();
+        img.src = country.imgUrl;
+        images[country.name] = img;
+      });
+    };
+
+    $(document).ready(() => {
+      preloadImages(); // Preload images when the page loads
+    });
+
+
+    function clearAnimations() {
+      if (animationID) {
+        cancelAnimationFrame(animationID);
+      }
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+      }
+    }
+
+
     function resizeCanvas() {
       canvas.width = 400;
       canvas.height = 400;
@@ -546,31 +586,31 @@
 
 
     const idleTimeLimit = 8 * 60 * 1000; // 8 dakika (milisaniye cinsinden)
-let userActivity = new Map(); // Kullanıcıların son aktivite zamanını takip etmek için
+    let userActivity = new Map(); // Kullanıcıların son aktivite zamanını takip etmek için
 
-// Kullanıcı aktivitesini güncelleyen fonksiyon
-function updateUserActivity(userName) {
-  userActivity.set(userName, Date.now());
-}
+    // Kullanıcı aktivitesini güncelleyen fonksiyon
+    function updateUserActivity(userName) {
+      userActivity.set(userName, Date.now());
+    }
 
-// Belirli aralıklarla pasif kullanıcıları kontrol eden fonksiyon
-function checkIdleUsers() {
-  const currentTime = Date.now();
+    // Belirli aralıklarla pasif kullanıcıları kontrol eden fonksiyon
+    function checkIdleUsers() {
+      const currentTime = Date.now();
 
-  countries.forEach(country => {
-    country.users = country.users.filter(user => {
-      const lastActivityTime = userActivity.get(user.name);
-      if (lastActivityTime && currentTime - lastActivityTime > idleTimeLimit) {
-        // Kullanıcı 8 dakika boyunca pasifse, onu listeden kaldır
-        userActivity.delete(user.name);
-        return false; // Kullanıcıyı listeden çıkar
-      }
-      return true; // Kullanıcıyı listede tut
-    });
-  });
-}
+      countries.forEach(country => {
+        country.users = country.users.filter(user => {
+          const lastActivityTime = userActivity.get(user.name);
+          if (lastActivityTime && currentTime - lastActivityTime > idleTimeLimit) {
+            // Kullanıcı 8 dakika boyunca pasifse, onu listeden kaldır
+            userActivity.delete(user.name);
+            return false; // Kullanıcıyı listeden çıkar
+          }
+          return true; // Kullanıcıyı listede tut
+        });
+      });
+    }
 
-setInterval(checkIdleUsers, 60 * 1000);
+    setInterval(checkIdleUsers, 60 * 1000);
 
     connection.on('gift', (data) => {
       if (finishGame) return;
@@ -584,7 +624,9 @@ setInterval(checkIdleUsers, 60 * 1000);
       if (selectedCountry) {
         let user = selectedCountry.users.find(user => user.name === userName);
         if (user) {
-          user.giftCount = Math.round(((user.giftCount || 0) + giftCount * 1.5)*3);
+          let calculatedGiftCount = giftCount * 1.5; // Örneğin 1 * 1.5 = 1.5
+          user.giftCount = Math.round((user.giftCount || 0) + (calculatedGiftCount * 3)); // 1.5 * 3 = 4.5, toplama ve yuvarlama işlemi sonrası 5
+
 
           selectedCountry.users.sort((a, b) => b.giftCount - a.giftCount);
 
@@ -656,39 +698,47 @@ setInterval(checkIdleUsers, 60 * 1000);
     }
 
     connection.on('chat', (data) => {
-      if (finishGame) return;
+    if (finishGame) return;
 
-      let userName = data.uniqueId;
-      let profilePictureUrl = data.profilePictureUrl;
-      let selectedCountry = selectCountryByJoinCode(data.comment);
-      updateUserActivity(userName); // Kullanıcı aktivitesini güncelle
+    let userName = data.uniqueId;
+    let profilePictureUrl = data.profilePictureUrl;
+    let selectedCountry = selectCountryByJoinCode(data.comment);
+    updateUserActivity(userName); // Kullanıcı aktivitesini güncelle
 
-      if (selectedCountry) {
-        removeUserFromPreviousCountry(userName);
+    if (selectedCountry) {
+        removeUserFromPreviousCountry(userName, selectedCountry);
 
-        selectedCountry.users.push({ name: userName, profilePictureUrl });
+        // Kullanıcı zaten mevcutsa tekrar ekleme
+        let user = selectedCountry.users.find(user => user.name === userName);
+        if (!user) {
+            selectedCountry.users.push({ name: userName, profilePictureUrl, giftCount: 0 });
+            user = selectedCountry.users.find(user => user.name === userName);
+        }
 
         selectedCountry.size += 0.3;
 
-        let user = selectedCountry.users.find(user => user.name === userName);
-        if (user) {
-          user.giftCount = Math.round(((user.giftCount || 0) + 0.3 )* 3);
-        }
+        // Her chat mesajında 0.9 ekle
+        user.giftCount += 0.9;
+
+        // user.giftCount'ı yuvarla ve tam sayı olarak kaydet
+        user.giftCount = Math.round(user.giftCount);
+
+        console.log(user.giftCount);
 
         drawCountries();
         updateLatestUsernameList(selectedCountry, { name: userName, profilePictureUrl });
-      }
-    });
-
-    function removeUserFromPreviousCountry(userName) {
-      countries.forEach(country => {
-        const userIndex = country.users.findIndex(user => user.name === userName);
-        if (userIndex !== -1) {
-          country.users.splice(userIndex, 1); // Kullanıcıyı önceki ülkeden çıkar
-        }
-      });
     }
-
+});
+function removeUserFromPreviousCountry(userName, currentCountry) {
+    countries.forEach(country => {
+        if (country !== currentCountry) { // Şu anki ülkeden değilse
+            const userIndex = country.users.findIndex(user => user.name === userName);
+            if (userIndex !== -1) {
+                country.users.splice(userIndex, 1); // Kullanıcıyı önceki ülkeden çıkar
+            }
+        }
+    });
+}
     function showCountryEffect(country) {
       // Mevcut ülke pozisyonunu al
       const x = country.x;
@@ -884,9 +934,14 @@ setInterval(checkIdleUsers, 60 * 1000);
       countdownTime = 480; // Geri sayım süresini tekrar başlat
       ctx.clearRect(0, 0, canvas.width, canvas.height); // Canvas'ı temizle
       progressCtx.clearRect(0, 0, progressCanvas.width, progressCanvas.height); // Progress canvas'ı temizle
-      animationID = setInterval(drawCountries, 1000 / 60); // Hareketi yeniden başlat
+
+      // Mevcut animasyonları durdur ve yenilerini başlat
+      clearInterval(animationID);
+      animationID = setInterval(drawCountries, 1000 / 60); // 60 FPS ile yeniden başlat
+
       startCountdown(); // Geri sayımı yeniden başlat
     }
+
 
     function determineWinner() {
       let largestCountry = countries.reduce((max, country) => max.size > country.size ? max : country);
