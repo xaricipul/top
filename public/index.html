@@ -169,7 +169,7 @@
   /* New styles for the latest username display */
   #latestUsernameList {
     position: absolute;
-    bottom: 680px;
+    bottom: 615px;
     left: 50%;
     transform: translateX(-50%);
     width: 400px;
@@ -205,14 +205,14 @@
   }
 
   #fireGifContainer {
-    position: absolute;
-    pointer-events: none;
-    /* Kullanıcı etkileşimlerini engelle */
-    display: none;
-    /* Başlangıçta gizli olacak */
-    z-index: 1000;
-    /* İkonların üzerinde olacak */
-  }
+    position: absolute; /* Sayfada sabit konumda kalması için */
+    width: 100px; /* Sabit genişlik */
+    height: 100px; /* Sabit yükseklik */
+    top: 50px; /* Üstten 50px */
+    left: 200px; /* Soldan 200px */
+    pointer-events: none; /* Kullanıcı etkileşimlerini engelle */
+    z-index: 1000; /* Diğer elementlerin üzerinde olacak */
+}
 
   #fireGif {
     width: 100%;
@@ -235,28 +235,53 @@
   }
 
   #countdownTimer {
-    position: fixed;
-    /* Fixed position ensures it stays visible on the screen */
-    top: 10px;
-    /* Adjust the position as needed */
-    right: 575px;
-    /* Adjust the position as needed */
+    position: absolute;
+    top: 15px;
+    right: 300px;
     z-index: 99999;
-    /* Ensure this is higher than all other elements */
     color: white;
-    /* Adjust to match your design */
     font-size: 20px;
-    /* Make it large enough to be easily readable */
     background-color: rgba(0, 0, 0, 0.7);
-    /* Optional: Add background for better visibility */
     padding: 10px;
-    /* Add some padding */
     border-radius: 5px;
-    /* Round the corners */
+    text-align: center;
+}
+
+  #giftInfo {
+    position: absolute;
+    z-index: 100000;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 2s ease-in-out, opacity 0.5s ease-in-out;
+    opacity: 0;
   }
+
+  #fireGifContainer {
+    position: absolute; /* Sayfada sabit konumda kalması için */
+    width: 100px; /* Sabit genişlik */
+    height: 100px; /* Sabit yükseklik */
+    top: 50px; /* Üstten 50px */
+    left: 200px; /* Soldan 200px */
+    pointer-events: none; /* Kullanıcı etkileşimlerini engelle */
+    z-index: 1000; /* Diğer elementlerin üzerinde olacak */
+    display: none;
+}
 </style>
 
 <body>
+
+  <div id="giftInfo" style="display: none;">
+    <img id="giftUserProfile" src="" alt="User Profile" style="width: 50px; height: 50px; border-radius: 50%;">
+    <span id="giftUserName" style="font-weight: bold; font-size: 18px; margin-left: 10px;"></span>
+    <span style="font-size: 18px;"> için </span>
+    <img id="giftCountryFlag" src="" alt="Country Flag" style="width: 30px; height: 20px; border-radius: 3px;">
+    <span id="giftCountryName" style="font-weight: bold; font-size: 18px; margin-left: 5px;"></span>
+  </div>
   <div id="countdownTimer">08:00</div>
 
   <!-- Fire gif container -->
@@ -278,6 +303,61 @@
   </div>
 
   <script>
+ let isGiftDisplaying = false;
+
+function showGiftInfo(user, country) {
+  if (isGiftDisplaying) return; // Eğer başka bir gift zaten gösteriliyorsa, yeni gifti gösterme
+
+  isGiftDisplaying = true;
+  const giftInfo = document.getElementById('giftInfo');
+  const giftUserProfile = document.getElementById('giftUserProfile');
+  const giftUserName = document.getElementById('giftUserName');
+  const giftCountryFlag = document.getElementById('giftCountryFlag');
+  const giftCountryName = document.getElementById('giftCountryName');
+
+  // Kullanıcı ve ülke bilgilerini güncelle
+  giftUserProfile.src = user.profilePictureUrl;
+  giftUserName.textContent = user.name;
+  giftCountryFlag.src = country.imgUrl;
+  giftCountryName.textContent = country.name;
+
+  // Rastgele başlangıç ve bitiş pozisyonları belirleme
+  const canvas = document.getElementById('myCanvas');
+  const canvasRect = canvas.getBoundingClientRect();
+  const canvasWidth = canvasRect.width;
+  const canvasHeight = canvasRect.height;
+
+  const giftInfoWidth = giftInfo.offsetWidth; // giftInfo genişliği
+  const giftInfoHeight = giftInfo.offsetHeight; // giftInfo yüksekliği
+
+  const randomStartX = Math.random() * (canvasWidth - giftInfoWidth);
+  const randomStartY = Math.random() * (canvasHeight - giftInfoHeight);
+  const randomEndX = Math.random() * (canvasWidth - giftInfoWidth);
+  const randomEndY = Math.random() * (canvasHeight - giftInfoHeight);
+
+  // Pozisyon ve başlangıç değerlerini ayarla, canvas içinde kalacak şekilde
+  giftInfo.style.top = `${canvasRect.top + randomStartY}px`;
+  giftInfo.style.left = `${canvasRect.left + randomStartX}px`;
+  giftInfo.style.display = 'flex';
+  giftInfo.style.opacity = 1;
+
+  // Animasyonu başlat
+  setTimeout(() => {
+    giftInfo.style.transform = `translate(${randomEndX - randomStartX}px, ${randomEndY - randomStartY}px)`;
+  }, 50); // Kısa bir gecikme ile başlat
+
+  // Animasyon sonunda gizle ve işaretçiyi sıfırla
+  setTimeout(() => {
+    giftInfo.style.opacity = 0;
+    setTimeout(() => {
+      giftInfo.style.display = 'none';
+      giftInfo.style.transform = 'translate(0, 0)'; // Eski haline getir
+      isGiftDisplaying = false; // Yeni bir giftin gösterilebileceğini belirt
+    }, 500); // Opacity geçişinin ardından elementi gizle
+  }, 3000); // 3 saniye sonra animasyonu bitir
+}
+
+
     function updateLatestUsernameList(country, user) {
       const latestUsernameDiv = document.getElementById('latestUsernameList');
       latestUsernameDiv.innerHTML = ''; // Var olan içeriği temizle
@@ -624,6 +704,7 @@
       if (selectedCountry) {
         let user = selectedCountry.users.find(user => user.name === userName);
         if (user) {
+          showGiftInfo(user, selectedCountry);
           let calculatedGiftCount = giftCount * 1.5; // Örneğin 1 * 1.5 = 1.5
           user.giftCount = Math.round((user.giftCount || 0) + (calculatedGiftCount * 3)); // 1.5 * 3 = 4.5, toplama ve yuvarlama işlemi sonrası 5
 
@@ -664,36 +745,8 @@
         iterations: 20 // Kaç kez tekrar edeceği
       });
 
-      // Sallanma sırasında fireworks efektini başlat
-      const fireworks = new Fireworks({
-        hue: { min: 0, max: 360 },
-        delay: { min: 30, max: 50 },
-        rocketsPoint: 50,
-        speed: 2,
-        acceleration: 1.05,
-        friction: 0.97,
-        gravity: 1.5,
-        particles: 50,
-        trace: 3,
-        explosion: 5,
-        boundaries: {
-          x: canvas.offsetLeft,
-          y: canvas.offsetTop,
-          width: canvas.offsetWidth,
-          height: canvas.offsetHeight,
-        },
-        sound: {
-          enable: true,
-          list: ['explosion0.mp3', 'explosion1.mp3', 'explosion2.mp3'],
-          min: 4,
-          max: 8,
-        },
-      });
-
-      fireworks.start();
 
       setTimeout(() => {
-        fireworks.stop();
       }, duration * 20); // Shake süresiyle aynı olmalı
     }
 
@@ -723,7 +776,6 @@
         // user.giftCount'ı yuvarla ve tam sayı olarak kaydet
         user.giftCount = Math.round(user.giftCount);
 
-        console.log(user.giftCount);
 
         drawCountries();
         updateLatestUsernameList(selectedCountry, { name: userName, profilePictureUrl });
