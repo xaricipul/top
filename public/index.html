@@ -302,7 +302,9 @@
     <div class="ticker-content" id="tickerContent"></div>
   </div>
 
-  <script>function showGiftInfo(user, country) {
+  <script>
+    let isGiftDisplaying = false;
+  function showGiftInfo(user, country) {
     if (isGiftDisplaying) return; // Eğer başka bir gift zaten gösteriliyorsa, yeni gifti gösterme
   
     isGiftDisplaying = true;
