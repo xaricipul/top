@@ -302,61 +302,64 @@
     <div class="ticker-content" id="tickerContent"></div>
   </div>
 
-  <script>
- let isGiftDisplaying = false;
-
-function showGiftInfo(user, country) {
-  if (isGiftDisplaying) return; // Eğer başka bir gift zaten gösteriliyorsa, yeni gifti gösterme
-
-  isGiftDisplaying = true;
-  const giftInfo = document.getElementById('giftInfo');
-  const giftUserProfile = document.getElementById('giftUserProfile');
-  const giftUserName = document.getElementById('giftUserName');
-  const giftCountryFlag = document.getElementById('giftCountryFlag');
-  const giftCountryName = document.getElementById('giftCountryName');
-
-  // Kullanıcı ve ülke bilgilerini güncelle
-  giftUserProfile.src = user.profilePictureUrl;
-  giftUserName.textContent = user.name;
-  giftCountryFlag.src = country.imgUrl;
-  giftCountryName.textContent = country.name;
-
-  // Rastgele başlangıç ve bitiş pozisyonları belirleme
-  const canvas = document.getElementById('myCanvas');
-  const canvasRect = canvas.getBoundingClientRect();
-  const canvasWidth = canvasRect.width;
-  const canvasHeight = canvasRect.height;
-
-  const giftInfoWidth = giftInfo.offsetWidth; // giftInfo genişliği
-  const giftInfoHeight = giftInfo.offsetHeight; // giftInfo yüksekliği
-
-  const randomStartX = Math.random() * (canvasWidth - giftInfoWidth);
-  const randomStartY = Math.random() * (canvasHeight - giftInfoHeight);
-  const randomEndX = Math.random() * (canvasWidth - giftInfoWidth);
-  const randomEndY = Math.random() * (canvasHeight - giftInfoHeight);
-
-  // Pozisyon ve başlangıç değerlerini ayarla, canvas içinde kalacak şekilde
-  giftInfo.style.top = `${canvasRect.top + randomStartY}px`;
-  giftInfo.style.left = `${canvasRect.left + randomStartX}px`;
-  giftInfo.style.display = 'flex';
-  giftInfo.style.opacity = 1;
-
-  // Animasyonu başlat
-  setTimeout(() => {
-    giftInfo.style.transform = `translate(${randomEndX - randomStartX}px, ${randomEndY - randomStartY}px)`;
-  }, 50); // Kısa bir gecikme ile başlat
-
-  // Animasyon sonunda gizle ve işaretçiyi sıfırla
-  setTimeout(() => {
-    giftInfo.style.opacity = 0;
+  <script>function showGiftInfo(user, country) {
+    if (isGiftDisplaying) return; // Eğer başka bir gift zaten gösteriliyorsa, yeni gifti gösterme
+  
+    isGiftDisplaying = true;
+    const giftInfo = document.getElementById('giftInfo');
+    const giftUserProfile = document.getElementById('giftUserProfile');
+    const giftUserName = document.getElementById('giftUserName');
+    const giftCountryFlag = document.getElementById('giftCountryFlag');
+    const giftCountryName = document.getElementById('giftCountryName');
+  
+    // Kullanıcı ve ülke bilgilerini güncelle
+    giftUserProfile.src = user.profilePictureUrl;
+    giftUserName.textContent = user.name;
+    giftCountryFlag.src = country.imgUrl;
+    giftCountryName.textContent = country.name;
+  
+    // Rastgele başlangıç ve bitiş pozisyonları belirleme
+    const canvas = document.getElementById('myCanvas');
+    const canvasRect = canvas.getBoundingClientRect();
+    const canvasWidth = canvasRect.width;
+    const canvasHeight = canvasRect.height;
+  
+    const giftInfoWidth = giftInfo.offsetWidth; // giftInfo genişliği
+    const giftInfoHeight = giftInfo.offsetHeight; // giftInfo yüksekliği
+  
+    let randomStartX = Math.random() * (canvasWidth - giftInfoWidth);
+    let randomStartY = Math.random() * (canvasHeight - giftInfoHeight);
+    let randomEndX = Math.random() * (canvasWidth - giftInfoWidth);
+    let randomEndY = Math.random() * (canvasHeight - giftInfoHeight);
+  
+    // Başlangıç pozisyonlarını sınırlar içinde tut
+    randomStartX = Math.max(0, Math.min(randomStartX, canvasWidth - giftInfoWidth));
+    randomStartY = Math.max(0, Math.min(randomStartY, canvasHeight - giftInfoHeight));
+    randomEndX = Math.max(0, Math.min(randomEndX, canvasWidth - giftInfoWidth));
+    randomEndY = Math.max(0, Math.min(randomEndY, canvasHeight - giftInfoHeight));
+  
+    // Pozisyon ve başlangıç değerlerini ayarla, canvas içinde kalacak şekilde
+    giftInfo.style.top = `${canvasRect.top + randomStartY}px`;
+    giftInfo.style.left = `${canvasRect.left + randomStartX}px`;
+    giftInfo.style.display = 'flex';
+    giftInfo.style.opacity = 1;
+  
+    // Animasyonu başlat
     setTimeout(() => {
-      giftInfo.style.display = 'none';
-      giftInfo.style.transform = 'translate(0, 0)'; // Eski haline getir
-      isGiftDisplaying = false; // Yeni bir giftin gösterilebileceğini belirt
-    }, 500); // Opacity geçişinin ardından elementi gizle
-  }, 3000); // 3 saniye sonra animasyonu bitir
-}
-
+      giftInfo.style.transform = `translate(${randomEndX - randomStartX}px, ${randomEndY - randomStartY}px)`;
+    }, 50); // Kısa bir gecikme ile başlat
+  
+    // Animasyon sonunda gizle ve işaretçiyi sıfırla
+    setTimeout(() => {
+      giftInfo.style.opacity = 0;
+      setTimeout(() => {
+        giftInfo.style.display = 'none';
+        giftInfo.style.transform = 'translate(0, 0)'; // Eski haline getir
+        isGiftDisplaying = false; // Yeni bir giftin gösterilebileceğini belirt
+      }, 500); // Opacity geçişinin ardından elementi gizle
+    }, 3000); // 3 saniye sonra animasyonu bitir
+  }
+  
 
     function updateLatestUsernameList(country, user) {
       const latestUsernameDiv = document.getElementById('latestUsernameList');
@@ -577,93 +580,90 @@ function showGiftInfo(user, country) {
         alert('İstifadəçi adını daxil et');
       }
     }
-
-
     function showFireEffectOnCountry(country) {
-      const fireGifContainer = document.getElementById('fireGifContainer');
+  const fireGifContainer = document.getElementById('fireGifContainer');
 
-      // Fire gif'i ikonun merkezine yerleştir ve 50px aşağı, 200px sağa kaydır
-      const gifSize = country.size * 0.5; // Gif'in boyutunu ülke ikonu boyutunun %50'si olarak ayarla
-      const centerX = country.x + (country.size / 2) - (gifSize / 2) + 400; // 200px sağa kaydır
-      const centerY = country.y + (country.size / 2) - (gifSize / 2) + 150;  // 50px aşağı kaydır
+  // Fire gif'i ülkenin ikonunun tam merkezine yerleştir
+  const gifSize = country.size * 0.5; // Gif'in boyutunu ülke ikonu boyutunun %50'si olarak ayarla
+  const centerX = country.x + (country.size / 2) - (gifSize / 2); // Tam merkez için
+  const centerY = country.y + (country.size / 2) - (gifSize / 2); // Tam merkez için
 
-      fireGifContainer.style.width = `${gifSize}px`;
-      fireGifContainer.style.height = `${gifSize}px`;
+  fireGifContainer.style.width = `${gifSize}px`;
+  fireGifContainer.style.height = `${gifSize}px`;
+  fireGifContainer.style.left = `${centerX}px`;
+  fireGifContainer.style.top = `${centerY}px`;
+
+  // Hangi ülke için gösterildiğini kaydedin
+  fireGifContainer.dataset.countryName = country.name;
+
+  fireGifContainer.style.display = 'block'; // Göster
+
+  // 2 saniye sonra gizle
+  setTimeout(() => {
+    fireGifContainer.style.display = 'none';
+  }, 2000);
+}
+
+function drawCountries() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  countries.sort((a, b) => a.size - b.size); // Küçükten büyüğe sırala
+
+  countries.forEach((country) => {
+    const img = images[country.name];  // Önceden yüklenmiş resmi kullanıyoruz
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(country.x + country.size / 2, country.y + country.size / 2, country.size / 2, 0, 2 * Math.PI);
+    ctx.clip();  // Daire şeklinde clip bölgesi oluştur
+
+    ctx.drawImage(img, country.x, country.y, country.size, country.size);
+    ctx.restore();
+
+    // Yeşil border ekleme
+    ctx.strokeStyle = "green";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(country.x + country.size / 2, country.y + country.size / 2, country.size / 2, 0, 2 * Math.PI);
+    ctx.stroke();
+
+    country.x += country.moveSpeed.x;
+    country.y += country.moveSpeed.y;
+
+    // Duvara çarpma kontrolü ve yön değiştirme
+    if (country.x + country.size > canvas.width) {
+      country.x = canvas.width - country.size;
+      country.moveSpeed.x *= -1;
+    }
+    if (country.x < 0) {
+      country.x = 0;
+      country.moveSpeed.x *= -1;
+    }
+    if (country.y + country.size > canvas.height) {
+      country.y = canvas.height - country.size;
+      country.moveSpeed.y *= -1;
+    }
+    if (country.y < 0) {
+      country.y = 0;
+      country.moveSpeed.y *= -1;
+    }
+
+    // Eğer o ülke için bir gif gösteriliyorsa, gif pozisyonunu güncelle
+    const fireGifContainer = document.getElementById('fireGifContainer');
+    if (fireGifContainer.style.display === 'block' && fireGifContainer.dataset.countryName === country.name) {
+      const gifSize = country.size * 0.5;
+      const centerX = country.x + (country.size / 2) - (gifSize / 2);
+      const centerY = country.y + (country.size / 2) - (gifSize / 2);
+
       fireGifContainer.style.left = `${centerX}px`;
       fireGifContainer.style.top = `${centerY}px`;
-
-      // Hangi ülke için gösterildiğini kaydedin
-      fireGifContainer.dataset.countryName = country.name;
-
-      fireGifContainer.style.display = 'block'; // Göster
-
-      // 2 saniye sonra gizle
-      setTimeout(() => {
-        fireGifContainer.style.display = 'none';
-      }, 2000);
+      fireGifContainer.style.width = `${gifSize}px`;
+      fireGifContainer.style.height = `${gifSize}px`;
     }
+  });
 
-    function drawCountries() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      countries.sort((a, b) => a.size - b.size); // Küçükten büyüğe sırala
-
-      countries.forEach((country) => {
-        const img = images[country.name];  // Önceden yüklenmiş resmi kullanıyoruz
-
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(country.x + country.size / 2, country.y + country.size / 2, country.size / 2, 0, 2 * Math.PI);
-        ctx.clip();  // Daire şeklinde clip bölgesi oluştur
-
-        ctx.drawImage(img, country.x, country.y, country.size, country.size);
-        ctx.restore();
-
-        // Yeşil border ekleme
-        ctx.strokeStyle = "green";
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.arc(country.x + country.size / 2, country.y + country.size / 2, country.size / 2, 0, 2 * Math.PI);
-        ctx.stroke();
-
-        country.x += country.moveSpeed.x;
-        country.y += country.moveSpeed.y;
-
-        // Duvara çarpma kontrolü ve yön değiştirme
-        if (country.x + country.size > canvas.width) {
-          country.x = canvas.width - country.size;
-          country.moveSpeed.x *= -1;
-        }
-        if (country.x < 0) {
-          country.x = 0;
-          country.moveSpeed.x *= -1;
-        }
-        if (country.y + country.size > canvas.height) {
-          country.y = canvas.height - country.size;
-          country.moveSpeed.y *= -1;
-        }
-        if (country.y < 0) {
-          country.y = 0;
-          country.moveSpeed.y *= -1;
-        }
-
-        // Eğer o ülke için bir gif gösteriliyorsa, gif pozisyonunu güncelle
-        const fireGifContainer = document.getElementById('fireGifContainer');
-        if (fireGifContainer.style.display === 'block' && fireGifContainer.dataset.countryName === country.name) {
-          const gifSize = country.size * 0.5;
-          const centerX = country.x + (country.size / 2) - (gifSize / 2) + 300; // 200px sağa kaydır
-          const centerY = country.y + (country.size / 2) - (gifSize / 2) + 150;  // 50px aşağı kaydır
-
-          fireGifContainer.style.left = `${centerX}px`;
-          fireGifContainer.style.top = `${centerY}px`;
-          fireGifContainer.style.width = `${gifSize}px`;
-          fireGifContainer.style.height = `${gifSize}px`;
-        }
-      });
-
-      checkWinningCountry();
-      updateProgressCanvas(); // Progress canvas'ı güncelle
-    }
-
+  checkWinningCountry();
+  updateProgressCanvas(); // Progress canvas'ı güncelle
+}
 
     const idleTimeLimit = 8 * 60 * 1000; // 8 dakika (milisaniye cinsinden)
     let userActivity = new Map(); // Kullanıcıların son aktivite zamanını takip etmek için
