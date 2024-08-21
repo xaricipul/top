@@ -204,6 +204,7 @@
     font-weight: normal;
   }
 
+
   #fireGif {
     width: 100%;
     height: 100%;
@@ -236,7 +237,7 @@
     border-radius: 5px;
     text-align: center;
   }
-/* 
+
   #giftInfo {
     position: absolute;
     z-index: 100000;
@@ -249,31 +250,25 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     transition: transform 2s ease-in-out, opacity 0.5s ease-in-out;
     opacity: 0;
-  } */
+  }
+
   #fireGifContainer {
     position: absolute;
-    pointer-events: none; /* Kullanıcı etkileşimlerini engelle */
-    z-index: 1000; /* Diğer elementlerin üzerinde olacak */
-    display: none; /* Başlangıçta görünmez */
-    transition: left 0.1s linear, top 0.1s linear; /* Hareket sırasında yumuşak geçişler */
-}
-
-
-#giftInfo {
-    position: absolute;
-    z-index: 100000;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 12px 25px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    pointer-events: none; /* Kullanıcı etkileşimlerini engelle */
-    transition: left 0.1s linear, top 0.1s linear, opacity 0.5s ease-in-out;
-}
-
+    /* Sayfada sabit konumda kalması için */
+    width: 100px;
+    /* Sabit genişlik */
+    height: 100px;
+    /* Sabit yükseklik */
+    top: 50px;
+    /* Üstten 50px */
+    left: 200px;
+    /* Soldan 200px */
+    pointer-events: none;
+    /* Kullanıcı etkileşimlerini engelle */
+    z-index: 1000;
+    /* Diğer elementlerin üzerinde olacak */
+    display: none;
+  }
 </style>
 
 <body>
@@ -608,11 +603,25 @@
         fireGifContainer.style.display = 'none';
       }, 2000);
     }
-    function drawCountries() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    countries.sort((a, b) => a.size - b.size); // Küçükten büyüğe sırala
 
-    countries.forEach((country) => {
+    // Pencere yeniden boyutlandırıldığında gif'i yeniden pozisyonlandır
+    window.addEventListener('resize', () => {
+      const fireGifContainer = document.getElementById('fireGifContainer');
+      const countryName = fireGifContainer.dataset.countryName;
+
+      if (countryName) {
+        const country = countries.find(c => c.name === countryName);
+        if (country) {
+          showFireEffectOnCountry(country);
+        }
+      }
+    });
+
+    function drawCountries() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      countries.sort((a, b) => a.size - b.size); // Küçükten büyüğe sırala
+
+      countries.forEach((country) => {
         const img = images[country.name];  // Önceden yüklenmiş resmi kullanıyoruz
 
         ctx.save();
@@ -635,40 +644,39 @@
 
         // Duvara çarpma kontrolü ve yön değiştirme
         if (country.x + country.size > canvas.width) {
-            country.x = canvas.width - country.size;
-            country.moveSpeed.x *= -1;
+          country.x = canvas.width - country.size;
+          country.moveSpeed.x *= -1;
         }
         if (country.x < 0) {
-            country.x = 0;
-            country.moveSpeed.x *= -1;
+          country.x = 0;
+          country.moveSpeed.x *= -1;
         }
         if (country.y + country.size > canvas.height) {
-            country.y = canvas.height - country.size;
-            country.moveSpeed.y *= -1;
+          country.y = canvas.height - country.size;
+          country.moveSpeed.y *= -1;
         }
         if (country.y < 0) {
-            country.y = 0;
-            country.moveSpeed.y *= -1;
+          country.y = 0;
+          country.moveSpeed.y *= -1;
         }
 
-        // Eğer o ülke için bir efekt gösteriliyorsa, pozisyonu güncelle
+        // Eğer o ülke için bir gif gösteriliyorsa, gif pozisyonunu güncelle
         const fireGifContainer = document.getElementById('fireGifContainer');
         if (fireGifContainer.style.display === 'block' && fireGifContainer.dataset.countryName === country.name) {
-            const gifSize = country.size * 0.5;
-            const centerX = canvasRect.left + country.x + (country.size / 2) - (gifSize / 2);
-            const centerY = canvasRect.top + country.y + (country.size / 2) - (gifSize / 2);
+          const gifSize = country.size * 0.5;
+          const centerX = country.x + (country.size / 2) - (gifSize / 2);
+          const centerY = country.y + (country.size / 2) - (gifSize / 2);
 
-            fireGifContainer.style.left = `${centerX}px`;
-            fireGifContainer.style.top = `${centerY}px`;
-            fireGifContainer.style.width = `${gifSize}px`;
-            fireGifContainer.style.height = `${gifSize}px`;
+          fireGifContainer.style.left = `${centerX}px`;
+          fireGifContainer.style.top = `${centerY}px`;
+          fireGifContainer.style.width = `${gifSize}px`;
+          fireGifContainer.style.height = `${gifSize}px`;
         }
-    });
+      });
 
-    checkWinningCountry();
-    updateProgressCanvas(); // Progress canvas'ı güncelle
-}
-
+      checkWinningCountry();
+      updateProgressCanvas(); // Progress canvas'ı güncelle
+    }
 
     const idleTimeLimit = 8 * 60 * 1000; // 8 dakika (milisaniye cinsinden)
     let userActivity = new Map(); // Kullanıcıların son aktivite zamanını takip etmek için
@@ -797,28 +805,57 @@
       });
     }
     function showCountryEffect(country) {
-    const fireGifContainer = document.getElementById('fireGifContainer');
-    const canvas = document.getElementById('myCanvas');
-    const canvasRect = canvas.getBoundingClientRect();
+      // Mevcut ülke pozisyonunu al
+      const x = country.x;
+      const y = country.y;
+      const size = country.size;
 
-    // Ülkenin ekran üzerindeki pozisyonunu al
-    const gifSize = country.size * 0.5; // Efektin boyutunu ülke simgesi boyutuna göre ayarla
-    const centerX = canvasRect.left + country.x + (country.size / 2) - (gifSize / 2);
-    const centerY = canvasRect.top + country.y + (country.size / 2) - (gifSize / 2);
+      // Işık halkası efekti
+      ctx.save();
+      ctx.shadowColor = 'rgba(255, 255, 0, 1)'; // Parlak sarı ışık
+      ctx.shadowBlur = 20; // Işık halkasının bulanıklığı
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
 
-    // Efekti ülkenin tam merkezine yerleştir
-    fireGifContainer.style.width = `${gifSize}px`;
-    fireGifContainer.style.height = `${gifSize}px`;
-    fireGifContainer.style.left = `${centerX}px`;
-    fireGifContainer.style.top = `${centerY}px`;
-    fireGifContainer.style.display = 'block';
-    fireGifContainer.dataset.countryName = country.name;
+      ctx.beginPath();
+      ctx.arc(x + size / 2, y + size / 2, size / 2, 0, 2 * Math.PI);
+      ctx.strokeStyle = 'rgba(255, 255, 0, 0.8)';
+      ctx.lineWidth = 10; // Kalın ışık halkası
+      ctx.stroke();
+      ctx.restore();
 
-    // 500 milisaniye sonra efekti kaldır
-    setTimeout(() => {
-        fireGifContainer.style.display = 'none';
-    }, 500);
-}
+      // 500 milisaniye sonra efekti kaldır
+      setTimeout(() => {
+        ctx.clearRect(x - 10, y - 10, size + 20, size + 20); // Efekti temizle
+        ctx.drawImage(images[country.name], x, y, size, size); // Ülkeyi tekrar çiz
+        ctx.strokeStyle = "green"; // Yeşil sınır efekti
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(x + size / 2, y + size / 2, size / 2, 0, 2 * Math.PI);
+        ctx.stroke();
+      }, 500); // 500 milisaniye sonra efekti kaldır
+    }
+
+
+    function isPendingStreak(data) {
+      return data.giftType === 1 && !data.repeatEnd;
+    }
+
+    let currentAudio = null; // Şu anda çalan müziği takip etmek için global değişken
+
+    function playSound(mp3File) {
+      // Eğer bir müzik zaten çalıyorsa durmasını bekleyelim
+      if (currentAudio && !currentAudio.paused) {
+        currentAudio.onended = function () { // Şu anki müzik bittiğinde yeni müziği çal
+          currentAudio = new Audio(mp3File);
+          currentAudio.play();
+        };
+      } else {
+        // Eğer hiçbir müzik çalmıyorsa doğrudan yeni müziği çal
+        currentAudio = new Audio(mp3File);
+        currentAudio.play();
+      }
+    }
 
 
     function selectCountryByJoinCode(comment) {
